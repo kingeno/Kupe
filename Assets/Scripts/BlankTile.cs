@@ -9,10 +9,17 @@ public class BlankTile : MonoBehaviour {
     private Renderer _renderer;
     public Texture blankTileTexture;
     public Texture greenArrowSelectedTexture;
+    public int xPosInArray;
+    public int zPosInArray;
 
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
+
+        xPosInArray = (int)transform.position.x;
+        zPosInArray = (int)transform.position.z;
+
+
     }
 
     private void OnMouseOver()

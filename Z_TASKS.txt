@@ -9,10 +9,7 @@ Tâches :
 	- sur un objet vide dans la scène
 	- créer un tableau à 3 dimensions qui contient toutes les tiles présentes sur le plateau
 	- une dimension pour les X et une pour les Y et une pour les Z
-	- chaque tile instantiée se voit attribuée une coordonnée et doit être accessible via cette coordonée (coordonnée du tableau, ex (1[x], 0[y], 4[z]) --> (largeur, hauteur, profondeur), ce cube a donc x=1, y=0, z=4 comme coordonée dans l'inspecteur)
+	- chaque tile instantiée se voit attribuée une coordonnée et doit être accessible via cette coordonée (coordonnée du tableau, ex (1[x], 0[y], 4[z]) --> (largeur, hauteur, profondeur), ce cube a donc x=1, y=0, z=4 comme position dans la scène)
 	- L'ordre des coordonnée (x, puis y puis z) a été retenu pour la practicité de manipulation et de localisation, notamment grâce aux Vector3.
 	- la coordonnée est tranformée en identifiant permettant de nommer et localiser rapidement un cube (ex : x=1, y=0, z=4 donne --> 010004)
 	- cet identifiant unique contient à la fois la position et les caractéristiques de la tile.
-
-Workflow de création d'un tableau :
-	- trier des tiles présentes sur le tableau par ordre de position

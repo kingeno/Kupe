@@ -10,7 +10,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{B7CF7221-9CD9-FB1E-88C3-F9265454772B}</ProjectGuid>
+    <ProjectGuid>{EE80C96C-A26F-4826-F966-FF933B01D041}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -64,21 +64,23 @@
     <Compile Include="Assets\Scripts\BlankTile.cs" />
     <Compile Include="Assets\Scripts\GreenArrow.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Test Scripts\Test_BoardManager.cs" />
+    <Compile Include="Assets\Scripts\Test Scripts\Test_CubeRotation.cs" />
     <Compile Include="Assets\Scripts\TileUIManager.cs" />
     <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>D:/Unity/Projects/Tile-Based-Cube-Puzzle-Game - Copie/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+      <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/Unity/Projects/Tile-Based-Cube-Puzzle-Game - Copie/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Unity/Projects/Tile-Based-Cube-Puzzle-Game - Copie/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Unity/Projects/Tile-Based-Cube-Puzzle-Game - Copie/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Unity/Projects/Tile-Based-Cube-Puzzle-Game - Copie/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -329,7 +331,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{B5EFDFF7-9F65-5ACF-9C85-12BF1CB84DA3}</Project>
+      <Project>{2F7288CD-28D4-3AC6-7B7D-3EA675DC6A66}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>

@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //Pivots Child Game Objects
+    [Header("Pivots")]
+    public Transform downFront; //on Z axis
+    public Transform downBack;  //on Z axis
+    public Transform downRight; //on X axis
+    public Transform downLeft;  //on X axis
+
+    public Transform pivotToRotateArround;
+    public float timeToRotate;
+
     public int turnCount;
     public int currentTurn;
     public int activeTurn;
@@ -60,7 +70,8 @@ public class PlayerController : MonoBehaviour
         switch (tileNumber)
         {
             case 1:
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space)) {
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                {
                     Debug.Log("has left Start Tile");
                     transform.position += moveForward;
                     lastNonBlankTileType = moveForward;
@@ -73,8 +84,9 @@ public class PlayerController : MonoBehaviour
                 hasReachedEndTile = true;
                 break;
             case 3:
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space)){
-                    Debug.Log("Blank Tile");    
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                {
+                    Debug.Log("Blank Tile");
                     transform.position += lastNonBlankTileType;
                     turnCount += 1;
                     Debug.Log("turn = " + turnCount);
@@ -88,7 +100,8 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case 5:
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space)) {
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                {
                     Debug.Log("Forward Tile");
                     transform.position += moveForward;
                     lastNonBlankTileType = moveForward;
@@ -98,7 +111,8 @@ public class PlayerController : MonoBehaviour
                 break;
             case 6:
                 Debug.Log("Right Tile");
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space)) {
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                {
                     transform.position += moveRight;
                     lastNonBlankTileType = moveRight;
                     turnCount += 1;
@@ -107,7 +121,8 @@ public class PlayerController : MonoBehaviour
                 break;
             case 7:
                 Debug.Log("Back Tile");
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space)) {
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                {
                     transform.position += moveBack;
                     lastNonBlankTileType = moveBack;
                     turnCount += 1;
@@ -116,7 +131,8 @@ public class PlayerController : MonoBehaviour
                 break;
             case 8:
                 Debug.Log("Left Tile");
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space)) {
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                {
                     transform.position += moveLeft;
                     lastNonBlankTileType = moveLeft;
                     turnCount += 1;
@@ -129,7 +145,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Start Tile")
-            tileNumber = 1
+            tileNumber = 1;
 
         if (other.tag == "End Tile")
             tileNumber = 2;
@@ -165,22 +181,5 @@ public class PlayerController : MonoBehaviour
     //        //+ "\n" + "energy decrease = " + energyDecrease.ToString()
     //        //+ "\n" + "energy = " + debugDisplayedEnergy.ToString()
     //        , guiStyle);
-    //}
-
-    //IEnumerator LandingLag(float time)
-    //{
-    //    float i = .0f;
-    //    while (i <= time)
-    //    {
-    //        i += Time.deltaTime;
-    //        if (i <= time && isGrounded)
-    //        {
-    //            characterAnimator.SetBool("isLanding", true);
-    //        }
-    //        else
-    //            characterAnimator.SetBool("isLanding", false);
-    //        yield return null;
-    //        //yield return new WaitForSeconds(time / 5.0f);
-    //    }
     //}
 }
