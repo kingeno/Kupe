@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\BlankTile.cs" />
     <Compile Include="Assets\Scripts\GreenArrow.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlayerController_V2.cs" />
     <Compile Include="Assets\Scripts\Test Scripts\Test_BoardManager.cs" />
     <Compile Include="Assets\Scripts\Test Scripts\Test_CubeRotation.cs" />
     <Compile Include="Assets\Scripts\TileUIManager.cs" />

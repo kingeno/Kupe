@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23605049191306382}
   - component: {fileID: 65833814500672444}
   - component: {fileID: 114907855472357584}
+  - component: {fileID: 114128779528158586}
   m_Layer: 0
   m_Name: Green Arrow Tile Prefab
   m_TagString: Untagged
@@ -97,6 +98,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &114128779528158586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211329651827702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cc21c48ee370cb42a042622dd21640d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114907855472357584
 MonoBehaviour:
   m_ObjectHideFlags: 1

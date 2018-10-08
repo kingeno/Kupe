@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Test_BoardManager : MonoBehaviour
 {
 
@@ -18,8 +18,8 @@ public class Test_BoardManager : MonoBehaviour
     public Transform[] tilesArray;
     public static Transform[,,] tilesMultiDimensionArray;
 
-#if UNITY_EDITOR
-    private void Start()
+//#if UNITY_EDITOR
+    private void Awake()
     {
         tilesArray = new Transform[transform.childCount];
 
@@ -58,39 +58,39 @@ public class Test_BoardManager : MonoBehaviour
             }
         }
 
-        //(Optional --> For Debug.Log Display) Loops through tilesMultiDimensionArray to display the name and the position of all the tiles contained in it.
-        for (int z = 0; z < tilesMultiDimensionArray.GetLength(2); z++)
-        {
-            for (int y = 0; y < tilesMultiDimensionArray.GetLength(1); y++)
-            {
-                for (int x = 0; x < tilesMultiDimensionArray.GetLength(0); x++)
-                {
-                    //Debug.Log(tilesMultiDimensionArray[x, y, z].name + " = ("
-                    //     + tilesMultiDimensionArray[x, y, z].transform.position.x
-                    //     + ", " + tilesMultiDimensionArray[x, y, z].transform.position.y
-                    //     + ", " + tilesMultiDimensionArray[x, y, z].transform.position.z
-                    //     + ")");
-                    try
-                    {
-                        Debug.Log(tilesMultiDimensionArray[x, y, z].name + " = ("
-                         + x + ", "
-                         + y + ", "
-                         + z
-                         + ")");
-                    }
-                    catch
-                    {
-                        Debug.LogWarning("no tile at position = " + "("
-                            + x
-                            + ", " + y
-                            + ", " + z
-                            + ")");
-                    }
-                }
-            }
-        }
+        ////(Optional --> For Debug.Log Display) Loops through tilesMultiDimensionArray to display the name and the position of all the tiles contained in it.
+        //for (int z = 0; z < tilesMultiDimensionArray.GetLength(2); z++)
+        //{
+        //    for (int y = 0; y < tilesMultiDimensionArray.GetLength(1); y++)
+        //    {
+        //        for (int x = 0; x < tilesMultiDimensionArray.GetLength(0); x++)
+        //        {
+        //            //Debug.Log(tilesMultiDimensionArray[x, y, z].name + " = ("
+        //            //     + tilesMultiDimensionArray[x, y, z].transform.position.x
+        //            //     + ", " + tilesMultiDimensionArray[x, y, z].transform.position.y
+        //            //     + ", " + tilesMultiDimensionArray[x, y, z].transform.position.z
+        //            //     + ")");
+        //            try
+        //            {
+        //                Debug.Log(tilesMultiDimensionArray[x, y, z].name + " = ("
+        //                 + x + ", "
+        //                 + y + ", "
+        //                 + z
+        //                 + ")");
+        //            }
+        //            catch
+        //            {
+        //                Debug.LogWarning("no tile at position = " + "("
+        //                    + x
+        //                    + ", " + y
+        //                    + ", " + z
+        //                    + ")");
+        //            }
+        //        }
+        //    }
+        //}
 
-        Debug.Log(tilesMultiDimensionArray.Length);
+        //Debug.Log(tilesMultiDimensionArray.Length);
     }
-#endif
+//#endif
 }

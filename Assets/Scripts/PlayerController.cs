@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //Pivots Child Game Objects
-    [Header("Pivots")]
-    public Transform downFront; //on Z axis
-    public Transform downBack;  //on Z axis
-    public Transform downRight; //on X axis
-    public Transform downLeft;  //on X axis
-
-    public Transform pivotToRotateArround;
-    public float timeToRotate;
-
     public int turnCount;
     public int currentTurn;
     public int activeTurn;
@@ -26,8 +16,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveLeft;
     private Vector3 moveRight;
 
-    private bool hasFallInAHole;
-
     private Vector3 startPos;
     private Vector3 currentPos;
 
@@ -35,21 +23,19 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 lastNonBlankTileType;
 
-    private GUIStyle guiStyle = new GUIStyle();
+    public Texture2D icon;
+
 
     void Start()
     {
         turnCount = 0;
         tileNumber = 1;
         hasReachedEndTile = false;
-        hasFallInAHole = false;
 
         moveForward = new Vector3(0, 0, 1);
         moveBack = new Vector3(0, 0, -1);
         moveLeft = new Vector3(-1, 0, 0);
         moveRight = new Vector3(1, 0, 0);
-
-        guiStyle.normal.textColor = Color.white;
     }
 
     void Update()
@@ -70,13 +56,17 @@ public class PlayerController : MonoBehaviour
         switch (tileNumber)
         {
             case 1:
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && PlayerController_V2.canMoveForward)
                 {
                     Debug.Log("has left Start Tile");
                     transform.position += moveForward;
                     lastNonBlankTileType = moveForward;
                     turnCount += 1;
                     Debug.Log("turn = " + turnCount);
+                }
+                else if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && !PlayerController_V2.canMoveForward)
+                {
+                    Debug.Log("The player can't move forward");
                 }
                 break;
             case 2:
@@ -86,58 +76,98 @@ public class PlayerController : MonoBehaviour
             case 3:
                 if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
                 {
-                    Debug.Log("Blank Tile");
-                    transform.position += lastNonBlankTileType;
-                    turnCount += 1;
-                    Debug.Log("turn = " + turnCount);
+                    if (lastNonBlankTileType == moveForward && PlayerController_V2.canMoveForward)
+                    {
+                        Debug.Log("Blank Tile");
+                        transform.position += lastNonBlankTileType;
+                        turnCount += 1;
+                        Debug.Log("turn = " + turnCount);
+                    }
+                    else if (lastNonBlankTileType == moveBack && PlayerController_V2.canMoveBack)
+                    {
+                        Debug.Log("Blank Tile");
+                        transform.position += lastNonBlankTileType;
+                        turnCount += 1;
+                        Debug.Log("turn = " + turnCount);
+                    }
+                    else if (lastNonBlankTileType == moveRight && PlayerController_V2.canMoveRight)
+                    {
+                        Debug.Log("Blank Tile");
+                        transform.position += lastNonBlankTileType;
+                        turnCount += 1;
+                        Debug.Log("turn = " + turnCount);
+                    }
+                    else if (lastNonBlankTileType == moveLeft && PlayerController_V2.canMoveLeft)
+                    {
+                        Debug.Log("Blank Tile");
+                        transform.position += lastNonBlankTileType;
+                        turnCount += 1;
+                        Debug.Log("turn = " + turnCount);
+                    }
+                    else
+                    {
+                        Debug.Log("The player can't move in the direction he is supposed to");
+                    }
                 }
                 break;
             case 4:
                 if (!hasReachedEndTile)
                 {
                     Debug.Log("Hole Tile");
-                    hasFallInAHole = true;
                 }
                 break;
             case 5:
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && PlayerController_V2.canMoveForward)
                 {
-                    Debug.Log("Forward Tile");
+                    Debug.Log("Forward Arrow Tile");
                     transform.position += moveForward;
                     lastNonBlankTileType = moveForward;
                     turnCount += 1;
                     Debug.Log("turn = " + turnCount);
                 }
+                else if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && !PlayerController_V2.canMoveForward)
+                {
+                    Debug.Log("the player can't move forward");
+                }
                 break;
             case 6:
-                Debug.Log("Right Tile");
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && PlayerController_V2.canMoveRight)
                 {
                     transform.position += moveRight;
                     lastNonBlankTileType = moveRight;
                     turnCount += 1;
                     Debug.Log("turn = " + turnCount);
                 }
+                else if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && !PlayerController_V2.canMoveRight)
+                {
+                    Debug.Log("the player can't move right");
+                }
                 break;
             case 7:
-                Debug.Log("Back Tile");
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                Debug.Log("Back Arrow Tile");
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && PlayerController_V2.canMoveBack)
                 {
                     transform.position += moveBack;
                     lastNonBlankTileType = moveBack;
                     turnCount += 1;
                     Debug.Log("turn = " + turnCount);
                 }
+                else if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && !PlayerController_V2.canMoveBack)
+                {
+                    Debug.Log("the player can't move back");
+                }
                 break;
             case 8:
-                Debug.Log("Left Tile");
-                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space))
+                Debug.Log("Left Arrow Tile");
+                if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && PlayerController_V2.canMoveLeft)
                 {
                     transform.position += moveLeft;
                     lastNonBlankTileType = moveLeft;
                     turnCount += 1;
                     Debug.Log("turn = " + turnCount);
                 }
+                else if (!hasReachedEndTile && Input.GetKeyDown(KeyCode.Space) && !PlayerController_V2.canMoveLeft)
+                    Debug.Log("the player can't move left");
                 break;
         }
     }
@@ -160,7 +190,10 @@ public class PlayerController : MonoBehaviour
             tileNumber = 5;
 
         if (other.tag == "Right Arrow")
+        {
+            Debug.Log("Right Arrow Tile");
             tileNumber = 6;
+        }
 
         if (other.tag == "Back Arrow")
             tileNumber = 7;
@@ -168,6 +201,14 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Left Arrow")
             tileNumber = 8;
     }
+
+
+    void OnGUI()
+    {
+        GUI.Button(new Rect(10, 10, 100, 20), new GUIContent("Click me", icon, "This is the tooltip"));
+        GUI.Label(new Rect(10, 40, 100, 20), GUI.tooltip);
+    }
+}
 
     //void OnGUI()
     //{
@@ -182,4 +223,3 @@ public class PlayerController : MonoBehaviour
     //        //+ "\n" + "energy = " + debugDisplayedEnergy.ToString()
     //        , guiStyle);
     //}
-}
