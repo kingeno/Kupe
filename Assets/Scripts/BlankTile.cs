@@ -4,36 +4,38 @@ using UnityEngine;
 
 public class BlankTile : MonoBehaviour {
 
+    public GameObject boardManager;
+
     public Transform greenArrowPrefab;
 
     private Renderer _renderer;
     public Texture blankTileTexture;
     public Texture greenArrowSelectedTexture;
-    public int xPosInArray;
-    public int zPosInArray;
 
     private void Start()
     {
+        boardManager = GameObject.FindGameObjectWithTag("BoardManager");
         _renderer = GetComponent<Renderer>();
-
-        xPosInArray = (int)transform.position.x;
-        zPosInArray = (int)transform.position.z;
-
-
     }
 
     private void OnMouseOver()
     {
-        if (TileUIManager.isGreenArrowSelected)
+        
+        if (!GameManager.playerHasLaunchedSimulation && !CurrentLevelManager.isGreenArrowStockEmpty && TileUIManager.isGreenArrowSelected)
         {
             _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
 
             if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(greenArrowPrefab, transform.position, transform.rotation);
-                Destroy(gameObject);
+                int hierarchyIndex = transform.GetSiblingIndex();                                                                               //Store the current hierarchy index of the blank tile.
+                Destroy(gameObject);                                                                                                            //Destroy the blank tile.
+                Transform newTile = Instantiate(greenArrowPrefab, transform.position, transform.rotation, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
+                newTile.SetSiblingIndex(hierarchyIndex);                                                                                  //Use the stored hierarchy index to put the new tile in place of the deleted one.
+                BoardManager.playerHasChangedATile = true;
+                CurrentLevelManager.greenArrowStock_static--;
+                Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
             }
-            else if (Input.GetMouseButtonDown(1))
+            else if (GameManager.playerHasLaunchedSimulation || Input.GetMouseButtonDown(1))
             {
                 _renderer.material.SetTexture("_MainTex", blankTileTexture);
             }

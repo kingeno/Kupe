@@ -12,6 +12,7 @@ TagManager:
   - Left Arrow
   - Right Arrow
   - HoleTile
+  - BoardManager
   layers:
   - Default
   - TransparentFX

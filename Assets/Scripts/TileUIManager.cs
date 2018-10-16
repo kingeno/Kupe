@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TileUIManager : MonoBehaviour {
 
+    public Transform blankTilePrefab;
     public Transform GreenArrowPrefab;
+    public static bool isDeleteTileSelected;
     public static bool isGreenArrowSelected;
     public static bool unselectAll;
-    public static bool restartCurrentLevel;
-
 
     private void Start()
     {
@@ -28,24 +29,44 @@ public class TileUIManager : MonoBehaviour {
         if (unselectAll)
         {
             isGreenArrowSelected = false;
+            isDeleteTileSelected = false;
             Debug.Log("unselect all tiles");
         }
     }
 
-    public void TileSelected()
+    public void DeleteSelection()
     {
-        if (!isGreenArrowSelected)
+        unselectAll = true;
+        if (unselectAll)
+        {
+            isGreenArrowSelected = false;
+            isDeleteTileSelected = false;
+        }
+        if (!isDeleteTileSelected)
+        {
+            isDeleteTileSelected = true;
+            Debug.Log("delete button selected = " + isDeleteTileSelected);
+        }
+    }
+
+    public void GreenArrowSelection()
+    {
+        unselectAll = true;
+        if (unselectAll)
+        {
+            isGreenArrowSelected = false;
+            isDeleteTileSelected = false;
+        }
+        if (!CurrentLevelManager.isGreenArrowStockEmpty && !isGreenArrowSelected)
         {
             isGreenArrowSelected = true;
             Debug.Log("green arrow tile selected = " + isGreenArrowSelected);
         }
     }
 
-    public void RestartCurrentLevel()
+public void RestartCurrentLevel()
     {
-        if (!restartCurrentLevel)
-            restartCurrentLevel = true;
-        else
-            restartCurrentLevel = false;
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }

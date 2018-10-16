@@ -22,8 +22,7 @@ GameObject:
   - component: {fileID: 33440447372914006}
   - component: {fileID: 23605049191306382}
   - component: {fileID: 65833814500672444}
-  - component: {fileID: 114907855472357584}
-  - component: {fileID: 114128779528158586}
+  - component: {fileID: 114279092346961412}
   m_Layer: 0
   m_Name: Green Arrow Tile Prefab
   m_TagString: Untagged
@@ -37,13 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211329651827702}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.22486997, y: -5.9468703, z: -2.669329}
   m_LocalScale: {x: 0.95, y: 1, z: 0.95}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23605049191306382
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -59,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: a4a3b4ac4bbafd748aa69194425dd2cd, type: 2}
+  - {fileID: 2100000, guid: d9c4ba69cf0442849923a247df291510, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,20 +95,9 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Size: {x: 0.8, y: 0.5, z: 0.8}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &114128779528158586
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1211329651827702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc21c48ee370cb42a042622dd21640d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114907855472357584
+--- !u!114 &114279092346961412
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,9 +108,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 956cefc61bd188c439dd4432eb46eb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardArrow: {x: 0, y: 0, z: 0, w: 0}
-  backArrow: {x: 0, y: 180, z: 0, w: 0}
-  leftArrow: {x: 0, y: 270, z: 0, w: 0}
-  rightArrow: {x: 0, y: 90, z: 0, w: 0}
+  canBeRotated: 1
   isActive: 0
-  canBeRotated: 0
+  unactiveTurns: 100
+  boardManager: {fileID: 0}
+  blankTilePrefab: {fileID: 4386993186813218, guid: c2b4d5cc11e40f8449b82e6d6fadbdf3,
+    type: 2}
+  player_active_greenArrow: {fileID: 2800000, guid: 67c39853ffd65e54185d042c46f5ef05,
+    type: 3}
+  player_unactive_greenArrow: {fileID: 2800000, guid: 259f56f73eacf944dabd671ef144e56f,
+    type: 3}
+  blankTileTexture: {fileID: 2800000, guid: a6209c6f3107e134899cc2ccc54ad826, type: 3}
+  deleteGreenArrowTileTexture: {fileID: 2800000, guid: 25259be86bcc1934c928ecccbb53f961,
+    type: 3}

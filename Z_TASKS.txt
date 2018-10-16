@@ -1,15 +1,9 @@
 Tâches :
-- faire un décompte des tiles posables
-- changer couleur du bouton de l'UI lorsqu'une tile est sélectionnée
-- pouvoir sélectionner une tile et la faire pivoter avec un bouton de l'UI
-
-- Une fois posé une tile "Green Arrow" peut être déplacé,
-
-- Script --> TileBoardManager :
-	- sur un objet vide dans la scène
-	- créer un tableau à 3 dimensions qui contient toutes les tiles présentes sur le plateau
-	- une dimension pour les X et une pour les Y et une pour les Z
-	- chaque tile instantiée se voit attribuée une coordonnée et doit être accessible via cette coordonée (coordonnée du tableau, ex (1[x], 0[y], 4[z]) --> (largeur, hauteur, profondeur), ce cube a donc x=1, y=0, z=4 comme position dans la scène)
-	- L'ordre des coordonnée (x, puis y puis z) a été retenu pour la practicité de manipulation et de localisation, notamment grâce aux Vector3.
-	- la coordonnée est tranformée en identifiant permettant de nommer et localiser rapidement un cube (ex : x=1, y=0, z=4 donne --> 010004)
-	- cet identifiant unique contient à la fois la position et les caractéristiques de la tile.
+- checker les puzzles déja designés sur la dropbox
+- intégrer une nouvelle régle sur le document --> tous les cubes doivent être EN MEME TEMPS sur les cases arrivées, il peut donc être nécessaire que certain cubes soit arrêtés sur une case arrivé afin de réussir le puzzle (une case arrivé a donc 2 états --> isValidated et !isValidated. Pour finir un puzzle toutes les cases arrivée doivent être validé, quitte à avoir des player qui ne sont pas sur une case arrivée (prendre aussi en compte le fait qu'un joueur peut en pousser un autre).
+- mettre à jour le tableau avec la position du joueur (penser au fait que ça va générer un étage de plus)
+- créer les tiles suivantes :
+	* faire en sorte que l'animation se passe après que le joueur ai bougé, afin de pouvoir vérifier quelle animation déclencher (notamment dans le cas où un joueur en percute un autre ou si deux joueur avance simultanément sur la même case).
+	* vérifier que les tiles flèches peuvent avoir des nombres de tours d'activation différents
+	* tile ascenseur vertical
+	* coder le fait d'avoir plusieurs player sur le damier (en relation avec la possibilité d'avoir plusieurs cases arrivées possible --> designer comment plusieurs palyer apparaissent sur le terrain : créer des cases départ pouvant contenir plusieurs joueur ?(avec des tours de décalage) ou bien plusieurs cases de départ ? les deux ?
