@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     public PlayerController playerController;
+    public PlayerController playerController2;
 
     public static int turnCount;
     public static int currentTurn;
@@ -42,9 +43,9 @@ public class GameManager : MonoBehaviour
         redStyle.fontSize = 16;
         redStyle.normal.textColor = Color.red;
 
-        if (!playerController.hasReachedEndTile)
+        if (!playerController.hasReachedEndTile && !playerController2.hasReachedEndTile)
             GUI.Box(new Rect(10, 10, 100, 20), "turn: " + turnCount.ToString(), whiteStyle);
-        if (playerController.hasReachedEndTile)
+        if (playerController.hasReachedEndTile && playerController2.hasReachedEndTile)
             GUI.Box(new Rect(10, 10, 100, 20), "turn: " + turnCount.ToString() + " Has reached end tile !", redStyle);
     }
 

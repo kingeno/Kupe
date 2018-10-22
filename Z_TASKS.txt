@@ -1,9 +1,24 @@
-Tâches :
-- checker les puzzles déja designés sur la dropbox
-- intégrer une nouvelle régle sur le document --> tous les cubes doivent être EN MEME TEMPS sur les cases arrivées, il peut donc être nécessaire que certain cubes soit arrêtés sur une case arrivé afin de réussir le puzzle (une case arrivé a donc 2 états --> isValidated et !isValidated. Pour finir un puzzle toutes les cases arrivée doivent être validé, quitte à avoir des player qui ne sont pas sur une case arrivée (prendre aussi en compte le fait qu'un joueur peut en pousser un autre).
-- mettre à jour le tableau avec la position du joueur (penser au fait que ça va générer un étage de plus)
+ 	Tâches :
+
+- coder le fait de pouvoir avoir plusieurs joueurs
+	*implique une gestion des tours de jeu différent du système actuel
+		--> les deux "cubes joueurs" doivent bouger simultanément
+		--> afin d'éviter que le joueur soit bloqué avoir un booléen qui vérifie si le "cube joueur" est en mouvement. Si tous les "cubes joueurs" sont static le joueur à perdu
+		--> coder un timer global sur lequel se basent les "cubes joueurs" mais qu'aucun d'eux ne modifie
+		--> na pas avoir de case départ, avoir une case sur laquel les "cubes joueurs" spawn (la stocker en début de partie)
+
 - créer les tiles suivantes :
-	* faire en sorte que l'animation se passe après que le joueur ai bougé, afin de pouvoir vérifier quelle animation déclencher (notamment dans le cas où un joueur en percute un autre ou si deux joueur avance simultanément sur la même case).
-	* vérifier que les tiles flèches peuvent avoir des nombres de tours d'activation différents
 	* tile ascenseur vertical
-	* coder le fait d'avoir plusieurs player sur le damier (en relation avec la possibilité d'avoir plusieurs cases arrivées possible --> designer comment plusieurs palyer apparaissent sur le terrain : créer des cases départ pouvant contenir plusieurs joueur ?(avec des tours de décalage) ou bien plusieurs cases de départ ? les deux ?
+
+- faire une progression de niveau avec les mécaniques disponibles dans le document de design
+- coder les mécaniques utilisées (essayer d'anticiper le fait qu'il puisse y avoir plusieurs "cubes joueurs")
+
+- dans un nouveau document, établir l'ordre d'exécution des différents scripts présents dans le jeu (document à maintenir à jour au fur et à mesure que les scripts sont créé afin de faciliter le suivi de l'ajout des fonctionnalités)
+
+- réfléchir à la gestion des niveaux (éventuellement demander à Paul s'il a des recommandations là-dessus)
+	créer un système de récupération de données qui va se charger et attribuer les données correct à la scène 			(objets présents dans la scène, nombre de tiles, paramètres du "Board Manager", position des différentes tiles)
+		--> peut se faire en python ou directement dans Unity ? (demander à Paul et Kevin, potentiellement à 				Bibu)
+
+- checker les puzzles déja conçus sur la dropbox
+
+- faire en sorte que l'animation se passe après que le "cube joueur" ait bougé (d'abord sa hitbox puis le modèle), afin de pouvoir vérifier quelle animation déclencher (notamment dans le cas où un joueur en percute un autre ou si deux joueur avance simultanément sur la même case).

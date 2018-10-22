@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1977694077297312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 3}
   m_LocalScale: {x: 0.95, y: 1, z: 0.95}
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,6 +111,6 @@ MonoBehaviour:
   boardManager: {fileID: 0}
   greenArrowPrefab: {fileID: 4543427991550086, guid: f6a1eb8f066cd574493bc00eaa45472a,
     type: 2}
-  blankTileTexture: {fileID: 2800000, guid: a6209c6f3107e134899cc2ccc54ad826, type: 3}
-  greenArrowSelectedTexture: {fileID: 2800000, guid: 57da877ccf32e174bb2397d598c3af37,
+  blankTileTexture: {fileID: 10305, guid: 0000000000000000f000000000000000, type: 0}
+  greenArrowSelectedTexture: {fileID: 2800000, guid: a1adf1ae0014b584c8a62a3b916977f8,
     type: 3}

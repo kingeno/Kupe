@@ -26,11 +26,11 @@ public class PlayerController : MonoBehaviour
 
     //------------------
 
-    public static bool isOnStartTile;
-    public static bool canMoveForward;
-    public static bool canMoveBack;
-    public static bool canMoveRight;
-    public static bool canMoveLeft;
+    public bool isOnStartTile;
+    public bool canMoveForward;
+    public bool canMoveBack;
+    public bool canMoveRight;
+    public bool canMoveLeft;
 
     private Quaternion facingForward;
     private Quaternion facingBack;
@@ -46,13 +46,12 @@ public class PlayerController : MonoBehaviour
     private Transform aboveTile;
     private Transform belowTile;
 
-    private int xPos;
-    private int yPos;
-    private int zPos;
+    public int xPos;
+    public int yPos;
+    public int zPos;
 
     void Start()
     {
-
 
         GameManager.turnCount = 0;
         tileNumber = 1;
@@ -72,14 +71,14 @@ public class PlayerController : MonoBehaviour
         if (tilesBoard != null)
             Debug.Log(tilesBoard.Length);
 
-        if (startTile == null)
-        {
-            startTile = GameObject.FindGameObjectWithTag("Start Tile");
-            startPos += (startTile.transform.position + new Vector3(0, 1, 0));
-            transform.position = startPos;
-        }
-        else
-        { Debug.LogError("Does not find start tile in scene"); }
+        //if (startTile == null)
+        //{
+        //    startTile = GameObject.FindGameObjectWithTag("Start Tile");
+        //    startPos += (startTile.transform.position + new Vector3(0, 1, 0));
+        //    transform.position = startPos;
+        //}
+        //else
+        //{ Debug.LogError("Does not find start tile in scene"); }
         CheckAdjacentTiles();
 
         isOnStartTile = true;
@@ -148,7 +147,7 @@ public class PlayerController : MonoBehaviour
                             }
                             else
                             {
-                                Debug.Log("The player can't move in the direction he is supposed to");
+                                Debug.Log(name + " can't move in the direction he is supposed to");
                             }
                             CheckAdjacentTiles();
                         }
@@ -193,6 +192,7 @@ public class PlayerController : MonoBehaviour
                         break;
                 }
                 GameManager.turnIsFinished = false;
+                tilesBoard = BoardManager.updated_3DBoard;
 
             }
         }
@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "End Tile")
             tileNumber = 2;
 
-        if (other.tag == "Blank Tile")
+        if (other.tag == "Blank Tile" || other.tag == "Player")
             tileNumber = 3;
 
         if (other.tag == "Hole Tile")

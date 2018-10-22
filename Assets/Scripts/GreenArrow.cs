@@ -22,7 +22,6 @@ public class GreenArrow : MonoBehaviour
     public Texture player_active_greenArrow;
     public Texture player_unactive_greenArrow;
 
-    public Texture blankTileTexture;
     public Texture deleteGreenArrowTileTexture;
 
     void Start()
@@ -141,15 +140,23 @@ public class GreenArrow : MonoBehaviour
     {
         GUIStyle redStyle = new GUIStyle();
         redStyle.normal.textColor = Color.red;
-        redStyle.fontSize = 14;
+        redStyle.fontSize = 18;
         Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
         float x = screenPos.x;
         float y = Screen.height - screenPos.y;
 
-        if (!isActive && nextActiveTurn <= 10)
+        int _nextActiveTurn = (nextActiveTurn - GameManager.currentTurn);
+
+        if (!isActive && _nextActiveTurn <= 10)
         {
-            GUI.Box(new Rect(x - 50.0f, y - 10.0f, 20.0f, 50.0f),
-            /*"active in " + */(nextActiveTurn - GameManager.currentTurn).ToString()
+            GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
+            /*"active in " + */_nextActiveTurn.ToString()
+            , redStyle);
+        }
+        else if (isActive && unactiveTurns <= 0)
+        {
+            GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
+            /*"active in " + */unactiveTurns.ToString()
             , redStyle);
         }
     }
