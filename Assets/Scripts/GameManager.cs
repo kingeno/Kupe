@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public PlayerController playerController;
     public PlayerController playerController2;
 
+    public GameObject[] players;
+    public PlayerController[] playerControllers;
+
     public static int turnCount;
     public static int currentTurn;
 
@@ -33,6 +36,16 @@ public class GameManager : MonoBehaviour
         playerHasWon = false;
         targetTime = initialTargetTime;
         staticTargetTime = initialTargetTime;
+
+        players = GameObject.FindGameObjectsWithTag("Player");
+        playerControllers = new PlayerController[players.Length];
+        int i = 0;
+        foreach (GameObject player in players)
+        {
+            playerControllers[i] = player.GetComponent<PlayerController>();
+            Debug.Log("caca " + i);
+            i++;
+        }
     }
 
     private void Update()
@@ -86,16 +99,54 @@ public class GameManager : MonoBehaviour
                 playerHasWon = true;
             }
         }
-    }
 
-    //public void LaunchSimulation()
-    //{
-    //    if (!playerHasLaunchedSimulation)
-    //    {
-    //        Debug.LogWarning("turn " + turnCount + " has ended");
-    //        playerHasLaunchedSimulation = true;
-    //    }
-    //}
+
+
+
+        // Rethink the logic of how I handle the multiple cubes controllers by turn
+        if (simulationCanBeLaunched)
+            playerHasLaunchedSimulation = true;
+
+        if (playerHasLaunchedSimulation && !simulationHasEnded)
+        {
+            if (playerController.hasFinishItsTurn && playerController2.hasFinishItsTurn)
+            {
+                TurnTimer();
+                if (turnIsFinished)
+                {
+                    playerController.hasFinishItsTurn = false;
+                    playerController2.hasFinishItsTurn = false;
+                    turnCount++;
+                    currentTurn = turnCount;
+                    Debug.LogWarning("turn " + turnCount + " has ended");
+                }
+            }
+            if (!playerController.hasFinishItsTurn && !playerController2.hasFinishItsTurn)
+            {
+                if (playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
+                    || !playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
+                    || playerController.isOutOfTheBoard && !playerController2.isOutOfTheBoard)
+                {
+                    turnIsFinished = false;
+                    simulationHasEnded = true;
+                    Debug.LogWarning("simulation has ended = " + simulationHasEnded);
+                    playerHasLaunchedSimulation = false;
+                    playerHasLost = true;
+                }
+                else
+                    turnIsFinished = false;
+            }
+
+            if (playerController.hasReachedEndTile && playerController2.hasReachedEndTile)
+            {
+                turnIsFinished = false;
+                simulationHasEnded = true;
+                Debug.LogWarning("simulation has ended = " + simulationHasEnded);
+                playerHasLaunchedSimulation = false;
+                playerHasWon = true;
+            }
+        }
+    }
 
     public void LaunchSimulation()
     {
