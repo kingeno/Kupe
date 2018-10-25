@@ -33,7 +33,7 @@ public class BlankTile : MonoBehaviour {
                 newTile.SetSiblingIndex(hierarchyIndex);                                                                                  //Use the stored hierarchy index to put the new tile in place of the deleted one.
                 BoardManager.playerHasChangedATile = true;
                 CurrentLevelManager.greenArrowStock_static--;
-                Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
+                //Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
             }
             else if (GameManager.playerHasLaunchedSimulation || Input.GetMouseButtonDown(1))
             {

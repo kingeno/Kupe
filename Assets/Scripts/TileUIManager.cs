@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TileUIManager : MonoBehaviour {
+public class TileUIManager : MonoBehaviour
+{
 
     public Transform blankTilePrefab;
     public Transform GreenArrowPrefab;
@@ -64,7 +65,7 @@ public class TileUIManager : MonoBehaviour {
         }
     }
 
-public void RestartCurrentLevel()
+    public void RestartCurrentLevel()
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);

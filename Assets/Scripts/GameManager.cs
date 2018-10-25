@@ -13,40 +13,93 @@ public class GameManager : MonoBehaviour
 
     public static bool turnIsFinished;
     public static bool playerHasLaunchedSimulation;
+    public static bool simulationHasEnded;
+    public static bool playerHasLost;
+    public static bool playerHasWon;
 
     public static float staticTargetTime = 0.5f;
     public static float targetTime;
     public float initialTargetTime;
 
+    public bool simulationCanBeLaunched;
+
     private void Start()
     {
+        simulationCanBeLaunched = false;
+        turnCount = 0;
         playerHasLaunchedSimulation = false;
+        simulationHasEnded = false;
+        playerHasLost = false;
+        playerHasWon = false;
         targetTime = initialTargetTime;
         staticTargetTime = initialTargetTime;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    //if (!playerHasLaunchedSimulation)
+        //    //    Debug.LogWarning("turn " + turnCount + " has ended");
+        //    //playerHasLaunchedSimulation = true;
+        //    LaunchSimulation();
+        //}
+        if (simulationCanBeLaunched)
             playerHasLaunchedSimulation = true;
-        currentTurn = turnCount;
-        turnIsFinished = false;
+
+        if (playerHasLaunchedSimulation && !simulationHasEnded)
+        {
+            if (playerController.hasFinishItsTurn && playerController2.hasFinishItsTurn)
+            {
+                TurnTimer();
+                if (turnIsFinished)
+                {
+                    playerController.hasFinishItsTurn = false;
+                    playerController2.hasFinishItsTurn = false;
+                    turnCount++;
+                    currentTurn = turnCount;
+                    Debug.LogWarning("turn " + turnCount + " has ended");
+                }
+            }
+            if (!playerController.hasFinishItsTurn && !playerController2.hasFinishItsTurn)
+            {
+                if (playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
+                    || !playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
+                    || playerController.isOutOfTheBoard && !playerController2.isOutOfTheBoard)
+                {
+                    turnIsFinished = false;
+                    simulationHasEnded = true;
+                    Debug.LogWarning("simulation has ended = " + simulationHasEnded);
+                    playerHasLaunchedSimulation = false;
+                    playerHasLost = true;
+                }
+                else
+                    turnIsFinished = false;
+            }
+
+            if (playerController.hasReachedEndTile && playerController2.hasReachedEndTile)
+            {
+                turnIsFinished = false;
+                simulationHasEnded = true;
+                Debug.LogWarning("simulation has ended = " + simulationHasEnded);
+                playerHasLaunchedSimulation = false;
+                playerHasWon = true;
+            }
+        }
     }
 
-    void OnGUI()
+    //public void LaunchSimulation()
+    //{
+    //    if (!playerHasLaunchedSimulation)
+    //    {
+    //        Debug.LogWarning("turn " + turnCount + " has ended");
+    //        playerHasLaunchedSimulation = true;
+    //    }
+    //}
+
+    public void LaunchSimulation()
     {
-        GUIStyle whiteStyle = new GUIStyle();
-        whiteStyle.fontSize = 16;
-        whiteStyle.normal.textColor = Color.white;
-
-        GUIStyle redStyle = new GUIStyle();
-        redStyle.fontSize = 16;
-        redStyle.normal.textColor = Color.red;
-
-        if (!playerController.hasReachedEndTile && !playerController2.hasReachedEndTile)
-            GUI.Box(new Rect(10, 10, 100, 20), "turn: " + turnCount.ToString(), whiteStyle);
-        if (playerController.hasReachedEndTile && playerController2.hasReachedEndTile)
-            GUI.Box(new Rect(10, 10, 100, 20), "turn: " + turnCount.ToString() + " Has reached end tile !", redStyle);
+        simulationCanBeLaunched = true;
     }
 
     public static void TurnTimer()
@@ -63,5 +116,27 @@ public class GameManager : MonoBehaviour
     {
         turnIsFinished = true;
         staticTargetTime = targetTime;
+    }
+
+    void OnGUI()
+    {
+        GUIStyle whiteStyle = new GUIStyle();
+        whiteStyle.fontSize = 26;
+        whiteStyle.normal.textColor = Color.white;
+
+        GUIStyle redStyle = new GUIStyle();
+        redStyle.fontSize = 26;
+        redStyle.normal.textColor = Color.red;
+
+        GUIStyle greenStyle = new GUIStyle();
+        greenStyle.fontSize = 26;
+        greenStyle.normal.textColor = Color.green;
+
+        if (!playerController.hasReachedEndTile && !playerController2.hasReachedEndTile)
+            GUI.Box(new Rect(10, 10, 2000, 40), "turn: " + turnCount.ToString(), whiteStyle);
+        else if (playerHasWon)
+            GUI.Box(new Rect(10, 10, 2000, 40), " You solved the puzzle !", greenStyle);
+        else if (playerHasLost)
+            GUI.Box(new Rect(10, 10, 2000, 40), "You Lost... Try again !", redStyle);
     }
 }

@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [HideInInspector] public bool hasReachedEndTile; // public because used in the GamManager
-    public Transform playerModel;
-    public Animator playerModelAnimator;
 
     private int tileNumber;
 
@@ -17,6 +15,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveBack;
     private Vector3 moveLeft;
     private Vector3 moveRight;
+    private Vector3 moveUp;
+    private Vector3 moveDown;
 
     private Vector3 startPos;
     private Vector3 currentPos;
@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public bool canMoveBack;
     public bool canMoveRight;
     public bool canMoveLeft;
+
+    public bool hasFinishItsTurn;
+    public bool isOutOfTheBoard;
 
     private Quaternion facingForward;
     private Quaternion facingBack;
@@ -52,8 +55,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
-        GameManager.turnCount = 0;
+        hasFinishItsTurn = false;
+        isOutOfTheBoard = false;
         tileNumber = 1;
         hasReachedEndTile = false;
 
@@ -61,6 +64,8 @@ public class PlayerController : MonoBehaviour
         moveBack = new Vector3(0, 0, -1);
         moveLeft = new Vector3(-1, 0, 0);
         moveRight = new Vector3(1, 0, 0);
+        moveUp = new Vector3(0, 1, 0);
+        moveDown = new Vector3(0, -1, 0);
 
         facingForward = Quaternion.Euler(0, 0, 0);
         facingBack = Quaternion.Euler(0, 180, 0);
@@ -68,8 +73,6 @@ public class PlayerController : MonoBehaviour
         facingLeft = Quaternion.Euler(0, 270, 0);
 
         tilesBoard = BoardManager.original_3DBoard;
-        if (tilesBoard != null)
-            Debug.Log(tilesBoard.Length);
 
         //if (startTile == null)
         //{
@@ -86,70 +89,63 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.playerHasLaunchedSimulation)
+        if (GameManager.playerHasLaunchedSimulation /*&& !GameManager.simulationHasEnded*/)
         {
-            GameManager.TurnTimer();
-            if (GameManager.turnIsFinished /*&& Input.GetKeyDown(KeyCode.Space)*/)
+            tilesBoard = BoardManager.updated_3DBoard;
+            if (!hasFinishItsTurn /*GameManager.turnIsFinished*/ /*&& Input.GetKeyDown(KeyCode.Space)*/)
             {
+                Debug.Log(name + " moves");
                 switch (tileNumber)
                 {
                     case 1: //Start Tile
                         if (!hasReachedEndTile)
                         {
+                            CheckAdjacentTiles();
                             if (canMoveForward)
                             {
                                 transform.position += moveForward;
                                 lastNonBlankTileType = moveForward;
-                                GameManager.turnCount += 1;
-                                Debug.Log("turn = " + GameManager.turnCount);
+                                Debug.Log(name + " last non blank tile type: " + lastNonBlankTileType);
                                 isOnStartTile = false;
                             }
                             else if (!canMoveForward)
                             {
-                                Debug.Log("The player can't move forward");
+                                Debug.Log(name + " can't move forward");
                             }
-                            CheckAdjacentTiles();
                         }
                         break;
                     case 2: //End Tile
                         if (!hasReachedEndTile)
                         {
-                            hasReachedEndTile = true;
                             CheckAdjacentTiles();
+                            hasReachedEndTile = true;
                         }
                         break;
                     case 3: //Blank Tile
                         if (!hasReachedEndTile)
                         {
+                            CheckAdjacentTiles();
                             if (lastNonBlankTileType == moveForward && canMoveForward)
                             {
                                 transform.position += lastNonBlankTileType;
-                                GameManager.turnCount += 1;
-                                Debug.Log("turn = " + GameManager.turnCount);
                             }
                             else if (lastNonBlankTileType == moveBack && canMoveBack)
                             {
                                 transform.position += lastNonBlankTileType;
-                                GameManager.turnCount += 1;
-                                Debug.Log("turn = " + GameManager.turnCount);
                             }
                             else if (lastNonBlankTileType == moveRight && canMoveRight)
                             {
                                 transform.position += lastNonBlankTileType;
-                                GameManager.turnCount += 1;
-                                Debug.Log("turn = " + GameManager.turnCount);
                             }
                             else if (lastNonBlankTileType == moveLeft && canMoveLeft)
                             {
                                 transform.position += lastNonBlankTileType;
-                                GameManager.turnCount += 1;
-                                Debug.Log("turn = " + GameManager.turnCount);
                             }
                             else
                             {
                                 Debug.Log(name + " can't move in the direction he is supposed to");
                             }
-                            CheckAdjacentTiles();
+                            Debug.Log(name + " last non blank tile type: " + lastNonBlankTileType);
                         }
                         break;
                     case 4: //Hole Tile
@@ -161,39 +157,39 @@ public class PlayerController : MonoBehaviour
                     case 5: //Forward Arrow
                         if (!hasReachedEndTile)
                         {
+                            CheckAdjacentTiles();
                             try { OnGreenArrow(moveForward, canMoveForward, facingForward); }
                             catch { OnPOLGreenArrow(moveForward, canMoveForward, facingForward); }
-                            CheckAdjacentTiles();
                         }
                         break;
                     case 6: //Right Arrow
                         if (!hasReachedEndTile)
                         {
+                            CheckAdjacentTiles();
                             try { OnGreenArrow(moveRight, canMoveRight, facingRight); }
                             catch { OnPOLGreenArrow(moveRight, canMoveRight, facingRight); }
-                            CheckAdjacentTiles();
                         }
                         break;
                     case 7: //Back Arrow
                         if (!hasReachedEndTile)
                         {
+                            CheckAdjacentTiles();
                             try { OnGreenArrow(moveBack, canMoveBack, facingBack); }
                             catch { OnPOLGreenArrow(moveBack, canMoveBack, facingBack); }
-                            CheckAdjacentTiles();
                         }
                         break;
                     case 8: //Left Arrow
                         if (!hasReachedEndTile)
                         {
+                            CheckAdjacentTiles();
                             try { OnGreenArrow(moveLeft, canMoveLeft, facingLeft); }
                             catch { OnPOLGreenArrow(moveLeft, canMoveLeft, facingLeft); }
-                            CheckAdjacentTiles();
                         }
                         break;
                 }
-                GameManager.turnIsFinished = false;
-                tilesBoard = BoardManager.updated_3DBoard;
-
+                hasFinishItsTurn = true;
+                //tilesBoard = BoardManager.updated_3DBoard;
+                Debug.Log(name + " has finished moving");
             }
         }
     }
@@ -259,7 +255,7 @@ public class PlayerController : MonoBehaviour
         try
         {
             frontTile = tilesBoard[xPos, yPos, zPos + 1];
-            Debug.Log("FRONT tile name: " + frontTile.name + "; " + "front tile position = " + frontTile.position);
+            Debug.Log(name + "\nFRONT tile    name: " + frontTile.name + "        " + "front tile position = " + frontTile.position);
             canMoveForward = false;
         }
         catch { canMoveForward = true; }
@@ -267,7 +263,7 @@ public class PlayerController : MonoBehaviour
         try
         {
             backTile = tilesBoard[xPos, yPos, zPos - 1];
-            Debug.Log("BACK tile name: " + backTile.name + "; " + "position = " + backTile.position);
+            Debug.Log(name + "\nBACK tile    name: " + backTile.name + "        " + "position = " + backTile.position);
             canMoveBack = false;
         }
         catch { canMoveBack = true; }
@@ -275,7 +271,7 @@ public class PlayerController : MonoBehaviour
         try
         {
             rightTile = tilesBoard[xPos + 1, yPos, zPos];
-            Debug.Log("RIGHT tile name: " + rightTile.name + "; " + "position = " + rightTile.position);
+            Debug.Log(name + "\nRIGHT tile    name: " + rightTile.name + "        " + "position = " + rightTile.position);
             canMoveRight = false;
         }
         catch { canMoveRight = true; }
@@ -283,7 +279,7 @@ public class PlayerController : MonoBehaviour
         try
         {
             leftTile = tilesBoard[xPos - 1, yPos, zPos];
-            Debug.Log("LEFT tile name: " + leftTile.name + "; " + "position = " + leftTile.position);
+            Debug.Log(name + "\nLEFT tile    name: " + leftTile.name + "        " + "position = " + leftTile.position);
             canMoveLeft = false;
         }
         catch { canMoveLeft = true; }
@@ -293,7 +289,7 @@ public class PlayerController : MonoBehaviour
             if (tilesBoard[xPos, yPos + 1, zPos])
             {
                 aboveTile = tilesBoard[xPos, yPos + 1, zPos];
-                Debug.Log("ABOVE tile name: " + aboveTile.name + "; " + "position = " + aboveTile.position);
+                Debug.Log(name + "\nABOVE tile  -  name: " + aboveTile.name + "        " + "position = " + aboveTile.position);
                 canMoveForward = false;
                 canMoveBack = false;
                 canMoveRight = false;
@@ -308,15 +304,26 @@ public class PlayerController : MonoBehaviour
             if (tilesBoard[xPos, yPos - 1, zPos])
             {
                 belowTile = tilesBoard[xPos, yPos - 1, zPos];
-                Debug.Log("BELOW tile name: " + belowTile.name + "; " + "position = " + belowTile.position);
+                Debug.Log(name + "\nBELOW tile    name: " + belowTile.name + "        " + "position = " + belowTile.position);
+            }
+            else
+            {
+                Debug.Log("there is no tile under " + name);
+                canMoveForward = false;
+                canMoveBack = false;
+                canMoveRight = false;
+                canMoveLeft = false;
+                transform.position += moveDown;
             }
         }
         catch
         {
+            Debug.Log(name + " is out of board range");
             canMoveForward = false;
             canMoveBack = false;
             canMoveRight = false;
             canMoveLeft = false;
+            isOutOfTheBoard = true;
         }
     }
 
@@ -328,22 +335,18 @@ public class PlayerController : MonoBehaviour
             transform.rotation = facingDirection;
             transform.position += moveToDirection;
             lastNonBlankTileType = moveToDirection;
-            GameManager.turnCount += 1;
-            Debug.Log("turn = " + GameManager.turnCount);
             greenArrowScript.StateSwitch();
         }
         else if (canMoveToDirection && !greenArrowScript.isActive)
         {
             transform.rotation = facingDirection;
             transform.position += lastNonBlankTileType;
-            GameManager.turnCount += 1;
-            Debug.Log("turn = " + GameManager.turnCount);
             greenArrowScript.StateSwitch();
         }
-        else if (!canMoveToDirection)
-        {
-            Debug.Log("the player can't move");
-        }
+        //else if (!canMoveToDirection)
+        //{
+        //    Debug.Log(name + " can't move");
+        //}
     }
 
 
@@ -354,21 +357,17 @@ public class PlayerController : MonoBehaviour
             transform.rotation = facingDirection;
             transform.position += moveToDirection;
             lastNonBlankTileType = moveToDirection;
-            GameManager.turnCount += 1;
-            Debug.Log("turn = " + GameManager.turnCount);
             pOL_greenArrowScript.StateSwitch();
         }
         else if (canMoveToDirection && !pOL_greenArrowScript.isActive)
         {
             transform.rotation = facingDirection;
             transform.position += lastNonBlankTileType;
-            GameManager.turnCount += 1;
-            Debug.Log("turn = " + GameManager.turnCount);
             pOL_greenArrowScript.StateSwitch();
         }
         else if (!canMoveToDirection)
         {
-            Debug.Log("the player can't move");
+            Debug.Log(name + " can't move");
         }
     }
 }

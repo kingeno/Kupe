@@ -147,13 +147,13 @@ public class GreenArrow : MonoBehaviour
 
         int _nextActiveTurn = (nextActiveTurn - GameManager.currentTurn);
 
-        if (!isActive && _nextActiveTurn <= 10)
+        if (!isActive && _nextActiveTurn <= 10 && nextActiveTurn > 0)
         {
             GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
             /*"active in " + */_nextActiveTurn.ToString()
             , redStyle);
         }
-        else if (isActive && unactiveTurns <= 0)
+        else if (isActive && unactiveTurns > 0 && unactiveTurns <= 10)
         {
             GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
             /*"active in " + */unactiveTurns.ToString()

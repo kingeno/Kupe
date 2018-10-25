@@ -23,7 +23,7 @@ public class BoardManager : MonoBehaviour
     private void Awake()
     {
         original_boardManagerArray = LoopThrough1DArray(original_boardManagerArray);
-        original_3DBoard = LoopThroughOriginal3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
+        original_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
         updated_boardManagerArray = original_boardManagerArray;
     }
 
@@ -33,20 +33,23 @@ public class BoardManager : MonoBehaviour
         if (playerHasChangedATile) // this has to be placed in LateUpdate because unity can't destroy and replace an array's empty index in one frame.
         {
             updated_boardManagerArray = LoopThrough1DArray(updated_boardManagerArray);
-            updated_3DBoard = LoopThroughOriginal3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
+            updated_3DBoard = LoopThrough3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
             playerHasChangedATile = false;
         }
 
         if (GameManager.playerHasLaunchedSimulation)
         {
             updated_boardManagerArray = LoopThrough1DArray(updated_boardManagerArray);
-            updated_3DBoard = LoopThroughOriginal3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
+            updated_3DBoard = LoopThrough3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
         }
     }
 
 
     public Transform[] LoopThrough1DArray(Transform[] boardManagerArray)
     {
+        //if (GameManager.playerHasLaunchedSimulation)
+        //    Debug.LogWarning("1D board - START");
+
         boardManagerArray = new Transform[transform.childCount];
         //Debug.Log(boardManagerArray.Length);
 
@@ -61,12 +64,19 @@ public class BoardManager : MonoBehaviour
             else
                 boardManagerArray[boardManagerArray.Length] = child.transform;
         }
+
+        //if (GameManager.playerHasLaunchedSimulation)
+        //    Debug.LogWarning("1D board - END");
+
         return boardManagerArray;
     }
 
 
-    public Transform[,,] LoopThroughOriginal3DBoard(Transform[] boardManagerArray, Transform[,,] board3D, int boardWidth, int boardHeight, int boardDepth)
+    public Transform[,,] LoopThrough3DBoard(Transform[] boardManagerArray, Transform[,,] board3D, int boardWidth, int boardHeight, int boardDepth)
     {
+        //if (GameManager.playerHasLaunchedSimulation)
+        //    Debug.LogWarning("3D board - START");
+
         board3D = new Transform[boardWidth, boardHeight, boardDepth];   //concerver cette manière de calculer le ratio et créer un nouveau type de tile "out of field tile" pour simuler des tableau non carrés
 
         //Loops through the original_3DBoard and put the tiles in the array's cells according to their position in the board.
@@ -94,6 +104,10 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+
+        //if (GameManager.playerHasLaunchedSimulation)
+        //    Debug.LogWarning("3D board - END");
+
         //Debug.LogWarning("has looped through 3D board");
 
         ////(Optional-- > For Debug.Log Display) Loops through original_3DBoard to display the name and the position of all the tiles contained in it.

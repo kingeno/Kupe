@@ -1,10 +1,6 @@
- 	Tâches :
+Tâches :
 
-- coder le fait de pouvoir avoir plusieurs joueurs
-	*implique une gestion des tours de jeu différent du système actuel
-		--> les deux "cubes joueurs" doivent bouger simultanément
-		--> afin d'éviter que le joueur soit bloqué avoir un booléen qui vérifie si le "cube joueur" est en mouvement. Si tous les "cubes joueurs" sont static le joueur à perdu
-		--> coder un timer global sur lequel se basent les "cubes joueurs" mais qu'aucun d'eux ne modifie
+		--> Si tous les "cubes joueurs" sont static ne rien faire, lancer un timer et proposer au joueur de relancer la partie (au bout de 5 secondes par exemple)
 		--> na pas avoir de case départ, avoir une case sur laquel les "cubes joueurs" spawn (la stocker en début de partie)
 
 - créer les tiles suivantes :
