@@ -7,7 +7,6 @@ Tâches :
 	* tile ascenseur vertical
 
 - faire une progression de niveau avec les mécaniques disponibles dans le document de design
-- coder les mécaniques utilisées (essayer d'anticiper le fait qu'il puisse y avoir plusieurs "cubes joueurs")
 
 - dans un nouveau document, établir l'ordre d'exécution des différents scripts présents dans le jeu (document à maintenir à jour au fur et à mesure que les scripts sont créé afin de faciliter le suivi de l'ajout des fonctionnalités)
 
