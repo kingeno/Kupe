@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
-    public PlayerController playerController;
-    public PlayerController playerController2;
-
     public GameObject[] players;
     public PlayerController[] playerControllers;
+
+    public GameObject[] endTiles;
+    public EndTile[] endTileScripts;
 
     public static int turnCount;
     public static int currentTurn;
@@ -26,6 +25,10 @@ public class GameManager : MonoBehaviour
 
     public bool simulationCanBeLaunched;
 
+    public bool allPlayersHaveFinishedTheirTurn;
+    public bool allEndTilesAreValidated;
+    public bool aPlayerIsOutOfBoardRange;
+
     private void Start()
     {
         simulationCanBeLaunched = false;
@@ -36,6 +39,7 @@ public class GameManager : MonoBehaviour
         playerHasWon = false;
         targetTime = initialTargetTime;
         staticTargetTime = initialTargetTime;
+        allPlayersHaveFinishedTheirTurn = false;
 
         players = GameObject.FindGameObjectsWithTag("Player");
         playerControllers = new PlayerController[players.Length];
@@ -43,107 +47,101 @@ public class GameManager : MonoBehaviour
         foreach (GameObject player in players)
         {
             playerControllers[i] = player.GetComponent<PlayerController>();
-            Debug.Log("caca " + i);
+            i++;
+        }
+
+        endTiles = GameObject.FindGameObjectsWithTag("End Tile");
+        endTileScripts = new EndTile[endTiles.Length];
+        i = 0;
+        foreach (GameObject endTile in endTiles)
+        {
+            endTileScripts[i] = endTile.GetComponent<EndTile>();
             i++;
         }
     }
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    //if (!playerHasLaunchedSimulation)
-        //    //    Debug.LogWarning("turn " + turnCount + " has ended");
-        //    //playerHasLaunchedSimulation = true;
-        //    LaunchSimulation();
-        //}
         if (simulationCanBeLaunched)
             playerHasLaunchedSimulation = true;
 
+
         if (playerHasLaunchedSimulation && !simulationHasEnded)
         {
-            if (playerController.hasFinishItsTurn && playerController2.hasFinishItsTurn)
+            foreach (PlayerController controller in playerControllers)
+            {
+                if (controller.hasFinishItsTurn)
+                    allPlayersHaveFinishedTheirTurn = true;
+                else if (!controller.hasFinishItsTurn)
+                    allPlayersHaveFinishedTheirTurn = false;
+            }
+
+            if (allPlayersHaveFinishedTheirTurn)
             {
                 TurnTimer();
                 if (turnIsFinished)
                 {
-                    playerController.hasFinishItsTurn = false;
-                    playerController2.hasFinishItsTurn = false;
                     turnCount++;
                     currentTurn = turnCount;
                     Debug.LogWarning("turn " + turnCount + " has ended");
+
+                    foreach (PlayerController controller in playerControllers)
+                    {
+                        controller.hasFinishItsTurn = false;
+                    }
                 }
-            }
-            if (!playerController.hasFinishItsTurn && !playerController2.hasFinishItsTurn)
-            {
-                if (playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
-                    || !playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
-                    || playerController.isOutOfTheBoard && !playerController2.isOutOfTheBoard)
-                {
-                    turnIsFinished = false;
-                    simulationHasEnded = true;
-                    Debug.LogWarning("simulation has ended = " + simulationHasEnded);
-                    playerHasLaunchedSimulation = false;
-                    playerHasLost = true;
-                }
-                else
-                    turnIsFinished = false;
             }
 
-            if (playerController.hasReachedEndTile && playerController2.hasReachedEndTile)
+            foreach (PlayerController controller in playerControllers)
             {
+                if (allPlayersHaveFinishedTheirTurn)
+                {
+                    if (controller.isOutOfBoardRange)
+                        aPlayerIsOutOfBoardRange = true;
+                    else if (!controller.isOutOfBoardRange)
+                        aPlayerIsOutOfBoardRange = false;
+                }
+            }
+
+            if (aPlayerIsOutOfBoardRange)
+            {
+                allPlayersHaveFinishedTheirTurn = true;
                 turnIsFinished = false;
                 simulationHasEnded = true;
                 Debug.LogWarning("simulation has ended = " + simulationHasEnded);
                 playerHasLaunchedSimulation = false;
-                playerHasWon = true;
+                playerHasLost = true;
             }
-        }
 
-
-
-
-        // Rethink the logic of how I handle the multiple cubes controllers by turn
-        if (simulationCanBeLaunched)
-            playerHasLaunchedSimulation = true;
-
-        if (playerHasLaunchedSimulation && !simulationHasEnded)
-        {
-            if (playerController.hasFinishItsTurn && playerController2.hasFinishItsTurn)
+            foreach (EndTile endtile in endTileScripts)
             {
-                TurnTimer();
-                if (turnIsFinished)
+                if (allPlayersHaveFinishedTheirTurn)
                 {
-                    playerController.hasFinishItsTurn = false;
-                    playerController2.hasFinishItsTurn = false;
-                    turnCount++;
-                    currentTurn = turnCount;
-                    Debug.LogWarning("turn " + turnCount + " has ended");
+                    if (endtile.hasAPlayerCubeOnIt)
+                        allEndTilesAreValidated = true;
+                    if (!endtile.hasAPlayerCubeOnIt)
+                    {
+                        allEndTilesAreValidated = false;
+                    }
                 }
             }
-            if (!playerController.hasFinishItsTurn && !playerController2.hasFinishItsTurn)
-            {
-                if (playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
-                    || !playerController.isOutOfTheBoard && playerController2.isOutOfTheBoard
-                    || playerController.isOutOfTheBoard && !playerController2.isOutOfTheBoard)
-                {
-                    turnIsFinished = false;
-                    simulationHasEnded = true;
-                    Debug.LogWarning("simulation has ended = " + simulationHasEnded);
-                    playerHasLaunchedSimulation = false;
-                    playerHasLost = true;
-                }
-                else
-                    turnIsFinished = false;
-            }
 
-            if (playerController.hasReachedEndTile && playerController2.hasReachedEndTile)
+            allPlayersHaveFinishedTheirTurn = false;
+
+            if (!allPlayersHaveFinishedTheirTurn)
             {
                 turnIsFinished = false;
-                simulationHasEnded = true;
-                Debug.LogWarning("simulation has ended = " + simulationHasEnded);
+            }
+
+            if (allEndTilesAreValidated)
+            {
+                allPlayersHaveFinishedTheirTurn = true;
+                turnIsFinished = true;
+
                 playerHasLaunchedSimulation = false;
+                simulationHasEnded = true;
                 playerHasWon = true;
+                Debug.LogWarning("simulation has ended = " + simulationHasEnded);
             }
         }
     }
@@ -183,7 +181,7 @@ public class GameManager : MonoBehaviour
         greenStyle.fontSize = 26;
         greenStyle.normal.textColor = Color.green;
 
-        if (!playerController.hasReachedEndTile && !playerController2.hasReachedEndTile)
+        if (allEndTilesAreValidated)
             GUI.Box(new Rect(10, 10, 2000, 40), "turn: " + turnCount.ToString(), whiteStyle);
         else if (playerHasWon)
             GUI.Box(new Rect(10, 10, 2000, 40), " You solved the puzzle !", greenStyle);

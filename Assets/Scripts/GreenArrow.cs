@@ -24,6 +24,8 @@ public class GreenArrow : MonoBehaviour
 
     public Texture deleteGreenArrowTileTexture;
 
+    public string tagWhenActive;
+
     void Start()
     {
         boardManager = GameObject.FindGameObjectWithTag("BoardManager");
@@ -38,18 +40,22 @@ public class GreenArrow : MonoBehaviour
         if (transform.rotation == forwardArrow)
         {
             gameObject.tag = "Forward Arrow";
+            tagWhenActive = "Forward Arrow";
         }
         if (transform.rotation == rightArrow)
         {
             gameObject.tag = "Right Arrow";
+            tagWhenActive = "Right Arrow";
         }
         if (transform.rotation == backArrow)
         {
             gameObject.tag = "Back Arrow";
+            tagWhenActive = "Right Arrow";
         }
         if (transform.rotation == leftArrow)
         {
             gameObject.tag = "Left Arrow";
+            tagWhenActive = "Right Arrow";
         }
     }
 
@@ -60,12 +66,38 @@ public class GreenArrow : MonoBehaviour
             if (isActive && !TileUIManager.isDeleteTileSelected)
             {
                 _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
+                gameObject.tag = tagWhenActive;
             }
             else if (!isActive)
             {
                 StateSwitch();
                 _renderer.material.SetTexture("_MainTex", player_unactive_greenArrow);
+                gameObject.tag = "Blank Tile";
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            StateSwitch();
+        }
+    }
+
+    public void StateSwitch()
+    {
+        if (isActive)
+        {
+            nextActiveTurn = GameManager.currentTurn + unactiveTurns;
+            isActive = false;
+            Debug.Log(name + ": state switch function / is deactivated");
+        }
+        else if (!isActive && GameManager.currentTurn >= nextActiveTurn)
+        {
+            isActive = true;
+            nextActiveTurn = 0;
+            Debug.Log(name + ": state switch function / is activated");
         }
     }
 
@@ -122,20 +154,6 @@ public class GreenArrow : MonoBehaviour
         }
     }
 
-    public void StateSwitch()
-    {
-        if (isActive)
-        {
-            nextActiveTurn = GameManager.currentTurn + unactiveTurns;
-            isActive = false;
-        }
-        else if (!isActive && GameManager.currentTurn >= nextActiveTurn)
-        {
-            isActive = true;
-            nextActiveTurn = 0;
-        }
-    }
-
     void OnGUI()
     {
         GUIStyle redStyle = new GUIStyle();
@@ -150,13 +168,13 @@ public class GreenArrow : MonoBehaviour
         if (!isActive && _nextActiveTurn <= 10 && nextActiveTurn > 0)
         {
             GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-            /*"active in " + */_nextActiveTurn.ToString()
+            /*"active in " + */(_nextActiveTurn - 1).ToString()
             , redStyle);
         }
         else if (isActive && unactiveTurns > 0 && unactiveTurns <= 10)
         {
             GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-            /*"active in " + */unactiveTurns.ToString()
+            /*"active in " + */(unactiveTurns - 1).ToString()
             , redStyle);
         }
     }

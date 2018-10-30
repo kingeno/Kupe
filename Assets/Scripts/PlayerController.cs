@@ -18,22 +18,19 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveUp;
     private Vector3 moveDown;
 
-    private Vector3 startPos;
     private Vector3 currentPos;
 
-    private GameObject startTile;
     private Vector3 lastNonBlankTileType;
 
     //------------------
 
-    public bool isOnStartTile;
     public bool canMoveForward;
     public bool canMoveBack;
     public bool canMoveRight;
     public bool canMoveLeft;
 
     public bool hasFinishItsTurn;
-    public bool isOutOfTheBoard;
+    public bool isOutOfBoardRange;
 
     private Quaternion facingForward;
     private Quaternion facingBack;
@@ -53,11 +50,12 @@ public class PlayerController : MonoBehaviour
     public int yPos;
     public int zPos;
 
+    public bool canPlayerMoveInLastNonBlankTileDirection;
+
     void Start()
     {
         hasFinishItsTurn = false;
-        isOutOfTheBoard = false;
-        tileNumber = 1;
+        isOutOfBoardRange = false;
         hasReachedEndTile = false;
 
         moveForward = new Vector3(0, 0, 1);
@@ -74,17 +72,7 @@ public class PlayerController : MonoBehaviour
 
         tilesBoard = BoardManager.original_3DBoard;
 
-        //if (startTile == null)
-        //{
-        //    startTile = GameObject.FindGameObjectWithTag("Start Tile");
-        //    startPos += (startTile.transform.position + new Vector3(0, 1, 0));
-        //    transform.position = startPos;
-        //}
-        //else
-        //{ Debug.LogError("Does not find start tile in scene"); }
         CheckAdjacentTiles();
-
-        isOnStartTile = true;
     }
 
     void Update()
@@ -94,6 +82,7 @@ public class PlayerController : MonoBehaviour
             tilesBoard = BoardManager.updated_3DBoard;
             if (!hasFinishItsTurn /*GameManager.turnIsFinished*/ /*&& Input.GetKeyDown(KeyCode.Space)*/)
             {
+                CheckAdjacentTiles();
                 Debug.Log(name + " moves");
                 switch (tileNumber)
                 {
@@ -106,7 +95,6 @@ public class PlayerController : MonoBehaviour
                                 transform.position += moveForward;
                                 lastNonBlankTileType = moveForward;
                                 Debug.Log(name + " last non blank tile type: " + lastNonBlankTileType);
-                                isOnStartTile = false;
                             }
                             else if (!canMoveForward)
                             {
@@ -211,36 +199,36 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Forward Arrow")
         {
             tileNumber = 5;
-            try { greenArrowScript = other.GetComponent<GreenArrow>(); transform.rotation = facingForward; }
+            try { greenArrowScript = other.GetComponent<GreenArrow>();}
             catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); transform.rotation = facingForward; }
+            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>();}
             catch { }
         }
 
         if (other.tag == "Right Arrow")
         {
             tileNumber = 6;
-            try { greenArrowScript = other.GetComponent<GreenArrow>(); transform.rotation = facingRight; }
+            try { greenArrowScript = other.GetComponent<GreenArrow>(); }
             catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); transform.rotation = facingRight; }
+            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); }
             catch { }
         }
 
         if (other.tag == "Back Arrow")
         {
             tileNumber = 7;
-            try { greenArrowScript = other.GetComponent<GreenArrow>(); transform.rotation = facingBack; }
+            try { greenArrowScript = other.GetComponent<GreenArrow>(); }
             catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); transform.rotation = facingBack; }
+            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); }
             catch { }
         }
 
         if (other.tag == "Left Arrow")
         {
             tileNumber = 8;
-            try { greenArrowScript = other.GetComponent<GreenArrow>(); transform.rotation = facingLeft; }
+            try { greenArrowScript = other.GetComponent<GreenArrow>(); }
             catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); transform.rotation = facingLeft; }
+            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); }
             catch { }
         }
     }
@@ -323,51 +311,61 @@ public class PlayerController : MonoBehaviour
             canMoveBack = false;
             canMoveRight = false;
             canMoveLeft = false;
-            isOutOfTheBoard = true;
+            isOutOfBoardRange = true;
         }
     }
 
 
-    public void OnGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, Quaternion facingDirection)
+    public void OnGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, /*bool canMoveToLastNonBlankTileDirection,*/ Quaternion facingDirection)
     {
-        if (canMoveToDirection && greenArrowScript.isActive)
+        if (/*greenArrowScript.isActive && */canMoveToDirection)
         {
             transform.rotation = facingDirection;
-            transform.position += moveToDirection;
-            lastNonBlankTileType = moveToDirection;
-            greenArrowScript.StateSwitch();
+            if (canMoveToDirection)
+            {
+                transform.position += moveToDirection;
+                lastNonBlankTileType = moveToDirection;
+            }
         }
-        else if (canMoveToDirection && !greenArrowScript.isActive)
+        else if (/*greenArrowScript.isActive && */!canMoveToDirection)
         {
-            transform.rotation = facingDirection;
-            transform.position += lastNonBlankTileType;
-            greenArrowScript.StateSwitch();
+            Debug.Log(name + " can't move to direction (active tile)");
         }
-        //else if (!canMoveToDirection)
+        //else if (!greenArrowScript.isActive /*&& canMoveToLastNonBlankTileDirection*/)
         //{
-        //    Debug.Log(name + " can't move");
+        //    transform.position += lastNonBlankTileType;
+        //    greenArrowScript.StateSwitch();
         //}
+        else /*if (!greenArrowScript.isActive && !canMoveToLastNonBlankTileDirection)*/
+        {
+            Debug.Log(name + " can't move to direction (unactive tile)");
+        }
     }
 
 
-    public void OnPOLGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, Quaternion facingDirection)
+    public void OnPOLGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, /*bool canMoveToLastNonBlankTileDirection,*/ Quaternion facingDirection)
     {
-        if (canMoveToDirection && pOL_greenArrowScript.isActive)
+        if (/*pOL_greenArrowScript.isActive && */canMoveToDirection)
         {
             transform.rotation = facingDirection;
-            transform.position += moveToDirection;
-            lastNonBlankTileType = moveToDirection;
-            pOL_greenArrowScript.StateSwitch();
+            if (canMoveToDirection)
+            {
+                transform.position += moveToDirection;
+                lastNonBlankTileType = moveToDirection;
+            }
         }
-        else if (canMoveToDirection && !pOL_greenArrowScript.isActive)
+        else if (/*pOL_greenArrowScript.isActive && */!canMoveToDirection)
         {
-            transform.rotation = facingDirection;
-            transform.position += lastNonBlankTileType;
-            pOL_greenArrowScript.StateSwitch();
+            Debug.Log(name + "can't move to direction (active tile)");
         }
-        else if (!canMoveToDirection)
+        //else if (!pOL_greenArrowScript.isActive /*&& canMoveToLastNonBlankTileDirection*/)
+        //{
+        //    transform.position += lastNonBlankTileType;
+        //    pOL_greenArrowScript.StateSwitch();
+        //}
+        else /*if (!pOL_greenArrowScript.isActive && !canMoveToLastNonBlankTileDirection)*/
         {
-            Debug.Log(name + " can't move");
+            Debug.Log(name + " can't move to direction (unactive tile)");
         }
     }
 }

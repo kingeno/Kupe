@@ -19,6 +19,8 @@ public class POL_GreenArrow : MonoBehaviour {
     public Texture partOfLevel_active_greenArrow;
     public Texture partOfLevel_unactive_greenArrow;
 
+    public string tagWhenActive;
+
     void Start()
     {
 
@@ -34,18 +36,22 @@ public class POL_GreenArrow : MonoBehaviour {
         if (transform.rotation == forwardArrow)
         {
             gameObject.tag = "Forward Arrow";
+            tagWhenActive = "Forward Arrow";
         }
         if (transform.rotation == rightArrow)
         {
             gameObject.tag = "Right Arrow";
+            tagWhenActive = "Right Arrow";
         }
         if (transform.rotation == backArrow)
         {
             gameObject.tag = "Back Arrow";
+            tagWhenActive = "Back Arrow";
         }
         if (transform.rotation == leftArrow)
         {
             gameObject.tag = "Left Arrow";
+            tagWhenActive = "Left Arrow";
         }
     }
 
@@ -54,11 +60,21 @@ public class POL_GreenArrow : MonoBehaviour {
         if (isActive)
         {
             _renderer.material.SetTexture("_MainTex", partOfLevel_active_greenArrow);
+            gameObject.tag = tagWhenActive;
         }
         else if (!isActive)
         {
             StateSwitch();
             _renderer.material.SetTexture("_MainTex", partOfLevel_unactive_greenArrow);
+            gameObject.tag = "Blank Tile";
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            StateSwitch();
         }
     }
 
@@ -68,6 +84,7 @@ public class POL_GreenArrow : MonoBehaviour {
         {
             nextActiveTurn = GameManager.currentTurn + unactiveTurns;
             isActive = false;
+            Debug.Log(name + ": state switch function / is deactivated");
         }
         else if (!isActive && GameManager.currentTurn >= nextActiveTurn)
         {
@@ -90,13 +107,13 @@ public class POL_GreenArrow : MonoBehaviour {
         if (!isActive && _nextActiveTurn <= 10)
         {   
             GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-            /*"active in " + */_nextActiveTurn.ToString()
+            /*"active in " + */(_nextActiveTurn - 1).ToString()
             , redStyle);
         }
         else if (isActive && unactiveTurns <= 10)
         {
             GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-            /*"active in " + */unactiveTurns.ToString()
+            /*"active in " + */(unactiveTurns - 1).ToString()
             , redStyle);
         }
     }
