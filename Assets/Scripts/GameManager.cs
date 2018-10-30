@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] endTiles;
     public EndTile[] endTileScripts;
 
+    public Vector3[] startPos;
+
     public static bool resetTileState;
 
     public static int turnCount;
@@ -46,10 +48,13 @@ public class GameManager : MonoBehaviour
 
         players = GameObject.FindGameObjectsWithTag("Player");
         playerControllers = new PlayerController[players.Length];
+        startPos = new Vector3[players.Length];
+
         int i = 0;
         foreach (GameObject player in players)
         {
             playerControllers[i] = player.GetComponent<PlayerController>();
+            startPos[i] = playerControllers[i].startPos;
             i++;
         }
 
@@ -65,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (TileUIManager.levelIsReset)
+        if (TileUIManager.levelIsReset == true)
         {
             RestartLevel();
             TileUIManager.levelIsReset = false;
@@ -98,6 +103,16 @@ public class GameManager : MonoBehaviour
                     {
                         controller.hasFinishItsTurn = false;
                     }
+
+                    foreach (EndTile endtile in endTileScripts)
+                    {
+                        if (endtile.hasAPlayerCubeOnIt)
+                            allEndTilesAreValidated = true;
+                        else if (!endtile.hasAPlayerCubeOnIt)
+                        {
+                            allEndTilesAreValidated = false;
+                        }
+                    }
                 }
             }
 
@@ -120,19 +135,6 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("simulation has ended = " + simulationHasEnded);
                 playerHasLaunchedSimulation = false;
                 playerHasLost = true;
-            }
-
-            foreach (EndTile endtile in endTileScripts)
-            {
-                if (allPlayersHaveFinishedTheirTurn)
-                {
-                    if (endtile.hasAPlayerCubeOnIt)
-                        allEndTilesAreValidated = true;
-                    if (!endtile.hasAPlayerCubeOnIt)
-                    {
-                        allEndTilesAreValidated = false;
-                    }
-                }
             }
 
             allPlayersHaveFinishedTheirTurn = false;
@@ -182,10 +184,25 @@ public class GameManager : MonoBehaviour
         simulationHasEnded = false;
         simulationCanBeLaunched = false;
         resetTileState = true;
-        foreach (PlayerController player in playerControllers)
+        playerHasWon = false;
+        turnCount = 0;
+        int i = 0;
+        foreach (GameObject player in players)
         {
-            player.transform.position = player.startPos;
+            player.transform.position = startPos[i];
+            i++;
         }
+        foreach (PlayerController playerScript in playerControllers)
+        {
+            playerScript.hasReachedEndTile = false;
+            playerScript.hasFinishItsTurn = false;
+        }
+        foreach (EndTile endtile in endTileScripts)
+        {
+            endtile.hasAPlayerCubeOnIt = false;
+        }
+        allEndTilesAreValidated = false;
+
     }
 
     void OnGUI()

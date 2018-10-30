@@ -10,8 +10,6 @@ public class GreenArrow : MonoBehaviour
     public int unactiveTurns;
     private int nextActiveTurn;
 
-    public bool startState;
-
     public GameObject boardManager;
     public Transform blankTilePrefab;
 
@@ -28,42 +26,51 @@ public class GreenArrow : MonoBehaviour
 
     public string tagWhenActive;
 
+    public bool startState;
+
     void Start()
     {
-        boardManager = GameObject.FindGameObjectWithTag("BoardManager");
-        _renderer = GetComponent<Renderer>();
+        Initialization();
+        //boardManager = GameObject.FindGameObjectWithTag("BoardManager");
+        //_renderer = GetComponent<Renderer>();
 
-        forwardArrow = Quaternion.Euler(0, 0, 0);
-        backArrow = Quaternion.Euler(0, 180, 0);
-        rightArrow = Quaternion.Euler(0, 90, 0);
-        leftArrow = Quaternion.Euler(0, 270, 0);
+        //startState = isActive;
+        //tag = tagWhenActive;
 
-        startState = true;
+        //forwardArrow = Quaternion.Euler(0, 0, 0);
+        //backArrow = Quaternion.Euler(0, 180, 0);
+        //rightArrow = Quaternion.Euler(0, 90, 0);
+        //leftArrow = Quaternion.Euler(0, 270, 0);
 
-        if (transform.rotation == forwardArrow)
-        {
-            gameObject.tag = "Forward Arrow";
-            tagWhenActive = "Forward Arrow";
-        }
-        if (transform.rotation == rightArrow)
-        {
-            gameObject.tag = "Right Arrow";
-            tagWhenActive = "Right Arrow";
-        }
-        if (transform.rotation == backArrow)
-        {
-            gameObject.tag = "Back Arrow";
-            tagWhenActive = "Right Arrow";
-        }
-        if (transform.rotation == leftArrow)
-        {
-            gameObject.tag = "Left Arrow";
-            tagWhenActive = "Right Arrow";
-        }
+        //if (transform.rotation == forwardArrow)
+        //{
+        //    gameObject.tag = "Forward Arrow";
+        //    tagWhenActive = "Forward Arrow";
+        //}
+        //if (transform.rotation == rightArrow)
+        //{
+        //    gameObject.tag = "Right Arrow";
+        //    tagWhenActive = "Right Arrow";
+        //}
+        //if (transform.rotation == backArrow)
+        //{
+        //    gameObject.tag = "Back Arrow";
+        //    tagWhenActive = "Right Arrow";
+        //}
+        //if (transform.rotation == leftArrow)
+        //{
+        //    gameObject.tag = "Left Arrow";
+        //    tagWhenActive = "Right Arrow";
+        //}
     }
 
     private void Update()
     {
+        if (TileUIManager.levelIsReset)
+        {
+            Initialization();
+        }
+
         if (GameManager.playerHasLaunchedSimulation)
         {
             if (isActive && !TileUIManager.isDeleteTileSelected)
@@ -154,6 +161,41 @@ public class GreenArrow : MonoBehaviour
         if (TileUIManager.isDeleteTileSelected || GameManager.playerHasLaunchedSimulation)
         {
             _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
+        }
+    }
+
+    private void Initialization()
+    {
+        boardManager = GameObject.FindGameObjectWithTag("BoardManager");
+        _renderer = GetComponent<Renderer>();
+
+        startState = isActive;
+        tag = tagWhenActive;
+
+        forwardArrow = Quaternion.Euler(0, 0, 0);
+        backArrow = Quaternion.Euler(0, 180, 0);
+        rightArrow = Quaternion.Euler(0, 90, 0);
+        leftArrow = Quaternion.Euler(0, 270, 0);
+
+        if (transform.rotation == forwardArrow)
+        {
+            gameObject.tag = "Forward Arrow";
+            tagWhenActive = "Forward Arrow";
+        }
+        if (transform.rotation == rightArrow)
+        {
+            gameObject.tag = "Right Arrow";
+            tagWhenActive = "Right Arrow";
+        }
+        if (transform.rotation == backArrow)
+        {
+            gameObject.tag = "Back Arrow";
+            tagWhenActive = "Right Arrow";
+        }
+        if (transform.rotation == leftArrow)
+        {
+            gameObject.tag = "Left Arrow";
+            tagWhenActive = "Right Arrow";
         }
     }
 

@@ -68,11 +68,8 @@ public class TileUIManager : MonoBehaviour
         }
     }
 
-    public static void RestartCurrentLevel()
+    public void RestartCurrentLevel()
     {
-        //Debug.Log("Restart level");
-        //Scene scene = SceneManager.GetActiveScene();
-        //SceneManager.LoadScene(scene.name);
         levelIsReset = true;
     }
 }

@@ -25,6 +25,7 @@ public class POL_GreenArrow : MonoBehaviour {
 
     void Start()
     {
+        startState = isActive;
 
         boardManager = GameObject.FindGameObjectWithTag("BoardManager");
         _renderer = GetComponent<Renderer>();
@@ -34,7 +35,7 @@ public class POL_GreenArrow : MonoBehaviour {
         leftArrow = Quaternion.Euler(0, 270, 0);
         rightArrow = Quaternion.Euler(0, 90, 0);
 
-        startState = true;
+        isActive = startState;
 
         if (transform.rotation == forwardArrow)
         {
@@ -60,16 +61,19 @@ public class POL_GreenArrow : MonoBehaviour {
 
     private void Update()
     {
+        if (TileUIManager.levelIsReset)
+        {
+            Initialization();
+        }
+
         if (isActive)
         {
             _renderer.material.SetTexture("_MainTex", partOfLevel_active_greenArrow);
-            gameObject.tag = tagWhenActive;
         }
         else if (!isActive)
         {
             StateSwitch();
             _renderer.material.SetTexture("_MainTex", partOfLevel_unactive_greenArrow);
-            gameObject.tag = "Blank Tile";
         }
     }
 
@@ -88,11 +92,47 @@ public class POL_GreenArrow : MonoBehaviour {
             nextActiveTurn = GameManager.currentTurn + unactiveTurns;
             isActive = false;
             Debug.Log(name + ": state switch function / is deactivated");
+            gameObject.tag = "Blank Tile";
         }
         else if (!isActive && GameManager.currentTurn >= nextActiveTurn)
         {
             isActive = true;
             nextActiveTurn = 0;
+            gameObject.tag = tagWhenActive;
+        }
+    }
+
+    public void Initialization()
+    {
+        boardManager = GameObject.FindGameObjectWithTag("BoardManager");
+        _renderer = GetComponent<Renderer>();
+
+        forwardArrow = Quaternion.Euler(0, 0, 0);
+        backArrow = Quaternion.Euler(0, 180, 0);
+        leftArrow = Quaternion.Euler(0, 270, 0);
+        rightArrow = Quaternion.Euler(0, 90, 0);
+
+        isActive = startState;
+
+        if (transform.rotation == forwardArrow)
+        {
+            gameObject.tag = "Forward Arrow";
+            tagWhenActive = "Forward Arrow";
+        }
+        if (transform.rotation == rightArrow)
+        {
+            gameObject.tag = "Right Arrow";
+            tagWhenActive = "Right Arrow";
+        }
+        if (transform.rotation == backArrow)
+        {
+            gameObject.tag = "Back Arrow";
+            tagWhenActive = "Back Arrow";
+        }
+        if (transform.rotation == leftArrow)
+        {
+            gameObject.tag = "Left Arrow";
+            tagWhenActive = "Left Arrow";
         }
     }
 

@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("there is no tile under " + name);
+                //Debug.Log("there is no tile under " + name);
                 canMoveForward = false;
                 canMoveBack = false;
                 canMoveRight = false;
