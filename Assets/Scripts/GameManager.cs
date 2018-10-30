@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] endTiles;
     public EndTile[] endTileScripts;
 
+    public static bool resetTileState;
+
     public static int turnCount;
     public static int currentTurn;
 
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        resetTileState = false;
         simulationCanBeLaunched = false;
         turnCount = 0;
         playerHasLaunchedSimulation = false;
@@ -62,6 +65,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (TileUIManager.levelIsReset)
+        {
+            RestartLevel();
+            TileUIManager.levelIsReset = false;
+        }
+
         if (simulationCanBeLaunched)
             playerHasLaunchedSimulation = true;
 
@@ -157,14 +166,26 @@ public class GameManager : MonoBehaviour
 
         if (staticTargetTime <= 0.0f)
         {
-            timerEnded();
+            TimerEnded();
         }
     }
 
-    public static void timerEnded()
+    public static void TimerEnded()
     {
         turnIsFinished = true;
         staticTargetTime = targetTime;
+    }
+
+    public void RestartLevel()
+    {
+        playerHasLaunchedSimulation = false;
+        simulationHasEnded = false;
+        simulationCanBeLaunched = false;
+        resetTileState = true;
+        foreach (PlayerController player in playerControllers)
+        {
+            player.transform.position = player.startPos;
+        }
     }
 
     void OnGUI()

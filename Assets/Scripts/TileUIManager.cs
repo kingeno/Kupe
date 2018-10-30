@@ -12,9 +12,12 @@ public class TileUIManager : MonoBehaviour
     public static bool isGreenArrowSelected;
     public static bool unselectAll;
 
+    public static bool levelIsReset;
+
     private void Start()
     {
         unselectAll = false;
+        levelIsReset = false;
     }
 
     private void Update()
@@ -65,9 +68,11 @@ public class TileUIManager : MonoBehaviour
         }
     }
 
-    public void RestartCurrentLevel()
+    public static void RestartCurrentLevel()
     {
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        //Debug.Log("Restart level");
+        //Scene scene = SceneManager.GetActiveScene();
+        //SceneManager.LoadScene(scene.name);
+        levelIsReset = true;
     }
 }

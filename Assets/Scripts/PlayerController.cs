@@ -7,9 +7,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool hasReachedEndTile; // public because used in the GamManager
 
     private int tileNumber;
-
-    private GreenArrow greenArrowScript;
-    private POL_GreenArrow pOL_greenArrowScript;
+    public Vector3 startPos;
 
     private Vector3 moveForward;
     private Vector3 moveBack;
@@ -58,6 +56,8 @@ public class PlayerController : MonoBehaviour
         isOutOfBoardRange = false;
         hasReachedEndTile = false;
 
+        startPos = transform.position;
+
         moveForward = new Vector3(0, 0, 1);
         moveBack = new Vector3(0, 0, -1);
         moveLeft = new Vector3(-1, 0, 0);
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         tilesBoard = BoardManager.original_3DBoard;
 
-        CheckAdjacentTiles();
+        //CheckAdjacentTiles();
     }
 
     void Update()
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.playerHasLaunchedSimulation /*&& !GameManager.simulationHasEnded*/)
         {
             tilesBoard = BoardManager.updated_3DBoard;
-            if (!hasFinishItsTurn /*GameManager.turnIsFinished*/ /*&& Input.GetKeyDown(KeyCode.Space)*/)
+            if (!hasFinishItsTurn && !hasReachedEndTile/*GameManager.turnIsFinished*/ /*&& Input.GetKeyDown(KeyCode.Space)*/)
             {
                 CheckAdjacentTiles();
                 Debug.Log(name + " moves");
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
                     case 1: //Start Tile
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                             if (canMoveForward)
                             {
                                 transform.position += moveForward;
@@ -105,14 +105,14 @@ public class PlayerController : MonoBehaviour
                     case 2: //End Tile
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                             hasReachedEndTile = true;
                         }
                         break;
                     case 3: //Blank Tile
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                             if (lastNonBlankTileType == moveForward && canMoveForward)
                             {
                                 transform.position += lastNonBlankTileType;
@@ -139,13 +139,13 @@ public class PlayerController : MonoBehaviour
                     case 4: //Hole Tile
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                         }
                         break;
                     case 5: //Forward Arrow
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                             try { OnGreenArrow(moveForward, canMoveForward, facingForward); }
                             catch { OnPOLGreenArrow(moveForward, canMoveForward, facingForward); }
                         }
@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
                     case 6: //Right Arrow
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                             try { OnGreenArrow(moveRight, canMoveRight, facingRight); }
                             catch { OnPOLGreenArrow(moveRight, canMoveRight, facingRight); }
                         }
@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour
                     case 7: //Back Arrow
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                             try { OnGreenArrow(moveBack, canMoveBack, facingBack); }
                             catch { OnPOLGreenArrow(moveBack, canMoveBack, facingBack); }
                         }
@@ -169,14 +169,13 @@ public class PlayerController : MonoBehaviour
                     case 8: //Left Arrow
                         if (!hasReachedEndTile)
                         {
-                            CheckAdjacentTiles();
+                            //CheckAdjacentTiles();
                             try { OnGreenArrow(moveLeft, canMoveLeft, facingLeft); }
                             catch { OnPOLGreenArrow(moveLeft, canMoveLeft, facingLeft); }
                         }
                         break;
                 }
                 hasFinishItsTurn = true;
-                //tilesBoard = BoardManager.updated_3DBoard;
                 Debug.Log(name + " has finished moving");
             }
         }
@@ -185,51 +184,50 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Start Tile")
+        {
             tileNumber = 1;
+        }
 
         if (other.tag == "End Tile")
+        {
             tileNumber = 2;
+            Debug.Log(name + " is touching " + other.tag);
+        }
 
         if (other.tag == "Blank Tile" || other.tag == "Player")
+        {
             tileNumber = 3;
+            Debug.Log(name + " is touching " + other.tag);
+        }
 
         if (other.tag == "Hole Tile")
+        {
             tileNumber = 4;
+            Debug.Log(name + " is touching " + other.tag);
+        }
 
         if (other.tag == "Forward Arrow")
         {
             tileNumber = 5;
-            try { greenArrowScript = other.GetComponent<GreenArrow>();}
-            catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>();}
-            catch { }
+            Debug.Log(name + " is touching " + other.tag);
         }
 
         if (other.tag == "Right Arrow")
         {
             tileNumber = 6;
-            try { greenArrowScript = other.GetComponent<GreenArrow>(); }
-            catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); }
-            catch { }
+            Debug.Log(name + " is touching " + other.tag);
         }
 
         if (other.tag == "Back Arrow")
         {
             tileNumber = 7;
-            try { greenArrowScript = other.GetComponent<GreenArrow>(); }
-            catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); }
-            catch { }
+            Debug.Log(name + " is touching " + other.tag);
         }
 
         if (other.tag == "Left Arrow")
         {
             tileNumber = 8;
-            try { greenArrowScript = other.GetComponent<GreenArrow>(); }
-            catch { }
-            try { pOL_greenArrowScript = other.GetComponent<POL_GreenArrow>(); }
-            catch { }
+            Debug.Log(name + " is touching " + other.tag);
         }
     }
 
@@ -316,9 +314,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void OnGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, /*bool canMoveToLastNonBlankTileDirection,*/ Quaternion facingDirection)
+    public void OnGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, Quaternion facingDirection)
     {
-        if (/*greenArrowScript.isActive && */canMoveToDirection)
+        if (canMoveToDirection)
         {
             transform.rotation = facingDirection;
             if (canMoveToDirection)
@@ -327,25 +325,16 @@ public class PlayerController : MonoBehaviour
                 lastNonBlankTileType = moveToDirection;
             }
         }
-        else if (/*greenArrowScript.isActive && */!canMoveToDirection)
-        {
+        else if (!canMoveToDirection)
             Debug.Log(name + " can't move to direction (active tile)");
-        }
-        //else if (!greenArrowScript.isActive /*&& canMoveToLastNonBlankTileDirection*/)
-        //{
-        //    transform.position += lastNonBlankTileType;
-        //    greenArrowScript.StateSwitch();
-        //}
-        else /*if (!greenArrowScript.isActive && !canMoveToLastNonBlankTileDirection)*/
-        {
+        else
             Debug.Log(name + " can't move to direction (unactive tile)");
-        }
     }
 
 
-    public void OnPOLGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, /*bool canMoveToLastNonBlankTileDirection,*/ Quaternion facingDirection)
+    public void OnPOLGreenArrow(Vector3 moveToDirection, bool canMoveToDirection, Quaternion facingDirection)
     {
-        if (/*pOL_greenArrowScript.isActive && */canMoveToDirection)
+        if (canMoveToDirection)
         {
             transform.rotation = facingDirection;
             if (canMoveToDirection)
@@ -354,18 +343,9 @@ public class PlayerController : MonoBehaviour
                 lastNonBlankTileType = moveToDirection;
             }
         }
-        else if (/*pOL_greenArrowScript.isActive && */!canMoveToDirection)
-        {
+        else if (!canMoveToDirection)
             Debug.Log(name + "can't move to direction (active tile)");
-        }
-        //else if (!pOL_greenArrowScript.isActive /*&& canMoveToLastNonBlankTileDirection*/)
-        //{
-        //    transform.position += lastNonBlankTileType;
-        //    pOL_greenArrowScript.StateSwitch();
-        //}
-        else /*if (!pOL_greenArrowScript.isActive && !canMoveToLastNonBlankTileDirection)*/
-        {
+        else
             Debug.Log(name + " can't move to direction (unactive tile)");
-        }
     }
 }

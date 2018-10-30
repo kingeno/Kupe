@@ -8,6 +8,8 @@ public class POL_GreenArrow : MonoBehaviour {
     public int unactiveTurns;
     private int nextActiveTurn;
 
+    public bool startState;
+
     public GameObject boardManager;
 
     private Quaternion forwardArrow;
@@ -32,6 +34,7 @@ public class POL_GreenArrow : MonoBehaviour {
         leftArrow = Quaternion.Euler(0, 270, 0);
         rightArrow = Quaternion.Euler(0, 90, 0);
 
+        startState = true;
 
         if (transform.rotation == forwardArrow)
         {

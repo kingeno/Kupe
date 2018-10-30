@@ -182,7 +182,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -800,7 +800,7 @@ MonoBehaviour:
   playerControllers: []
   endTiles: []
   endTileScripts: []
-  initialTargetTime: 0.5
+  initialTargetTime: 0.2
   simulationCanBeLaunched: 0
   allPlayersHaveFinishedTheirTurn: 0
   allEndTilesAreValidated: 0
@@ -1484,7 +1484,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2200,7 +2200,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.y

@@ -10,6 +10,8 @@ public class GreenArrow : MonoBehaviour
     public int unactiveTurns;
     private int nextActiveTurn;
 
+    public bool startState;
+
     public GameObject boardManager;
     public Transform blankTilePrefab;
 
@@ -36,6 +38,7 @@ public class GreenArrow : MonoBehaviour
         rightArrow = Quaternion.Euler(0, 90, 0);
         leftArrow = Quaternion.Euler(0, 270, 0);
 
+        startState = true;
 
         if (transform.rotation == forwardArrow)
         {
