@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465778, g: 0.49641526, b: 0.5748185, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465772, g: 0.49641484, b: 0.5748179, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -182,7 +182,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4168554318120530, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -210,7 +210,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_Name
-      value: Player 1
+      value: Cube 1
       objectReference: {fileID: 0}
     - target: {fileID: 23538014728430776, guid: a5fcac4568722a04380fb780cb1b91f5,
         type: 2}
@@ -219,6 +219,15 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 69d9e1cdf211de7439246985a87b88f6, type: 2}
     - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
+      propertyPath: m_TagString
+      value: Cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944717539022706, guid: a5fcac4568722a04380fb780cb1b91f5,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -796,15 +805,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8233bf6a604dd43bb1e6ee2750e81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
-  playerControllers: []
+  cubes: []
+  cubesControllers: []
   endTiles: []
   endTileScripts: []
+  startTurn: 0
   initialTargetTime: 0.5
-  simulationCanBeLaunched: 0
-  allPlayersHaveFinishedTheirTurn: 0
-  allEndTilesAreValidated: 0
-  aPlayerIsOutOfBoardRange: 0
 --- !u!4 &503383104
 Transform:
   m_ObjectHideFlags: 0
@@ -1521,7 +1527,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_Name
-      value: Player 3
+      value: Cube 3
       objectReference: {fileID: 0}
     - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_IsActive
@@ -1532,6 +1538,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9ba9a103f08425946862a7832ee7e552, type: 2}
+    - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
+      propertyPath: m_TagString
+      value: Cube
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
   m_IsPrefabAsset: 0
@@ -2237,7 +2247,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_Name
-      value: Player 2
+      value: Cube 2
       objectReference: {fileID: 0}
     - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
       propertyPath: m_IsActive
@@ -2248,6 +2258,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0c724b7204c83cf4494a1a61cbf76007, type: 2}
+    - target: {fileID: 1643462077031696, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
+      propertyPath: m_TagString
+      value: Cube
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5fcac4568722a04380fb780cb1b91f5, type: 2}
   m_IsPrefabAsset: 0

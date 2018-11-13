@@ -4,49 +4,35 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] players;
-    public PlayerController[] playerControllers;
+    public GameObject[] cubes;
+    public CubeController[] cubesControllers;
 
     public GameObject[] endTiles;
     public EndTile[] endTileScripts;
 
+    public bool startTurn;
     public static int turnCount;
     public static int currentTurn;
-
     public static bool turnIsFinished;
-    public static bool playerHasLaunchedSimulation;
-    public static bool simulationHasEnded;
-    public static bool playerHasLost;
-    public static bool playerHasWon;
 
     public static float staticTargetTime = 0.5f;
     public static float targetTime;
     public float initialTargetTime;
 
-    public bool simulationCanBeLaunched;
-
-    public bool allPlayersHaveFinishedTheirTurn;
-    public bool allEndTilesAreValidated;
-    public bool aPlayerIsOutOfBoardRange;
+    public static bool playerHasLaunchedSimulation;
 
     private void Start()
     {
-        simulationCanBeLaunched = false;
-        turnCount = 0;
         playerHasLaunchedSimulation = false;
-        simulationHasEnded = false;
-        playerHasLost = false;
-        playerHasWon = false;
-        targetTime = initialTargetTime;
-        staticTargetTime = initialTargetTime;
-        allPlayersHaveFinishedTheirTurn = false;
+        startTurn = false;
+        turnCount = 0;
 
-        players = GameObject.FindGameObjectsWithTag("Player");
-        playerControllers = new PlayerController[players.Length];
+        cubes = GameObject.FindGameObjectsWithTag("Cube");
+        cubesControllers = new CubeController[cubes.Length];
         int i = 0;
-        foreach (GameObject player in players)
+        foreach (GameObject cube in cubes)
         {
-            playerControllers[i] = player.GetComponent<PlayerController>();
+            cubesControllers[i] = cube.GetComponent<CubeController>();
             i++;
         }
 
@@ -60,96 +46,75 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void PredictCubesNextTurnPos()
     {
-        if (simulationCanBeLaunched)
-            playerHasLaunchedSimulation = true;
-
-
-        if (playerHasLaunchedSimulation && !simulationHasEnded)
+        foreach (CubeController cube in cubesControllers)
         {
-            foreach (PlayerController controller in playerControllers)
-            {
-                if (controller.hasFinishItsTurn)
-                    allPlayersHaveFinishedTheirTurn = true;
-                else if (!controller.hasFinishItsTurn)
-                    allPlayersHaveFinishedTheirTurn = false;
-            }
-
-            if (allPlayersHaveFinishedTheirTurn)
-            {
-                TurnTimer();
-                if (turnIsFinished)
-                {
-                    turnCount++;
-                    currentTurn = turnCount;
-                    Debug.LogWarning("turn " + turnCount + " has ended");
-
-                    foreach (PlayerController controller in playerControllers)
-                    {
-                        controller.hasFinishItsTurn = false;
-                    }
-                }
-            }
-
-            foreach (PlayerController controller in playerControllers)
-            {
-                if (allPlayersHaveFinishedTheirTurn)
-                {
-                    if (controller.isOutOfBoardRange)
-                        aPlayerIsOutOfBoardRange = true;
-                    else if (!controller.isOutOfBoardRange)
-                        aPlayerIsOutOfBoardRange = false;
-                }
-            }
-
-            if (aPlayerIsOutOfBoardRange)
-            {
-                allPlayersHaveFinishedTheirTurn = true;
-                turnIsFinished = false;
-                simulationHasEnded = true;
-                Debug.LogWarning("simulation has ended = " + simulationHasEnded);
-                playerHasLaunchedSimulation = false;
-                playerHasLost = true;
-            }
-
-            foreach (EndTile endtile in endTileScripts)
-            {
-                if (allPlayersHaveFinishedTheirTurn)
-                {
-                    if (endtile.hasAPlayerCubeOnIt)
-                        allEndTilesAreValidated = true;
-                    if (!endtile.hasAPlayerCubeOnIt)
-                    {
-                        allEndTilesAreValidated = false;
-                    }
-                }
-            }
-
-            allPlayersHaveFinishedTheirTurn = false;
-
-            if (!allPlayersHaveFinishedTheirTurn)
-            {
-                turnIsFinished = false;
-            }
-
-            if (allEndTilesAreValidated)
-            {
-                allPlayersHaveFinishedTheirTurn = true;
-                turnIsFinished = true;
-
-                playerHasLaunchedSimulation = false;
-                simulationHasEnded = true;
-                playerHasWon = true;
-                Debug.LogWarning("simulation has ended = " + simulationHasEnded);
-            }
+            cube.predicted_NextTurnPos = cube.PredictNextTurnPos(cube.TileCheck(cube.belowAdjacentPos));
         }
     }
 
-    public void LaunchSimulation()
+    public void CompareCubesPredictedNextTurnPositions()
     {
-        simulationCanBeLaunched = true;
+        foreach (CubeController cube in cubesControllers)
+        {
+            if (cube.willMove)
+            {
+                for (int i = 0; i < cubesControllers.Length; i++)
+                {
+                    if (cube.cubeNumber != cubesControllers[i].cubeNumber && cube.predicted_NextTurnPos == cubesControllers[i].predicted_NextTurnPos)
+                    {
+                        if (cube.willMoveForward && cube.TileCheck(cube.frontTwoTilesAwayPos).GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
+                        {
+                            cube.willRoundTrip = cube.willRoundTripForward = true;
+                            cube.willMove = cube.willMoveForward = false;
+                        }
+                        if (cube.willMoveBack && cube.TileCheck(cube.backTwoTilesAwayPos).GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
+                        {
+                            cube.willRoundTrip = cube.willRoundTripBack = true;
+                            cube.willMove = cube.willMoveBack = false;
+                        }
+                        if (cube.willMoveRight && cube.TileCheck(cube.rightTwoTilesAwayPos).GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
+                        {
+                            cube.willRoundTrip = cube.willRoundTripRight = true;
+                            cube.willMove = cube.willMoveRight = false;
+                        }
+                        if (cube.willMoveLeft && cube.TileCheck(cube.lefttTwoTilesAwayPos).GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
+                        {
+                            cube.willRoundTrip = cube.willRoundTripLeft = true;
+                            cube.willMove = cube.willMoveLeft = false;
+                        }
+                        if (cube.willMoveDown && cube.TileCheck(cube.belowTwoTilesAwayPos).GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
+                        {
+                            cube.willRoundTrip = cube.willRoundTripDown = true;
+                            cube.willMove = cube.willMoveDown = false;
+                            // if the cube is at the upper exit of an elevator witch is going to bring up the compared cube next turn
+                            // How elevator works :    
+                            // turn 1 : a cube arrives on it
+                            // turn 2 : if the elevator is down it moves up || if the elevator is up it goes down
+                            // turn 3 : if the elevator has an arrow on it, it gives a direction to the cube
+                            // turn 3 : if the elevator is blank the player will move to the direction it has at turn 1 (when arriving on the elevator)
+                        }
+                        if (cube.TileCheck(cube.belowFront_AdjacentPos).GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
+                        {
+                            cube.willNotMove = true;
+                            cube.willMove = cube.willMoveForward = false;
+                        }
+                        if (cube.TileCheck(cube.belowFront_AdjacentPos).GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
+                        {
+                            cube.willNotMove = true;
+                            cube.willMove = cube.willMoveForward = false;
+                        }
+                    }
+                }
+            }
+            //else if (cube.willNotMove)
+            //{
+
+            //}
+        }
     }
+
 
     public static void TurnTimer()
     {
@@ -167,25 +132,25 @@ public class GameManager : MonoBehaviour
         staticTargetTime = targetTime;
     }
 
-    void OnGUI()
-    {
-        GUIStyle whiteStyle = new GUIStyle();
-        whiteStyle.fontSize = 26;
-        whiteStyle.normal.textColor = Color.white;
+    //void OnGUI()
+    //{
+    //    GUIStyle whiteStyle = new GUIStyle();
+    //    whiteStyle.fontSize = 26;
+    //    whiteStyle.normal.textColor = Color.white;
 
-        GUIStyle redStyle = new GUIStyle();
-        redStyle.fontSize = 26;
-        redStyle.normal.textColor = Color.red;
+    //    GUIStyle redStyle = new GUIStyle();
+    //    redStyle.fontSize = 26;
+    //    redStyle.normal.textColor = Color.red;
 
-        GUIStyle greenStyle = new GUIStyle();
-        greenStyle.fontSize = 26;
-        greenStyle.normal.textColor = Color.green;
+    //    GUIStyle greenStyle = new GUIStyle();
+    //    greenStyle.fontSize = 26;
+    //    greenStyle.normal.textColor = Color.green;
 
-        if (allEndTilesAreValidated)
-            GUI.Box(new Rect(10, 10, 2000, 40), "turn: " + turnCount.ToString(), whiteStyle);
-        else if (playerHasWon)
-            GUI.Box(new Rect(10, 10, 2000, 40), " You solved the puzzle !", greenStyle);
-        else if (playerHasLost)
-            GUI.Box(new Rect(10, 10, 2000, 40), "You Lost... Try again !", redStyle);
-    }
+    //    if (allEndTilesAreValidated)
+    //        GUI.Box(new Rect(10, 10, 2000, 40), "turn: " + turnCount.ToString(), whiteStyle);
+    //    else if (playerHasWon)
+    //        GUI.Box(new Rect(10, 10, 2000, 40), " You solved the puzzle !", greenStyle);
+    //    else if (playerHasLost)
+    //        GUI.Box(new Rect(10, 10, 2000, 40), "You Lost... Try again !", redStyle);
+    //}
 }

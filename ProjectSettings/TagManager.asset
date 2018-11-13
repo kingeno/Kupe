@@ -13,6 +13,7 @@ TagManager:
   - Right Arrow
   - HoleTile
   - BoardManager
+  - Cube
   layers:
   - Default
   - TransparentFX
