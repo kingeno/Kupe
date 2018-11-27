@@ -4,21 +4,44 @@ using UnityEngine;
 
 public class EndTile : MonoBehaviour {
 
-    public bool hasAPlayerCubeOnIt;
+    public Transform[,,] tilesBoard;
 
-	void Start () {
-        hasAPlayerCubeOnIt = false;
-	}
+    public bool isValidated;
+    public Vector3 above_AdjacentPos;
+    public Transform above_AdjacentTile;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-            hasAPlayerCubeOnIt = true;
+
+    void Start () {
+        isValidated = false;
+        tilesBoard = BoardManager.original_3DBoard;
+        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
     }
 
-    private void OnTriggerExit(Collider other)
+    public void TurnInitializer()
     {
-        if (other.gameObject.tag == "Player")
-            hasAPlayerCubeOnIt = false;
+        Debug.Log(name + " turn initializer");
+        tilesBoard = BoardManager.updated_3DBoard;
+        above_AdjacentTile = TileCheck(above_AdjacentPos);
+        if (above_AdjacentTile && above_AdjacentTile.tag == "Cube")
+            isValidated = true;
+        else if (!above_AdjacentTile)
+            isValidated = false;
+    }
+
+    //check the position of the tile relatively to the current cube position
+    public Transform TileCheck(Vector3 tilePos)
+    {
+        //Debug.Log("run " + name + " Tile Check");
+        Transform tile;
+        Debug.Log(name);
+        if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
+        {
+            tile = tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z];
+            return tile;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

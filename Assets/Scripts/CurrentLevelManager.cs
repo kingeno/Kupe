@@ -7,7 +7,7 @@ public class CurrentLevelManager : MonoBehaviour {
     public int greenArrowStock;
     public static int greenArrowStock_static;
     public static bool isGreenArrowStockEmpty;
-
+    
     private void Awake()
     {
         greenArrowStock_static = greenArrowStock;
@@ -22,7 +22,7 @@ public class CurrentLevelManager : MonoBehaviour {
         }
         else
         {
-            isGreenArrowStockEmpty = false;
+                isGreenArrowStockEmpty = false;
         }
     }
 }

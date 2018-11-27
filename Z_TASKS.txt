@@ -1,19 +1,9 @@
 Tâches :
 
-		--> Si tous les "cubes joueurs" sont static ne rien faire, lancer un timer et proposer au joueur de relancer la partie (au bout de 5 secondes par exemple)
-		--> na pas avoir de case départ, avoir une case sur laquel les "cubes joueurs" spawn (la stocker en début de partie)
+- Impératif :
+	* système de flèche éphémère
+	* système de passage d'un niveau à l'autre (voir ci-dessous)
+	* interface utilisateur (dans un niveau, entre les niveaux, dans les menus)
 
-- créer les tiles suivantes :
-	* tile ascenseur vertical
-
-- faire une progression de niveau avec les mécaniques disponibles dans le document de design
-
-- dans un nouveau document, établir l'ordre d'exécution des différents scripts présents dans le jeu (document à maintenir à jour au fur et à mesure que les scripts sont créé afin de faciliter le suivi de l'ajout des fonctionnalités)
-
-- réfléchir à la gestion des niveaux (éventuellement demander à Paul s'il a des recommandations là-dessus)
-	créer un système de récupération de données qui va se charger et attribuer les données correct à la scène 			(objets présents dans la scène, nombre de tiles, paramètres du "Board Manager", position des différentes tiles)
-		--> peut se faire en python ou directement dans Unity ? (demander à Paul et Kevin, potentiellement à 				Bibu)
-
-- checker les puzzles déja conçus sur la dropbox
-
-- faire en sorte que l'animation se passe après que le "cube joueur" ait bougé (d'abord sa hitbox puis le modèle), afin de pouvoir vérifier quelle animation déclencher (notamment dans le cas où un joueur en percute un autre ou si deux joueur avance simultanément sur la même case).
+- Facultatif :
+	* système de bloque ascenseur (avec direction)

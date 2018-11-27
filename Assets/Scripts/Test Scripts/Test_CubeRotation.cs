@@ -6,36 +6,33 @@ public class Test_CubeRotation : MonoBehaviour {
 
     // Origines du script : https://blog.susfour.net/?p=197
 
-    public float rotationPeriod = 0.3f;     // 隣に移動するのにかかる時間
-    public float sideLength = 1f;           // Cubeの辺の長さ
+    public float rotationPeriod = 0.3f;     // Temps nécessaire pour passer à côté de
+    public float sideLength = 1f;           // Cube La longueur du côté de
 
-    bool isRotate = false;                  // Cubeが回転中かどうかを検出するフラグ
-    float directionX = 0;                   // 回転方向フラグ
-    float directionZ = 0;                   // 回転方向フラグ
 
-    Vector3 startPos;                       // 回転前のCubeの位置
-    float rotationTime = 0;                 // 回転中の時間経過
-    float radius;                           // 重心の軌道半径
-    Quaternion fromRotation;                // 回転前のCubeのクォータニオン
-    Quaternion toRotation;                  // 回転後のCubeのクォータニオン
+    bool isRotate = false;                  // Cube Est en rotation ou pas
+    float directionX = 0;                   // Indicateur de direction de rotation
+    float directionZ = 0;                   // Indicateur de direction de rotation
 
-    // Use this for initialization
+    Vector3 startPos;                       // Avant rotation Cube Position
+    float rotationTime = 0;                 // Temps qui passe pendant la rotation
+    float radius;                           // Rayon de centrage orbital
+    Quaternion fromRotation;                // Quotanion de Cube avant rotation
+    Quaternion toRotation;                  // Quotanion de Cube après rotation
+
     void Start()
     {
-
-        // 重心の回転軌道半径を計算
+        // Calculer le rayon du centre de gravité de l'orbite en rotation
         radius = sideLength * Mathf.Sqrt(2f) / 2f;
-
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-
         float x = 0;
         float y = 0;
 
-        // キー入力を拾う。
+        // Ramassez l'entrée clé.
         x = Input.GetAxisRaw("Horizontal");
         if (x == 0)
         {
@@ -43,18 +40,18 @@ public class Test_CubeRotation : MonoBehaviour {
         }
 
 
-        // キー入力がある　かつ　Cubeが回転中でない場合、Cubeを回転する。
+        // S'il y a une entrée clé et que le cube ne tourne pas, faites-le pivoter.
         if ((x != 0 || y != 0) && !isRotate)
         {
-            directionX = y;                                                             // 回転方向セット (x,yどちらかは必ず0)
-            directionZ = x;                                                             // 回転方向セット (x,yどちらかは必ず0)
-            startPos = transform.position;                                              // 回転前の座標を保持
-            fromRotation = transform.rotation;                                          // 回転前のクォータニオンを保持
-            transform.Rotate(directionZ * 90, 0, directionX * 90, Space.World);     // 回転方向に90度回転させる
-            toRotation = transform.rotation;                                            // 回転後のクォータニオンを保持
-            transform.rotation = fromRotation;                                          // CubeのRotationを回転前に戻す。（transformのシャローコピーとかできないんだろうか…。）
-            rotationTime = 0;                                                           // 回転中の経過時間を0に。
-            isRotate = true;                                                            // 回転中フラグをたてる。
+            directionX = y;                                                             // Sens de rotation défini (x ou y doivent être 0)
+            directionZ = x;                                                             // Sens de rotation défini (x ou y doivent être 0)
+            startPos = transform.position;                                              // Maintenir les coordonnées avant la rotation
+            fromRotation = transform.rotation;                                          // Garder le quaternion avant la rotation
+            transform.Rotate(directionZ * 90, 0, directionX * 90, Space.World);     // Rotation de 90 degrés dans le sens de la rotation
+            toRotation = transform.rotation;                                            // Conserver le quaternion après la rotation
+            transform.rotation = fromRotation;                                          // Retourner la rotation du cube avant la rotation. (N'est-ce pas une copie superficielle de Transformer ou ...?)
+            rotationTime = 0;                                                           // Définissez le temps écoulé pendant la rotation sur 0.
+            isRotate = true;                                                            // Définir un drapeau rotatif.
         }
     }
 
@@ -64,20 +61,20 @@ public class Test_CubeRotation : MonoBehaviour {
         if (isRotate)
         {
 
-            rotationTime += Time.fixedDeltaTime;                                    // 経過時間を増やす
-            float ratio = Mathf.Lerp(0, 1, rotationTime / rotationPeriod);          // 回転の時間に対する今の経過時間の割合
+            rotationTime += Time.fixedDeltaTime;                                    // Augmenter le temps écoulé
+            float ratio = Mathf.Lerp(0, 1, rotationTime / rotationPeriod);          // Pourcentage du temps écoulé actuel par rapport au temps de rotation
 
-            // 移動
-            float thetaRad = Mathf.Lerp(0, Mathf.PI / 2f, ratio);                   // 回転角をラジアンで。
-            float distanceX = -directionX * radius * (Mathf.Cos(45f * Mathf.Deg2Rad) - Mathf.Cos(45f * Mathf.Deg2Rad + thetaRad));      // X軸の移動距離。 -の符号はキーと移動の向きを合わせるため。
-            float distanceY = radius * (Mathf.Sin(45f * Mathf.Deg2Rad + thetaRad) - Mathf.Sin(45f * Mathf.Deg2Rad));                        // Y軸の移動距離
-            float distanceZ = directionZ * radius * (Mathf.Cos(45f * Mathf.Deg2Rad) - Mathf.Cos(45f * Mathf.Deg2Rad + thetaRad));           // Z軸の移動距離
-            transform.position = new Vector3(startPos.x + distanceX, startPos.y + distanceY, startPos.z + distanceZ);                       // 現在の位置をセット
+            // Déplacer
+            float thetaRad = Mathf.Lerp(0, Mathf.PI / 2f, ratio);                   // Angle de rotation en radians.
+            float distanceX = -directionX * radius * (Mathf.Cos(45f * Mathf.Deg2Rad) - Mathf.Cos(45f * Mathf.Deg2Rad + thetaRad));      // Distance parcourue sur l'axe X. Le signe de - sert à aligner la direction du mouvement sur la clé.
+            float distanceY = radius * (Mathf.Sin(45f * Mathf.Deg2Rad + thetaRad) - Mathf.Sin(45f * Mathf.Deg2Rad));                        // Distance de déplacement de l'axe Y
+            float distanceZ = directionZ * radius * (Mathf.Cos(45f * Mathf.Deg2Rad) - Mathf.Cos(45f * Mathf.Deg2Rad + thetaRad));           // Distance de déplacement de l'axe Z
+            transform.position = new Vector3(startPos.x + distanceX, startPos.y + distanceY, startPos.z + distanceZ);                       // Définir la position actuelle
 
-            // 回転
-            transform.rotation = Quaternion.Lerp(fromRotation, toRotation, ratio);      // Quaternion.Lerpで現在の回転角をセット（なんて便利な関数）
+            // Rotation
+            transform.rotation = Quaternion.Lerp(fromRotation, toRotation, ratio);      // Définir l’angle de rotation actuel avec Quaternion.Lerp (quelle fonction utile)
 
-            // 移動・回転終了時に各パラメータを初期化。isRotateフラグを下ろす。
+            // Initialise chaque paramètre en fin de mouvement / rotation. Abaissez le drapeau isRotate.
             if (ratio == 1)
             {
                 isRotate = false;

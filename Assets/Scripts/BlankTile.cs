@@ -21,7 +21,7 @@ public class BlankTile : MonoBehaviour {
     private void OnMouseOver()
     {
         
-        if (!GameManager.playerHasLaunchedSimulation && !CurrentLevelManager.isGreenArrowStockEmpty && TileUIManager.isGreenArrowSelected)
+        if (!GameManager.simulationIsRunning && !CurrentLevelManager.isGreenArrowStockEmpty && TileUIManager.isGreenArrowSelected)
         {
             _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
 
@@ -35,7 +35,7 @@ public class BlankTile : MonoBehaviour {
                 CurrentLevelManager.greenArrowStock_static--;
                 //Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
             }
-            else if (GameManager.playerHasLaunchedSimulation || Input.GetMouseButtonDown(1))
+            else if (GameManager.simulationIsRunning || Input.GetMouseButtonDown(1))
             {
                 _renderer.material.SetTexture("_MainTex", blankTileTexture);
             }

@@ -25,8 +25,13 @@ public class BoardManager : MonoBehaviour
         original_boardManagerArray = LoopThrough1DArray(original_boardManagerArray);
         original_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
         updated_boardManagerArray = original_boardManagerArray;
+        updated_3DBoard = original_3DBoard;
     }
 
+    private void FixedUpdate()
+    {
+            updated_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
+    }
 
     private void LateUpdate()
     {
@@ -37,7 +42,7 @@ public class BoardManager : MonoBehaviour
             playerHasChangedATile = false;
         }
 
-        if (GameManager.playerHasLaunchedSimulation)
+        if (GameManager.simulationIsRunning)
         {
             updated_boardManagerArray = LoopThrough1DArray(updated_boardManagerArray);
             updated_3DBoard = LoopThrough3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
@@ -47,11 +52,8 @@ public class BoardManager : MonoBehaviour
 
     public Transform[] LoopThrough1DArray(Transform[] boardManagerArray)
     {
-        //if (GameManager.playerHasLaunchedSimulation)
-        //    Debug.LogWarning("1D board - START");
 
         boardManagerArray = new Transform[transform.childCount];
-        //Debug.Log(boardManagerArray.Length);
 
         int i = 0;
         foreach (Transform child in transform)      // Loop through the BoardManager children in the scene to put every tile in an array so it can be sorted out in multidimensional array after that.
@@ -65,48 +67,36 @@ public class BoardManager : MonoBehaviour
                 boardManagerArray[boardManagerArray.Length] = child.transform;
         }
 
-        //if (GameManager.playerHasLaunchedSimulation)
-        //    Debug.LogWarning("1D board - END");
-
         return boardManagerArray;
     }
 
 
     public Transform[,,] LoopThrough3DBoard(Transform[] boardManagerArray, Transform[,,] board3D, int boardWidth, int boardHeight, int boardDepth)
     {
-        //if (GameManager.playerHasLaunchedSimulation)
-        //    Debug.LogWarning("3D board - START");
+        board3D = new Transform[boardWidth, boardHeight, boardDepth];   // conserver cette manière de calculer le ratio et créer un nouveau type de tile "out of field tile" pour simuler des damiers non carrés
 
-        board3D = new Transform[boardWidth, boardHeight, boardDepth];   //concerver cette manière de calculer le ratio et créer un nouveau type de tile "out of field tile" pour simuler des tableau non carrés
-
-        //Loops through the original_3DBoard and put the tiles in the array's cells according to their position in the board.
+        // Loops through the original_3DBoard and put the tiles in the array's cells according to their position in the board.
         // Exemple : if the tile has Vector3(1(x), 0(y), 2(z)) for position, it will be stored in the original_3DBoard[1, 0, 2] cell.
-        int n = 0;  //used to loop through the uni-dimension array original_boardManagerArray.
         for (int z = 0; z < board3D.GetLength(2); z++)
         {
             for (int y = 0; y < board3D.GetLength(1); y++)
             {
                 for (int x = 0; x < board3D.GetLength(0); x++)
                 {
-                    try
+                    for (int i = 0; i < boardManagerArray.Length; i++)
                     {
-                        xPos = (int)boardManagerArray[n].transform.position.x; //store the position of the current tile in an int.
-                        yPos = (int)boardManagerArray[n].transform.position.y; //store the position of the current tile in an int.
-                        zPos = (int)boardManagerArray[n].transform.position.z; //store the position of the current tile in an int.
-                        board3D[xPos, yPos, zPos] = boardManagerArray[n];   //use the int where x, y and z positions were stored before to put the tile in the corresponding index
+                        if (boardManagerArray[i])
+                        {
+                            xPos = (int)boardManagerArray[i].transform.position.x; //store the position of the current tile in an int.
+                            yPos = (int)boardManagerArray[i].transform.position.y; //store the position of the current tile in an int.
+                            zPos = (int)boardManagerArray[i].transform.position.z; //store the position of the current tile in an int.
+                            board3D[xPos, yPos, zPos] = boardManagerArray[i];   //use the int where x, y and z positions were stored before to put the tile in the corresponding index
+                        }
                     }
-                    catch
-                    {
-                        //if (!board3D[xPos, yPos, zPos])
-                        //    board3D[xPos, yPos, zPos] = null;
-                    }
-                    n++;
                 }
             }
         }
 
-        //if (GameManager.playerHasLaunchedSimulation)
-        //    Debug.LogWarning("3D board - END");
 
         //Debug.LogWarning("has looped through 3D board");
 
@@ -118,21 +108,21 @@ public class BoardManager : MonoBehaviour
         //    {
         //        for (int x = 0; x < board3D.GetLength(0); x++)
         //        {
-        //            try
+        //            if (board3D[x, y, z])
         //            {
         //                Debug.Log(board3D[x, y, z].name + " = ("
-        //                 + x + ", "
-        //                 + y + ", "
-        //                 + z
-        //                 + ")");
+        //             + x + ", "
+        //             + y + ", "
+        //             + z
+        //             + ")");
         //            }
-        //            catch
+        //            else if (!board3D[x, y, z])
         //            {
         //                Debug.LogWarning("no tile at position = " + "("
-        //                    + x
-        //                    + ", " + y
-        //                    + ", " + z
-        //                    + ")");
+        //                + x
+        //                + ", " + y
+        //                + ", " + z
+        //                + ")");
         //            }
         //        }
         //    }

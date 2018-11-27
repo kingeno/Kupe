@@ -9,48 +9,62 @@ public class CubeController : MonoBehaviour
     public Transform[,,] tilesBoard;
     public int xPos, yPos, zPos;
 
-    public Vector3 currentTurnPos;
-    public Vector3 lastMovement;
-    public Vector3 predicted_NextTurnPos, predicted_NextTurnMovement;
-    public Vector3 confirmed_NextTurnPos, confirmed_NextTurnMovement;
-    
+    [HideInInspector] public Vector3 currentTurnPos;
+    [HideInInspector] public Vector3 lastMovement;
+    [HideInInspector] public Vector3 predicted_NextTurnPos, predicted_NextTurnMovement;
+    [HideInInspector] public Vector3 confirmed_NextTurnPos, confirmed_NextTurnMovement;
+
 
     // Used to store tiles positions and use them
-    public Vector3 aboveAdjacentPos, belowAdjacentPos;        // adjacent positions
-    public Vector3 frontAdjacentPos, backAdjacentPos, rightAdjacentPos, lefttAdjacentPos;
+    public Vector3 above_AdjacentPos, below_AdjacentPos;        // adjacent positions
+    public Vector3 front_AdjacentPos, back_AdjacentPos, right_AdjacentPos, left_AdjacentPos;
+    public Vector3 frontRight_DiagonalPos, frontLeft_DiagonalPos, backRight_DiagonalPos, backLeft_DiagonalPos;
     public Vector3 aboveFront_AdjacentPos, aboveBack_AdjacentPos, aboveRight_AdjacentPos, aboveLeft_AdjacentPos;
     public Vector3 belowFront_AdjacentPos, belowBack_AdjacentPos, belowRight_AdjacentPos, belowLeft_AdjacentPos;
 
-    public Vector3 aboveTwoTilesAwayPos, belowTwoTilesAwayPos;    // two tiles away position
-    public Vector3 frontTwoTilesAwayPos, backTwoTilesAwayPos, rightTwoTilesAwayPos, lefttTwoTilesAwayPos;
+    public Vector3 above_TwoTilesAwayPos, below_TwoTilesAwayPos;    // two tiles away positions
+    public Vector3 front_TwoTilesAwayPos, back_TwoTilesAwayPos, right_TwoTilesAwayPos, left_TwoTilesAwayPos;
 
-    
+
     // Used to store Tiles and use them (don't forget to use GetComponent)
-    public Transform aboveAdjacentTile, belowAdjacentTile;     // adjacent tiles
-    public Transform frontAdjacentTile, backAdjacentTile, rightAdjacentTile, lefttAdjacentTile;
-    public Transform aboveFront_AdjacentTile, aboveBack_AdjacentTile, aboveRight_AdjacentTile, aboveLeft_AdjacentTile;
-    public Transform belowFront_AdjacentTile, belowBack_AdjacentTile, belowRight_AdjacentTile, belowLeft_AdjacentTile;
+    // public Transform above_AdjacentTile, below_AdjacentTile;
+    // public Transform front_AdjacentTile, back_AdjacentTile, right_AdjacentTile, left_AdjacentTile;
+    // public Transform front_Right_DiagonalTile, frontLeft_DiagonalTile, backRight_DiagonalTile, backLeft_DiagonalTile;
+    // public Transform aboveFront_AdjacentTile, aboveBack_AdjacentTile, aboveRight_AdjacentTile, aboveLeft_AdjacentTile;
+    // public Transform belowFront_AdjacentTile, belowBack_AdjacentTile, belowRight_AdjacentTile, belowLeft_AdjacentTile;
 
-    public Transform aboveTwoTilesAway, belowTwoTilesAway;     // two tiles away tiles
-    public Transform frontTwoTilesAway, backTwoTilesAway, rightTwoTilesAway, lefttTwoTilesAway;
+    // public Transform above_TwoTilesAway, below_TwoTilesAway;
+    // public Transform front_TwoTilesAway, back_TwoTilesAway, right_TwoTilesAway, left_TwoTilesAway;
 
 
     // Used to determine if the cube will move and where will it moves based on predicted futur position
-    public bool willMove, willNotMove;
+    public bool willMove;
     public bool willMoveForward, willMoveBack, willMoveRight, willMoveLeft, willMoveUp, willMoveDown;
 
-    public bool willRoundTrip, willNotRoundTrip;
+    public bool willRoundTrip;
     public bool willRoundTripForward, willRoundTripBack, willRoundTripRight, willRoundTripLeft, willRoundTripUp, willRoundTripDown;
 
+    public bool[] movementBoolArray;
+
+    public Animator cubeAnimator;
+    // public Animation forward_animation, back_Animation, right_Animation, left_Animation, moveDown_Animation, moveUp_Animation;
+    // public Animation forward_RoundTripAnimation, back_RoundTripAnimation, right_RoundTripAnimation, left_RoundTripAnimation;
+    // public Animation notMoving_Animation;
 
     private void Start()
     {
         tilesBoard = BoardManager.original_3DBoard;
+
+        movementBoolArray = new bool[] {
+            willMove, willRoundTrip,
+            willMoveForward, willMoveBack, willMoveRight, willMoveLeft, willMoveUp, willMoveDown,
+            willRoundTripForward, willRoundTripBack, willRoundTripRight, willRoundTripLeft, willRoundTripUp, willRoundTripDown };
     }
 
     //TurnInitialazer must be run at the beginning of each turn to ensure that the cube position is correct
     public void TurnInitializer()
     {
+        //Debug.Log("rune " + name + " Initializer.");
         tilesBoard = BoardManager.updated_3DBoard;
 
         currentTurnPos = transform.position;
@@ -58,20 +72,18 @@ public class CubeController : MonoBehaviour
         yPos = (int)currentTurnPos.y;
         zPos = (int)currentTurnPos.z;
 
-        if (willNotMove)
+        if (!willMove)
         {
-            willMove =
-            willNotMove =
             willMoveForward =
             willMoveBack =
             willMoveRight =
             willMoveLeft =
-            willMoveUp = 
+            willMoveUp =
             willMoveDown = false;
         }
-        if (willNotRoundTrip)
+
+        if (!willRoundTrip)
         {
-            willRoundTrip =
             willRoundTripForward =
             willRoundTripBack =
             willRoundTripRight =
@@ -80,42 +92,50 @@ public class CubeController : MonoBehaviour
             willRoundTripDown = false;
         }
 
-        aboveAdjacentPos = (currentTurnPos + new Vector3(0, 0, 0));
-        belowAdjacentPos = (currentTurnPos + new Vector3(0, -1, 0));
 
-        frontAdjacentPos = (currentTurnPos + new Vector3(0, 0, 1));
-        backAdjacentPos = (currentTurnPos + new Vector3(0, 0, -1));
-        rightAdjacentPos = (currentTurnPos + new Vector3(1, 0, 0));
-        lefttAdjacentPos = (currentTurnPos + new Vector3(-1, 0, 0));
+        //Debug.Log(name + " willMove=" + willMove + ";   willRoundTrip=" + willRoundTrip);
+
+        above_AdjacentPos = (currentTurnPos + new Vector3(0, 1, 0));
+        below_AdjacentPos = (currentTurnPos + new Vector3(0, -1, 0));
+
+        front_AdjacentPos = (currentTurnPos + new Vector3(0, 0, 1));
+        back_AdjacentPos = (currentTurnPos + new Vector3(0, 0, -1));
+        right_AdjacentPos = (currentTurnPos + new Vector3(1, 0, 0));
+        left_AdjacentPos = (currentTurnPos + new Vector3(-1, 0, 0));
+
+        frontRight_DiagonalPos = (currentTurnPos + new Vector3(1, 0, 1));
+        frontLeft_DiagonalPos = (currentTurnPos + new Vector3(-1, 0, 1));
+        backRight_DiagonalPos = (currentTurnPos + new Vector3(1, 0, -1));
+        backLeft_DiagonalPos = (currentTurnPos + new Vector3(-1, 0, -1));
 
         aboveFront_AdjacentPos = (currentTurnPos + new Vector3(0, 1, 1));
         aboveBack_AdjacentPos = (currentTurnPos + new Vector3(0, 1, -1));
-        aboveRight_AdjacentPos = (currentTurnPos + new Vector3(1, 0, 1));
-        aboveLeft_AdjacentPos = (currentTurnPos + new Vector3(-1, 0, 1));
+        aboveRight_AdjacentPos = (currentTurnPos + new Vector3(1, 1, 0));
+        aboveLeft_AdjacentPos = (currentTurnPos + new Vector3(-1, 1, 0));
 
-        aboveTwoTilesAwayPos = (currentTurnPos + new Vector3(0, 2, 0));    // two tiles away positions
-        belowTwoTilesAwayPos = (currentTurnPos + new Vector3(0, -2, 0));
+        // two tiles away positions
+        above_TwoTilesAwayPos = (currentTurnPos + new Vector3(0, 2, 0));
+        below_TwoTilesAwayPos = (currentTurnPos + new Vector3(0, -2, 0));
 
-        frontTwoTilesAwayPos = (currentTurnPos + new Vector3(0, 0, 2));
-        backTwoTilesAwayPos = (currentTurnPos + new Vector3(0, 0, -2));
-        rightTwoTilesAwayPos = (currentTurnPos + new Vector3(2, 0, 0));
-        lefttTwoTilesAwayPos = (currentTurnPos + new Vector3(-2, 0, 0));
+        front_TwoTilesAwayPos = (currentTurnPos + new Vector3(0, 0, 2));
+        back_TwoTilesAwayPos = (currentTurnPos + new Vector3(0, 0, -2));
+        right_TwoTilesAwayPos = (currentTurnPos + new Vector3(2, 0, 0));
+        left_TwoTilesAwayPos = (currentTurnPos + new Vector3(-2, 0, 0));
     }
 
     //check the position of the tile relatively to the current cube position
     public Transform TileCheck(Vector3 tilePos)
     {
+        //Debug.Log("run " + name + " Tile Check");
         Transform tile;
-
+        Debug.Log(name);
         if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
         {
             tile = tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z];
-            Debug.Log("Tile Check -- is full");
             return tile;
         }
         else
         {
-            Debug.Log("Tile Check -- is empty");
             return null;
         }
     }
@@ -123,74 +143,76 @@ public class CubeController : MonoBehaviour
     public Vector3 PredictNextTurnPos(Transform belowTile) // assign the value returned by TileCheck() to know whitch type of tile the cube has below it(or not)
     {
         // This function also checks if there is an obstacle at the predicted next turn position of the cube
+        //Debug.Log("Function()   " + name + " Predict Next Turn Pos");
         Vector3 predictedPos = Vector3.zero;
 
-
-        if (belowTile.tag == "Forward Arrow")
+        if (!belowTile) //if the cube has no tile below it
         {
-            if(!tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            Debug.Log(name + " has no tile below it");
+            predictedPos = (currentTurnPos + new Vector3(0, -1, 0));
+            willMove = willMoveDown = true;
+        }
+        else if (belowTile.tag == "Forward Arrow")
+        {
+            predictedPos = (currentTurnPos + new Vector3(0, 0, 1)); // determine the predicted next turn position of the cube
+            if (!tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             {
-                predictedPos = (currentTurnPos + new Vector3(0, 0, 1)); // determine the predicted next turn position of the cube
                 lastMovement = new Vector3(0, 0, 1);    // store the movement so that it can be used if the cube is on a blank tile or another cube
                 willMove = willMoveForward = true;
-                willNotMove = willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
+                willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
             }
-            if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z]) // if there is already something a the predicted position
+            else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z]) // if there is already something a the predicted position
             {
                 predictedPos = currentTurnPos; // set the next turn position as the current so the cube doesn't move
                 lastMovement = new Vector3(0, 0, 0);    // idem for the last movement
-                willNotMove = true;
                 willMove = willMoveForward = willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
             }
         }
         else if (belowTile.tag == "Back Arrow")
         {
+            predictedPos = (currentTurnPos + new Vector3(0, 0, -1));
             if (!tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             {
-                predictedPos = (currentTurnPos + new Vector3(0, 0, -1));
                 lastMovement = new Vector3(0, 0, -1);
                 willMove = willMoveBack = true;
-                willNotMove = willMoveForward = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
+                willMoveForward = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
             }
-            if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             {
                 predictedPos = currentTurnPos;
                 lastMovement = new Vector3(0, 0, 0);
-                willNotMove = true;
                 willMove = willMoveForward = willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
             }
         }
         else if (belowTile.tag == "Right Arrow")
         {
+            predictedPos = (currentTurnPos + new Vector3(1, 0, 0));
             if (!tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             {
-                predictedPos = (currentTurnPos + new Vector3(1, 0, 0));
                 lastMovement = new Vector3(1, 0, 0);
                 willMove = willMoveRight = true;
-                willNotMove = willMoveForward = willMoveBack = willMoveLeft = willMoveUp = willMoveDown = false;
+                willMoveForward = willMoveBack = willMoveLeft = willMoveUp = willMoveDown = false;
             }
-            if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             {
                 predictedPos = currentTurnPos;
                 lastMovement = new Vector3(0, 0, 0);
-                willNotMove = true;
                 willMove = willMoveForward = willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
             }
         }
         else if (belowTile.tag == "Left Arrow")
         {
+            predictedPos = (currentTurnPos + new Vector3(-1, 0, 0));
             if (!tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             {
-                predictedPos = (currentTurnPos + new Vector3(-1, 0, 0));
                 lastMovement = new Vector3(-1, 0, 0);
                 willMove = willMoveLeft = true;
-                willNotMove = willMoveForward = willMoveBack = willMoveRight = willMoveUp = willMoveDown = false;
+                willMoveForward = willMoveBack = willMoveRight = willMoveUp = willMoveDown = false;
             }
-            if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             {
                 predictedPos = currentTurnPos;
                 lastMovement = new Vector3(0, 0, 0);
-                willNotMove = true;
                 willMove = willMoveForward = willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
             }
         }
@@ -202,15 +224,103 @@ public class CubeController : MonoBehaviour
             {
                 predictedPos = currentTurnPos;
                 lastMovement = new Vector3(0, 0, 0);
-                willNotMove = true;
+                willMove = false;
             }
         }
-        else if (!belowTile) //if the cube has no tile below it
+
+        else if (belowTile.tag == "End Tile")
         {
-            predictedPos = (currentTurnPos + new Vector3(0, -1, 0));
+            predictedPos = currentTurnPos;
+            willMove = willRoundTrip = false;
+            lastMovement = new Vector3(0, 0, 0);
+            //if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            //{
+            //    predictedPos = currentTurnPos;
+            //    lastMovement = new Vector3(0, 0, 0);
+            //    willMove = false;
+            //}
         }
 
-        //Vector3 is a value type (opposed to reference type) so it needs to be asigned to an extern Vector3 (here predicted_NextTurnPos) so it can be used outside of the function
+        //Vector3 is a value type (opposed to reference type) so it needs to be asigned to an extern Vector3 (here predicted_NextTurnPos) so it can be used outside of the function 
+        //--> It seems that it doesn't need to, maybe because the function is called in antoher function (Update())
+        //Debug.Log(name + " predicted pos= " + predictedPos);
         return predictedPos;
+    }
+
+    public void AnimationBooleanChecker()
+    {
+        for (int i = 0; i < movementBoolArray.Length; i++)
+        {
+            if (movementBoolArray[i])
+            {
+                Debug.Log(name + " will do " + movementBoolArray[i].ToString());
+                break;
+            }
+            else if (!movementBoolArray[i] && i == movementBoolArray.Length)
+            {
+                Debug.LogError(name + " has no movement set. It will be considered as not moving.");
+                willMove = false;
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+
+    public void TriggerAnimation()
+    {
+        //Debug.Log("run " + name + " Trigger Animation.");
+        if (!willMove && !willRoundTrip)
+        {
+            //Debug.Log(name + " will NOT move");
+            // no animation needed -> maybe some effects or a blink of the cube
+            transform.position = currentTurnPos;
+        }
+        else if (willMove)
+        {
+            //Debug.Log(name + " will move coroutine");
+            StartCoroutine(MoveOverSeconds(this.gameObject, confirmed_NextTurnPos, 0.4f));
+        }
+        else if (willRoundTrip)
+        {
+            StartCoroutine(RoundTripOverSeconds(this.gameObject, predicted_NextTurnPos, 0.02f));
+        }
+    }
+
+
+    IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endPos, float seconds)     // original code : https://answers.unity.com/questions/296347/move-transform-to-target-in-x-seconds.html
+    {
+        float elapsedTime = 0;
+        Vector3 startingPos = objectToMove.transform.position;
+        while (elapsedTime < seconds)
+        {
+            objectToMove.transform.position = Vector3.Lerp(startingPos, endPos, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        objectToMove.transform.position = endPos;
+    }
+
+    IEnumerator RoundTripOverSeconds(GameObject objectToMove, Vector3 halfWayPos, float seconds)
+    {
+        float elapsedTime = 0;
+        Vector3 startingPos = objectToMove.transform.position;
+        while (elapsedTime < seconds)
+        {
+            objectToMove.transform.position = Vector3.Lerp(startingPos, halfWayPos, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0;
+        halfWayPos = objectToMove.transform.position;
+        while (elapsedTime < seconds)
+        {
+            objectToMove.transform.position = Vector3.Lerp(halfWayPos, startingPos, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        objectToMove.transform.position = startingPos;
     }
 }
