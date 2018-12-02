@@ -28,10 +28,10 @@ public class BoardManager : MonoBehaviour
         updated_3DBoard = original_3DBoard;
     }
 
-    private void FixedUpdate()
-    {
-            updated_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
-    }
+    //private void FixedUpdate()
+    //{
+    //        updated_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
+    //}
 
     private void LateUpdate()
     {
@@ -42,11 +42,22 @@ public class BoardManager : MonoBehaviour
             playerHasChangedATile = false;
         }
 
-        if (GameManager.simulationIsRunning)
+        if (GameManager.simulationIsRunning && GameManager.turnStart)
         {
             updated_boardManagerArray = LoopThrough1DArray(updated_boardManagerArray);
             updated_3DBoard = LoopThrough3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
         }
+    }
+
+    public void TurnInitializer()
+    {
+        // copier coller le code du LateUpdate et appeler la fonction dans le GameManager pour que le script s'exécute une seule fois.
+    }
+
+    public void SetInitialState()
+    {
+        updated_boardManagerArray = LoopThrough1DArray(updated_boardManagerArray);
+        updated_3DBoard = LoopThrough3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
     }
 
 
@@ -56,7 +67,7 @@ public class BoardManager : MonoBehaviour
         boardManagerArray = new Transform[transform.childCount];
 
         int i = 0;
-        foreach (Transform child in transform)      // Loop through the BoardManager children in the scene to put every tile in an array so it can be sorted out in multidimensional array after that.
+        foreach (Transform child in transform) // Loop through the BoardManager children in the scene to put every tile in an array so it can be sorted out in multidimensional array after that.
         {
             if (!boardManagerArray[i])
             {

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4893285859897830}
   - component: {fileID: 33863374593326894}
   - component: {fileID: 23963337980608100}
-  - component: {fileID: 65786779852135146}
+  - component: {fileID: 65793481066953802}
   - component: {fileID: 114014461803901496}
   m_Layer: 0
   m_Name: Blank Tile
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1530043892840220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 5}
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 659bf3ea895a65e4ab466b8538ca5ebb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,18 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1530043892840220}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65786779852135146
+--- !u!65 &65793481066953802
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1530043892840220}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.5, z: 0.8}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114014461803901496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,7 +109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 0}
-  greenArrowPrefab: {fileID: 0}
+  greenArrowPrefab: {fileID: 4313100651470246, guid: 0c737432ee3786d49872aca1d06fca1a,
+    type: 2}
   blankTileTexture: {fileID: 0}
   greenArrowSelectedTexture: {fileID: 2800000, guid: a1adf1ae0014b584c8a62a3b916977f8,
     type: 3}

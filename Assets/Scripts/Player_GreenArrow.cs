@@ -7,16 +7,22 @@ public class Player_GreenArrow : MonoBehaviour
     public bool canBeRotated; // disable rotation when the player has start simulation (space pressed)
 
     public bool isActive;
+    public bool canBeActivatedAgain;
     public int unactiveTurns;
     private int nextActiveTurn;
 
     public GameObject boardManager;
     public Transform blankTilePrefab;
 
+    public Transform[,,] tilesBoard;
+    public Vector3 above_AdjacentPos;
+    public Transform above_AdjacentTile;
+
     private Quaternion forwardArrow;
     private Quaternion backArrow;
     private Quaternion leftArrow;
     private Quaternion rightArrow;
+    public string tileOrientation;
 
     private Renderer _renderer;
     public Texture player_active_greenArrow;
@@ -28,58 +34,57 @@ public class Player_GreenArrow : MonoBehaviour
 
     void Start()
     {
-        boardManager = GameObject.FindGameObjectWithTag("BoardManager");
+        boardManager = GameObject.FindGameObjectWithTag("Board Manager");
+        isActive = true;
+        canBeRotated = true;
         _renderer = GetComponent<Renderer>();
 
         forwardArrow = Quaternion.Euler(0, 0, 0);
         backArrow = Quaternion.Euler(0, 180, 0);
-        rightArrow = Quaternion.Euler(0, 90, 0);
         leftArrow = Quaternion.Euler(0, 270, 0);
+        rightArrow = Quaternion.Euler(0, 90, 0);
 
+        tagWhenActive = "Player Green Arrow";
 
         if (transform.rotation == forwardArrow)
-        {
-            gameObject.tag = "Forward Arrow";
-            tagWhenActive = "Forward Arrow";
-        }
-        if (transform.rotation == rightArrow)
-        {
-            gameObject.tag = "Right Arrow";
-            tagWhenActive = "Right Arrow";
-        }
-        if (transform.rotation == backArrow)
-        {
-            gameObject.tag = "Back Arrow";
-            tagWhenActive = "Right Arrow";
-        }
-        if (transform.rotation == leftArrow)
-        {
-            gameObject.tag = "Left Arrow";
-            tagWhenActive = "Right Arrow";
-        }
+            tileOrientation = "Forward";
+        else if (transform.rotation == rightArrow)
+            tileOrientation = "Right";
+        else if (transform.rotation == backArrow)
+            tileOrientation = "Back";
+        else if (transform.rotation == leftArrow)
+            tileOrientation = "Left";
+
+        _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
+        gameObject.tag = tagWhenActive;
+
+        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
     }
 
-    private void Update()
+    public void SetInitialState()
     {
-        if (GameManager.simulationIsRunning)
-        {
-            if (isActive && !TileUIManager.isDeleteTileSelected)
-            {
-                _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
-                gameObject.tag = tagWhenActive;
-            }
-            else if (!isActive)
-            {
-                StateSwitch();
-                _renderer.material.SetTexture("_MainTex", player_unactive_greenArrow);
-                gameObject.tag = "Blank Tile";
-            }
-        }
+
+        isActive = true;
+        canBeRotated = true;
+        nextActiveTurn = 0;
+        _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
+        gameObject.tag = tagWhenActive;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void TurnInitializer()
     {
-        if (other.tag == "Player")
+        tilesBoard = BoardManager.updated_3DBoard;
+        above_AdjacentTile = TileCheck(above_AdjacentPos);
+        StateCheck();
+    }
+
+    public void StateCheck()
+    {
+        if (isActive && above_AdjacentTile && above_AdjacentTile.tag == "Cube" && unactiveTurns != 0)
+        {
+            StateSwitch();
+        }
+        else if (canBeActivatedAgain && !isActive && GameManager.currentTurn >= nextActiveTurn)
         {
             StateSwitch();
         }
@@ -90,15 +95,31 @@ public class Player_GreenArrow : MonoBehaviour
         if (isActive)
         {
             nextActiveTurn = GameManager.currentTurn + unactiveTurns;
+            _renderer.material.SetTexture("_MainTex", player_unactive_greenArrow);
+            gameObject.tag = "Blank Tile";
+            StartCoroutine(BlinkOverSeconds(Color.grey, 0.2f));
             isActive = false;
-            Debug.Log(name + ": state switch function / is deactivated");
         }
-        else if (!isActive && GameManager.currentTurn >= nextActiveTurn)
+        else if (canBeActivatedAgain && !isActive)
         {
-            isActive = true;
             nextActiveTurn = 0;
-            Debug.Log(name + ": state switch function / is activated");
+            _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
+            gameObject.tag = tagWhenActive;
+            StartCoroutine(BlinkOverSeconds(Color.green, 0.2f));
+            isActive = true;
         }
+    }
+
+    public Transform TileCheck(Vector3 tilePos)
+    {
+        Transform tile;
+        if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
+        {
+            tile = tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z];
+            return tile;
+        }
+        else
+            return null;
     }
 
     private void OnMouseOver()
@@ -113,7 +134,7 @@ public class Player_GreenArrow : MonoBehaviour
                 {
                     int hierarchyIndex = transform.GetSiblingIndex();                                                                        //Store the current hierarchy index of the blank tile.
                     Destroy(gameObject);                                                                                                     //Destroy green arrow tile.
-                    Transform newTile = Instantiate(blankTilePrefab, transform.position, transform.rotation, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
+                    Transform newTile = Instantiate(blankTilePrefab, transform.position, Quaternion.identity, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
                     newTile.SetSiblingIndex(hierarchyIndex);                                                                                 //Use the stored hierarchy index to put the new tile in place of the deleted one.
                     BoardManager.playerHasChangedATile = true;
                     CurrentLevelManager.greenArrowStock_static++;
@@ -124,23 +145,23 @@ public class Player_GreenArrow : MonoBehaviour
             {
                 if (transform.rotation == forwardArrow)
                 {
+                    tileOrientation = "Right";
                     transform.rotation = rightArrow;
-                    gameObject.tag = "Right Arrow";
                 }
                 else if (transform.rotation == rightArrow)
                 {
                     transform.rotation = backArrow;
-                    gameObject.tag = "Back Arrow";
+                    tileOrientation = "Back";
                 }
                 else if (transform.rotation == backArrow)
                 {
                     transform.rotation = leftArrow;
-                    gameObject.tag = "Left Arrow";
+                    tileOrientation = "Left";
                 }
                 else if (transform.rotation == leftArrow)
                 {
                     transform.rotation = forwardArrow;
-                    gameObject.tag = "Forward Arrow";
+                    tileOrientation = "Forward";
                 }
             }
         }
@@ -152,6 +173,27 @@ public class Player_GreenArrow : MonoBehaviour
         {
             _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
         }
+    }
+
+    IEnumerator BlinkOverSeconds(Color blinkColor, float seconds)
+    {
+        float elapsedTime = 0;
+        //Color startColor = _renderer.material.GetColor("_Color");
+        Color startColor = Color.white;
+        while (elapsedTime < seconds)
+        {
+            _renderer.material.color = Color.Lerp(startColor, blinkColor, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0;
+        while (elapsedTime < seconds)
+        {
+            _renderer.material.color = Color.Lerp(blinkColor, startColor, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        _renderer.material.color = startColor;
     }
 
     void OnGUI()

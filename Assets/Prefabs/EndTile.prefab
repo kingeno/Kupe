@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4415151225839080}
   - component: {fileID: 33279271083140218}
   - component: {fileID: 23246345977894554}
-  - component: {fileID: 65742037833600636}
+  - component: {fileID: 65955620632295192}
   - component: {fileID: 114681769341096986}
   m_Layer: 0
   m_Name: EndTile
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079740757037170}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65742037833600636
+--- !u!65 &65955620632295192
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.5, z: 0.8}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114681769341096986
 MonoBehaviour:
   m_ObjectHideFlags: 1

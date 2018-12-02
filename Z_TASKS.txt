@@ -1,9 +1,16 @@
 Tâches :
 
 - Impératif :
-	* système de flèche éphémère
 	* système de passage d'un niveau à l'autre (voir ci-dessous)
-	* interface utilisateur (dans un niveau, entre les niveaux, dans les menus)
+	* interface utilisateur
+		- in game (boutons : lancer simulation, recommancer, choisir cube, pause)
+		- pause in game (boutons : reprendre, quitter, controls)
+		- menu titre (jouer, options, quitter)
+			--> jouer : commencer depuis le début, choisir un niveau
+	* mouvements de camera avec la souris
+	* feedback sonores et visuels
+	* musique / son d'ambiance
 
 - Facultatif :
+	* interface utilisateur chiadée
 	* système de bloque ascenseur (avec direction)

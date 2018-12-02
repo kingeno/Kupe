@@ -64,10 +64,4 @@ public class TileUIManager : MonoBehaviour
             Debug.Log("green arrow tile selected = " + isGreenArrowSelected);
         }
     }
-
-    public void RestartCurrentLevel()
-    {
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
-    }
 }

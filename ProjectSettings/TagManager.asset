@@ -7,13 +7,11 @@ TagManager:
   - Blank Tile
   - Start Tile
   - End Tile
-  - Forward Arrow
-  - Back Arrow
-  - Left Arrow
-  - Right Arrow
   - HoleTile
-  - BoardManager
   - Cube
+  - Green Arrow
+  - Player Green Arrow
+  - Board Manager
   layers:
   - Default
   - TransparentFX

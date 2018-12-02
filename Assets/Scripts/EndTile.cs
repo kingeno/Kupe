@@ -17,6 +17,12 @@ public class EndTile : MonoBehaviour {
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
     }
 
+    public void SetInitialState()
+    {
+        isValidated = false;
+        tilesBoard = BoardManager.updated_3DBoard;
+    }
+
     public void TurnInitializer()
     {
         Debug.Log(name + " turn initializer");
@@ -33,7 +39,6 @@ public class EndTile : MonoBehaviour {
     {
         //Debug.Log("run " + name + " Tile Check");
         Transform tile;
-        Debug.Log(name);
         if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
         {
             tile = tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z];
