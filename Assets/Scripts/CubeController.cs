@@ -80,6 +80,11 @@ public class CubeController : MonoBehaviour
         }
         else
             cubeAvatar.GetComponent<MeshRenderer>().material.color = _transparentCubeColor;
+
+        if (GameManager.playerCanModifyBoard && GameManager.simulationIsRunning)
+        {
+            GameManager.playerCanModifyBoard = false;
+        }
     }
 
     public void SetInitialState()
@@ -411,13 +416,13 @@ public class CubeController : MonoBehaviour
             objectToMove.transform.position = Vector3.Lerp(startingPos, endPos, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
-                break;
+                objectToMove.transform.position = endPos;
             yield return null;
         }
         if (GameManager.simulationIsRunning)
             objectToMove.transform.position = endPos;
         else
-            transform.position = startPos;
+            transform.position = endPos;
     }
 
     IEnumerator RoundTripOverSeconds(GameObject objectToMove, Vector3 halfWayPos, float seconds)
@@ -439,7 +444,10 @@ public class CubeController : MonoBehaviour
             objectToMove.transform.position = Vector3.Lerp(halfWayPos, startingPos, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
+            {
+                transform.position = startingPos;
                 break;
+            }
             yield return null;
         }
         if (GameManager.simulationIsRunning)

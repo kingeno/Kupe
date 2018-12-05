@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public BoardManager boardManager;
+    private MainCamera _mainCamera;
+
+    public static bool levelIsRestart;
+    public static bool gameIsPaused;
+    private BoardManager boardManager;
 
     public GameObject[] cubes;
     public CubeController[] cubesControllers;
@@ -28,17 +32,24 @@ public class GameManager : MonoBehaviour
     public float initialTurnTime;
 
     public static bool simulationIsRunning;
+    public static bool playerCanModifyBoard;
 
     public bool allEndTilesAreValidated;
+    public static bool levelIsCompleted;
+
+
 
     private void Start()
     {
         currentTurnTime = turnTime;
+        levelIsCompleted = false;
         simulationIsRunning = false;
         allEndTilesAreValidated = false;
+        playerCanModifyBoard = true;
         turnCount = 0;
 
-        boardManager = GameObject.FindGameObjectWithTag("Board Manager").GetComponent<BoardManager>();
+        if (!boardManager)
+            boardManager = GameObject.FindGameObjectWithTag("Board Manager").GetComponent<BoardManager>();
 
         cubes = GameObject.FindGameObjectsWithTag("Cube");  // find all object of a certain type and put it in an array
         cubesControllers = new CubeController[cubes.Length]; // uses the previous made array to determine the lenght of the script array
@@ -64,6 +75,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (!_mainCamera)
+        {
+            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             LaunchSimulation();
@@ -74,13 +90,6 @@ public class GameManager : MonoBehaviour
 
         if (simulationIsRunning && !allEndTilesAreValidated)
         {
-            //player_GreenArrows = GameObject.FindGameObjectsWithTag("Player Green Arrow");
-            //player_GreenArrowsControllers = new Player_GreenArrow[player_GreenArrows.Length];
-            //for (int i = 0; i < player_GreenArrowsControllers.Length; i++)
-            //{
-            //    player_GreenArrowsControllers[i] = player_GreenArrows[i].GetComponent<Player_GreenArrow>();
-            //}
-
             if (!turnStart && turnIsFinished)
             {
                 foreach (EndTile endTile in endTilesControllers)
@@ -90,7 +99,7 @@ public class GameManager : MonoBehaviour
 
                 CheckIfEndTilesAreValidated();
 
-                if (!allEndTilesAreValidated && simulationIsRunning)
+                if (simulationIsRunning && !allEndTilesAreValidated)
                 {
                     foreach (CubeController cube in cubesControllers)
                     {
@@ -101,19 +110,15 @@ public class GameManager : MonoBehaviour
                     CompareCubesPredictedNextTurnPositions();
                     AnimateCube();
                     turnStart = true;
-                }
 
-                foreach (GreenArrow greenArrow in greenArrowsControllers)
-                {
-                    greenArrow.TurnInitializer();
-                }
-                foreach (Player_GreenArrow playerGreenArrow in player_GreenArrowsControllers)
-                {
-                    playerGreenArrow.TurnInitializer();
-                }
-
-                if (!allEndTilesAreValidated && simulationIsRunning)
-                {
+                    foreach (GreenArrow greenArrow in greenArrowsControllers)
+                    {
+                        greenArrow.TurnInitializer();
+                    }
+                    foreach (Player_GreenArrow playerGreenArrow in player_GreenArrowsControllers)
+                    {
+                        playerGreenArrow.TurnInitializer();
+                    }
                     currentTurn++;
                     Debug.LogWarning("turn: " + currentTurn);
                 }
@@ -135,7 +140,9 @@ public class GameManager : MonoBehaviour
             }
         }
         else
+        {
             simulationIsRunning = false;
+        }
     }
 
     public void TurnTimer()
@@ -173,6 +180,7 @@ public class GameManager : MonoBehaviour
                 {
                     allEndTilesAreValidated = true;
                     simulationIsRunning = false;
+                    levelIsCompleted = true;
                     break;
                 }
             }
@@ -182,7 +190,11 @@ public class GameManager : MonoBehaviour
             foreach (EndTile endTile in endTilesControllers)
             {
                 if (endTile.isValidated)
+                {
                     allEndTilesAreValidated = true;
+                    levelIsCompleted = true;
+                    simulationIsRunning = false;
+                }
                 else
                     allEndTilesAreValidated = false;
             }
@@ -536,13 +548,20 @@ public class GameManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        simulationIsRunning = false;
+        if (simulationIsRunning)
+            levelIsRestart = true;
+        if (simulationIsRunning)
+        {
+            simulationIsRunning = false;
+            _mainCamera.backgroundColorSwap();
+        }
         allEndTilesAreValidated = false;
         turnIsFinished = true;
         turnStart = false;
         currentTurnTime = turnTime;
         turnCount = 0;
         currentTurn = 0;
+
         if (greenArrowsControllers.Length > 0)
         {
             foreach (GreenArrow greenArrow in greenArrowsControllers)
@@ -564,9 +583,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
-
-
         foreach (CubeController cube in cubesControllers)
         {
             cube.SetInitialState();
@@ -576,7 +592,12 @@ public class GameManager : MonoBehaviour
             endTile.SetInitialState();
         }
 
+        levelIsCompleted = false;
+        playerCanModifyBoard = true;
+        _mainCamera.levelCompletedColorSwap = false;
+
         boardManager.SetInitialState();
+        //_mainCamera.backgroundColorSwap();
     }
 
     //void OnGUI()

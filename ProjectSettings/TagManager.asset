@@ -12,6 +12,8 @@ TagManager:
   - Green Arrow
   - Player Green Arrow
   - Board Manager
+  - LevelLoader
+  - GameManager
   layers:
   - Default
   - TransparentFX

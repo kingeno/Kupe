@@ -2,13 +2,18 @@ Tâches :
 
 - Impératif :
 	* système de passage d'un niveau à l'autre (voir ci-dessous)
+	--> ATTENTION : Canvas de la scene 001 est à jour, une fois fini en faire un préfab et le mettre dans toutes les scènes.
+	* faire également un préfab de camera à partir de la camera de la scène 1
+	* faire en sorte qu'une fois qu'au moins un cube n'est pas à sa position
 	* interface utilisateur
 		- in game (boutons : lancer simulation, recommancer, choisir cube, pause)
 		- pause in game (boutons : reprendre, quitter, controls)
 		- menu titre (jouer, options, quitter)
 			--> jouer : commencer depuis le début, choisir un niveau
+	* gérer les conditions de "défaite"
 	* mouvements de camera avec la souris
 	* feedback sonores et visuels
+	* animation des cubes
 	* musique / son d'ambiance
 
 - Facultatif :

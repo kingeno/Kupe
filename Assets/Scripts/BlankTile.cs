@@ -20,7 +20,7 @@ public class BlankTile : MonoBehaviour {
 
     private void OnMouseOver()
     {   
-        if (!GameManager.simulationIsRunning && !CurrentLevelManager.isGreenArrowStockEmpty && TileUIManager.isGreenArrowSelected)
+        if (!GameManager.simulationIsRunning && !CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected && GameManager.playerCanModifyBoard)
         {
             _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
 
@@ -43,7 +43,7 @@ public class BlankTile : MonoBehaviour {
 
     private void OnMouseExit()
     {
-        if (TileUIManager.isGreenArrowSelected)
+        if (InGameUIManager.isGreenArrowSelected)
         {
             _renderer.material.SetTexture("_MainTex", blankTileTexture);
         }

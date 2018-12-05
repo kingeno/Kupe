@@ -69,9 +69,13 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GreenArrow.cs" />
     <Compile Include="Assets\Scripts\GreenArrowButtonText.cs" />
+    <Compile Include="Assets\Scripts\InGameUIManager.cs" />
+    <Compile Include="Assets\Scripts\LevelLoader.cs" />
+    <Compile Include="Assets\Scripts\MainCamera.cs" />
+    <Compile Include="Assets\Scripts\MainMenuManager.cs" />
+    <Compile Include="Assets\Scripts\MainMenuUIManager.cs" />
     <Compile Include="Assets\Scripts\Player_GreenArrow.cs" />
     <Compile Include="Assets\Scripts\Test Scripts\Test_CubeRotation.cs" />
-    <Compile Include="Assets\Scripts\TileUIManager.cs" />
     <Reference Include="Unity.ProBuilder.AddOns.Editor">
       <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>

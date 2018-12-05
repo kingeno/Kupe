@@ -124,9 +124,9 @@ public class Player_GreenArrow : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!GameManager.simulationIsRunning)
+        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard)
         {
-            if (TileUIManager.isDeleteTileSelected)
+            if (InGameUIManager.isDeleteTileSelected)
             {
                 _renderer.material.SetTexture("_MainTex", deleteGreenArrowTileTexture);
 
@@ -169,7 +169,7 @@ public class Player_GreenArrow : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (TileUIManager.isDeleteTileSelected || GameManager.simulationIsRunning)
+        if (InGameUIManager.isDeleteTileSelected || GameManager.simulationIsRunning)
         {
             _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
         }
