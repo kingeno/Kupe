@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322792729766440}
   m_LocalRotation: {x: 0.46194038, y: -0.3314134, z: 0.19134173, w: 0.8001029}
-  m_LocalPosition: {x: 7, y: 11.5, z: -3}
+  m_LocalPosition: {x: 8, y: 12, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
-  playColor: {r: 0.24401727, g: 0.5283019, b: 0.19188322, a: 1}
+  playColor: {r: 0.17501779, g: 0.5377358, b: 0.21047908, a: 1}
   pauseColor: {r: 0.38823533, g: 0.21960786, b: 0.37254903, a: 1}
-  levelCompletedColor: {r: 0.8679245, g: 0.68481624, b: 0, a: 1}
+  levelCompletedColor: {r: 0.7924528, g: 0.6960404, b: 0.0710217, a: 1}
   colorTransitionTime: 0.1
-  levelCompletedColorTransitionTime: 0.5
+  levelCompletedColorTransitionTime: 0.3
   levelCompletedColorSwap: 0

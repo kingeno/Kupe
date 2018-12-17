@@ -8,6 +8,9 @@ public class BlankTile : MonoBehaviour {
 
     public Transform greenArrowPrefab;
 
+    public float randomGreyValue;
+    public Color _color;
+
     private Renderer _renderer;
     public Texture blankTileTexture;
     public Texture greenArrowSelectedTexture;
@@ -16,6 +19,12 @@ public class BlankTile : MonoBehaviour {
     {
         boardManager = GameObject.FindGameObjectWithTag("Board Manager");
         _renderer = GetComponent<Renderer>();
+
+        randomGreyValue = Random.Range(0.75f, .95f);
+
+        _color = new Color(randomGreyValue, randomGreyValue, randomGreyValue);
+
+        _renderer.material.color = _color;
     }
 
     private void OnMouseOver()
