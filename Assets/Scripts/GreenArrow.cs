@@ -25,6 +25,9 @@ public class GreenArrow : MonoBehaviour {
     public Texture active_greenArrow;
     public Texture unactive_greenArrow;
 
+    public float unactiveTimeColorSwap;
+    public float reactiveTimeColorSwap;
+
     void Start()
     {
         isActive = true;
@@ -50,6 +53,11 @@ public class GreenArrow : MonoBehaviour {
         gameObject.tag = tagWhenActive;
 
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+
+        if (reactiveTimeColorSwap == 0)
+            reactiveTimeColorSwap = 0.2f;
+        if (unactiveTimeColorSwap == 0)
+            unactiveTimeColorSwap = 0.3f;
     }
 
     public void SetInitialState()
@@ -86,7 +94,7 @@ public class GreenArrow : MonoBehaviour {
             nextActiveTurn = GameManager.currentTurn + unactiveTurns;
             _renderer.material.SetTexture("_MainTex", unactive_greenArrow);
             gameObject.tag = "Blank Tile";
-            StartCoroutine(BlinkOverSeconds(Color.grey, 0.2f));
+            StartCoroutine(BlinkOverSeconds(Color.grey, unactiveTimeColorSwap, false));
             isActive = false;
         }
         else if (canBeActivatedAgain && !isActive)
@@ -94,7 +102,7 @@ public class GreenArrow : MonoBehaviour {
             nextActiveTurn = 0;
             _renderer.material.SetTexture("_MainTex", active_greenArrow);
             gameObject.tag = tagWhenActive;
-            StartCoroutine(BlinkOverSeconds(Color.green, 0.2f));
+            StartCoroutine(BlinkOverSeconds(Color.green, reactiveTimeColorSwap, true));
             isActive = true;
         }
     }
@@ -111,7 +119,7 @@ public class GreenArrow : MonoBehaviour {
             return null;
     }
 
-    IEnumerator BlinkOverSeconds(Color blinkColor, float seconds)
+    IEnumerator BlinkOverSeconds(Color blinkColor, float seconds, bool isBlinking)
     {
         float elapsedTime = 0;
         //Color startColor = _renderer.material.GetColor("_Color");
@@ -122,14 +130,17 @@ public class GreenArrow : MonoBehaviour {
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        elapsedTime = 0;
-        while (elapsedTime < seconds)
+        if (isBlinking)
         {
-            _renderer.material.color = Color.Lerp(blinkColor, startColor, (elapsedTime / seconds));
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            elapsedTime = 0;
+            while (elapsedTime < seconds)
+            {
+                _renderer.material.color = Color.Lerp(blinkColor, startColor, (elapsedTime / seconds));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            _renderer.material.color = startColor;
         }
-        _renderer.material.color = startColor;
     }
 
     //void OnGUI()

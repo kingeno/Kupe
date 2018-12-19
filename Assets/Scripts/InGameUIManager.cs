@@ -37,7 +37,7 @@ public static bool isDeleteTileSelected;
         }
         if (!levelLoader)
         {
-            levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
+            levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
         }
     }
 

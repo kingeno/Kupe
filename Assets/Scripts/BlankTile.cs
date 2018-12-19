@@ -20,7 +20,7 @@ public class BlankTile : MonoBehaviour {
         boardManager = GameObject.FindGameObjectWithTag("Board Manager");
         _renderer = GetComponent<Renderer>();
 
-        randomGreyValue = Random.Range(0.75f, .95f);
+        randomGreyValue = Random.Range(0.80f, 0.95f);
 
         _color = new Color(randomGreyValue, randomGreyValue, randomGreyValue);
 
