@@ -1,21 +1,34 @@
 Tâches :
 
 - Impératif :
-	* système de passage d'un niveau à l'autre (voir ci-dessous)
-	--> ATTENTION : Canvas de la scene 001 est à jour, une fois fini en faire un préfab et le mettre dans toutes les scènes.
-	* faire également un préfab de camera à partir de la camera de la scène 1
-	* faire en sorte qu'une fois qu'au moins un cube n'est pas à sa position
+	* avoir un bouton qui reset le niveau complètement (supprime toute les cases posées)
+	* coder :
+		- case aiguillage (texture "séparator" dans le projet Unity)
+
 	* interface utilisateur
 		- in game (boutons : lancer simulation, recommancer, choisir cube, pause)
 		- pause in game (boutons : reprendre, quitter, controls)
 		- menu titre (jouer, options, quitter)
 			--> jouer : commencer depuis le début, choisir un niveau
+
+	* création d'une Quarantaine de niveaux (40 minimum)
+
 	* gérer les conditions de "défaite"
-	* mouvements de camera avec la souris
+	* mouvements de camera avec la souris (voir ici https://forum.unity.com/threads/click-drag-camera-movement.39513/)
 	* feedback sonores et visuels
 	* animation des cubes
 	* musique / son d'ambiance
 
+	* refacto (notamment passer les variables public en privé si possible ou les cacher dans l'inspecteur)
+	* documentation minimum
+
 - Facultatif :
 	* interface utilisateur chiadée
 	* système de bloque ascenseur (avec direction)
+	* système de tour permettant d'avoir des animations qui s'enchaînent avec fluidité (actuellement les animations sont sacadé due à un temps de calcule nécessaire entre les tours)
+	* créer un système de scriptable object
+	* intégrer TAA de PlayDead (à la fin car prend du temps lors de la build)
+
+- Autres
+	* penser à un système de gestion du jeu dans lequel toutes les trajectoires et interactions entre les cubes sont calculées à l'avance et lorsque le joueur clique sur le bouton "Play" seule la trajectoire des cubes est calculée --> ce système permettrait notamment d'avoir des animations et effets visuels plus "chiadés" et de visualiser si le puzzle est resolvable sans avoir à lancer la simulation (via une interface de debug ou un editeur de niveau).
+	--> ci-dessus : pas possible pour une première version prototype, y penser si un programmeur veut joindre le projet.

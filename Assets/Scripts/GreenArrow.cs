@@ -94,7 +94,7 @@ public class GreenArrow : MonoBehaviour {
             nextActiveTurn = GameManager.currentTurn + unactiveTurns;
             _renderer.material.SetTexture("_MainTex", unactive_greenArrow);
             gameObject.tag = "Blank Tile";
-            StartCoroutine(BlinkOverSeconds(Color.grey, unactiveTimeColorSwap, false));
+            StartCoroutine(BlinkOverSeconds(Color.grey, unactiveTimeColorSwap, true));
             isActive = false;
         }
         else if (canBeActivatedAgain && !isActive)

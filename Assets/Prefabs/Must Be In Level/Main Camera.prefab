@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 20005635055296866}
   - component: {fileID: 81539207862589846}
   - component: {fileID: 114863143425981784}
+  - component: {fileID: 114018467364049914}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -35,13 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322792729766440}
-  m_LocalRotation: {x: 0.46194038, y: -0.3314134, z: 0.19134173, w: 0.8001029}
-  m_LocalPosition: {x: 8, y: 12, z: -3}
+  m_LocalRotation: {x: 0.5299155, y: -0.31347594, z: 0.21949817, w: 0.7567979}
+  m_LocalPosition: {x: 5.01, y: 13.02, z: -1.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 60.000004, y: -45.000004, z: 0}
+  m_LocalEulerAnglesHint: {x: 70, y: -45.000004, z: 0}
 --- !u!20 &20005635055296866
 Camera:
   m_ObjectHideFlags: 1
@@ -66,7 +67,7 @@ Camera:
   far clip plane: 1000
   field of view: 40
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -89,6 +90,20 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322792729766440}
   m_Enabled: 1
+--- !u!114 &114018467364049914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322792729766440}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 364a13ef71f9b40e58990911b66a39cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlindMode: 0
+  BlindIntensity: 1
+  ColorBlindShader: {fileID: 4800000, guid: 88e723f30bf154fbe91c8f4fe29a7ee9, type: 3}
 --- !u!114 &114863143425981784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,7 +118,7 @@ MonoBehaviour:
   _camera: {fileID: 0}
   playColor: {r: 0.17501779, g: 0.5377358, b: 0.21047908, a: 1}
   pauseColor: {r: 0.38823533, g: 0.21960786, b: 0.37254903, a: 1}
-  levelCompletedColor: {r: 0.7924528, g: 0.6960404, b: 0.0710217, a: 1}
+  levelCompletedColor: {r: 0.49056602, g: 0.122641504, b: 0.45634046, a: 1}
   colorTransitionTime: 0.1
   levelCompletedColorTransitionTime: 0.3
   levelCompletedColorSwap: 0

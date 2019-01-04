@@ -16,7 +16,6 @@ public class CubeController : MonoBehaviour
     [HideInInspector] public Vector3 predicted_NextTurnPos, predicted_NextTurnMovement;
     [HideInInspector] public Vector3 confirmed_NextTurnPos, confirmed_NextTurnMovement;
 
-
     // Used to store tiles positions and use them
     public Vector3 above_AdjacentPos, below_AdjacentPos;        // adjacent positions
     public Vector3 front_AdjacentPos, back_AdjacentPos, right_AdjacentPos, left_AdjacentPos;
@@ -26,18 +25,6 @@ public class CubeController : MonoBehaviour
 
     public Vector3 above_TwoTilesAwayPos, below_TwoTilesAwayPos;    // two tiles away positions
     public Vector3 front_TwoTilesAwayPos, back_TwoTilesAwayPos, right_TwoTilesAwayPos, left_TwoTilesAwayPos;
-
-
-    // Used to store Tiles and use them (don't forget to use GetComponent)
-    // public Transform above_AdjacentTile, below_AdjacentTile;
-    // public Transform front_AdjacentTile, back_AdjacentTile, right_AdjacentTile, left_AdjacentTile;
-    // public Transform front_Right_DiagonalTile, frontLeft_DiagonalTile, backRight_DiagonalTile, backLeft_DiagonalTile;
-    // public Transform aboveFront_AdjacentTile, aboveBack_AdjacentTile, aboveRight_AdjacentTile, aboveLeft_AdjacentTile;
-    // public Transform belowFront_AdjacentTile, belowBack_AdjacentTile, belowRight_AdjacentTile, belowLeft_AdjacentTile;
-
-    // public Transform above_TwoTilesAway, below_TwoTilesAway;
-    // public Transform front_TwoTilesAway, back_TwoTilesAway, right_TwoTilesAway, left_TwoTilesAway;
-
 
     // Used to determine if the cube will move and where will it moves based on predicted futur position
     public bool willMove;
@@ -112,7 +99,6 @@ public class CubeController : MonoBehaviour
     //TurnInitialazer must be run at the beginning of each turn to ensure that the cube position is correct
     public void TurnInitializer()
     {
-        //Debug.Log("rune " + name + " Initializer.");
         tilesBoard = BoardManager.updated_3DBoard;
 
         currentTurnPos = transform.position;
@@ -140,9 +126,6 @@ public class CubeController : MonoBehaviour
             willRoundTripDown = false;
         }
 
-
-        //Debug.Log(name + " willMove=" + willMove + ";   willRoundTrip=" + willRoundTrip);
-
         above_AdjacentPos = (currentTurnPos + new Vector3(0, 1, 0));
         below_AdjacentPos = (currentTurnPos + new Vector3(0, -1, 0));
 
@@ -161,6 +144,11 @@ public class CubeController : MonoBehaviour
         aboveRight_AdjacentPos = (currentTurnPos + new Vector3(1, 1, 0));
         aboveLeft_AdjacentPos = (currentTurnPos + new Vector3(-1, 1, 0));
 
+        belowFront_AdjacentPos = (currentTurnPos + new Vector3(0, -1, 1));
+        belowBack_AdjacentPos = (currentTurnPos + new Vector3(0, -1, -1));
+        belowLeft_AdjacentPos = (currentTurnPos + new Vector3(-1, -1, 0));
+        belowRight_AdjacentPos = (currentTurnPos + new Vector3(1, -1, 0));
+
         // two tiles away positions
         above_TwoTilesAwayPos = (currentTurnPos + new Vector3(0, 2, 0));
         below_TwoTilesAwayPos = (currentTurnPos + new Vector3(0, -2, 0));
@@ -174,7 +162,6 @@ public class CubeController : MonoBehaviour
     //check the position of the tile relatively to the current cube position
     public Transform TileCheck(Vector3 tilePos)
     {
-        //Debug.Log("run " + name + " Tile Check");
         Transform tile;
         if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
         {
@@ -190,13 +177,13 @@ public class CubeController : MonoBehaviour
     public Vector3 PredictNextTurnPos(Transform belowTile) // assign the value returned by TileCheck() to know whitch type of tile the cube has below it(or not)
     {
         // This function also checks if there is an obstacle at the predicted next turn position of the cube
-        //Debug.Log("Function()   " + name + " Predict Next Turn Pos");
         Vector3 predictedPos = Vector3.zero;
 
         if (!belowTile) //if the cube has no tile below it
         {
             Debug.Log(name + " has no tile below it");
             predictedPos = (currentTurnPos + new Vector3(0, -1, 0));
+            Debug.Log(predictedPos);
             willMove = willMoveDown = true;
         }
         else if (belowTile.tag == "Green Arrow" && belowTile.GetComponent<GreenArrow>())
@@ -333,7 +320,7 @@ public class CubeController : MonoBehaviour
                 }
             }
         }
-        else if (belowTile.tag == "Blank Tile" || belowTile.tag == "Cube")
+        else if (belowTile.tag == "Blank Tile" || belowTile.tag == "Cube" || belowTile.tag == "EphemereTile")
         {
             predictedPos = (currentTurnPos + lastMovement);
             willMove = true;
@@ -343,6 +330,29 @@ public class CubeController : MonoBehaviour
                 lastMovement = new Vector3(0, 0, 0);
                 willMove = false;
             }
+        }
+
+        else if (belowTile.tag == "LiftTile")
+        {
+            predictedPos = (currentTurnPos + new Vector3(0, 1, 0));
+            if (!tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            {
+                willMove = willMoveUp = true;
+                willMoveForward = willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
+            }
+            else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z]) // if there is already something a the predicted position
+            {
+                lastMovement = new Vector3(0, 0, 0);    // idem for the last movement
+                willMove = willMoveForward = willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
+            }
+        }
+
+        else if (belowTile.tag == "EmptyTile")
+        {
+            Debug.Log(name + " has no tile below it");
+            predictedPos = (currentTurnPos + new Vector3(0, -1, 0));
+            Debug.Log(predictedPos);
+            willMove = willMoveDown = true;
         }
 
         else if (belowTile.tag == "End Tile")
@@ -360,7 +370,6 @@ public class CubeController : MonoBehaviour
 
         //Vector3 is a value type (opposed to reference type) so it needs to be asigned to an extern Vector3 (here predicted_NextTurnPos) so it can be used outside of the function 
         //--> It seems that it doesn't need to, maybe because the function is called in antoher function (Update())
-        //Debug.Log(name + " predicted pos= " + predictedPos);
         return predictedPos;
     }
 
@@ -388,10 +397,8 @@ public class CubeController : MonoBehaviour
 
     public void TriggerAnimation()
     {
-        //Debug.Log("run " + name + " Trigger Animation.");
         if (!willMove && !willRoundTrip)
         {
-            //Debug.Log(name + " will NOT move");
             // no animation needed -> maybe some effects or a blink of the cube
             transform.position = currentTurnPos;
         }

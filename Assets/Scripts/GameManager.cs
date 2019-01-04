@@ -22,6 +22,12 @@ public class GameManager : MonoBehaviour
     public GameObject[] player_GreenArrows;
     public Player_GreenArrow[] player_GreenArrowsControllers;
 
+    public GameObject[] liftTiles;
+    public LiftTile[] liftTilesControllers;
+
+    public GameObject[] ephemereTiles;
+    public EphemereTile[] ephemereTilesControllers;
+
     public static int turnCount;
     public static int currentTurn;
     public static bool turnStart;
@@ -38,9 +44,10 @@ public class GameManager : MonoBehaviour
     public static bool levelIsCompleted;
 
 
-
     private void Start()
     {
+        //Time.timeScale = .5f;
+
         currentTurnTime = turnTime;
         levelIsCompleted = false;
         simulationIsRunning = false;
@@ -70,6 +77,20 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < greenArrowsControllers.Length; i++)
         {
             greenArrowsControllers[i] = greenArrows[i].GetComponent<GreenArrow>();
+        }
+
+        liftTiles = GameObject.FindGameObjectsWithTag("LiftTile");
+        liftTilesControllers = new LiftTile[liftTiles.Length];
+        for (int i = 0; i < liftTilesControllers.Length; i++)
+        {
+            liftTilesControllers[i] = liftTiles[i].GetComponent<LiftTile>();
+        }
+
+        ephemereTiles = GameObject.FindGameObjectsWithTag("EphemereTile");
+        ephemereTilesControllers = new EphemereTile[ephemereTiles.Length];
+        for (int i = 0; i < ephemereTilesControllers.Length; i++)
+        {
+            ephemereTilesControllers[i] = ephemereTiles[i].GetComponent<EphemereTile>();
         }
     }
 
@@ -118,6 +139,14 @@ public class GameManager : MonoBehaviour
                     foreach (Player_GreenArrow playerGreenArrow in player_GreenArrowsControllers)
                     {
                         playerGreenArrow.TurnInitializer();
+                    }
+                    foreach(LiftTile liftTile in liftTilesControllers)
+                    {
+                        liftTile.TurnInitializer();
+                    }
+                    foreach (EphemereTile ephemereTile in ephemereTilesControllers)
+                    {
+                        ephemereTile.TurnInitializer();
                     }
                     currentTurn++;
                     Debug.LogWarning("turn: " + currentTurn);
@@ -215,24 +244,24 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(cube.name + " predicted_NextTurnPos= " + cube.predicted_NextTurnPos);
 
-            if (cube.willMove && cubesControllers.Length > 1) //(1)
+            if (cube.willMove && cubesControllers.Length > 1) // (1)
             {
                 for (int i = 0; i < cubesControllers.Length; i++)
                 {
-                    //Debug.Log(i + " " + cubesControllers.Length);
+                    // Debug.Log(i + " " + cubesControllers.Length);
 
                     if (cube.willMove && cube.cubeNumber != cubesControllers[i].cubeNumber)
                     {
                         if (cube.predicted_NextTurnPos != cubesControllers[i].predicted_NextTurnPos)
                         {
-                            // cube will do the predicted movement --> meaning that it will eather move or not move but will not do a round-trip
+                            // cube will do the predicted movement --> meaning that it will eather move or not but will not do a round-trip
                             cube.willRoundTrip = false;
                             cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
-                            //if (i == cubesControllers.Length - 1)
+                            // if (i == cubesControllers.Length - 1)
                             Debug.Log(cube.name + " do the predicted movement.");
                             continue;
                         }
-                        else if (cube.predicted_NextTurnPos == cubesControllers[i].predicted_NextTurnPos) //(2)
+                        else if (cube.predicted_NextTurnPos == cubesControllers[i].predicted_NextTurnPos) // (2)
                         {
                             // -------- front
                             if (cube.willMoveForward)
@@ -397,7 +426,6 @@ public class GameManager : MonoBehaviour
                                 Transform tile = cube.TileCheck(cube.belowLeft_AdjacentPos);   // below left
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willMove = cube.willMoveLeft = false;
                                     cube.lastMovement = Vector3.zero;
                                     tile = null;
@@ -406,7 +434,6 @@ public class GameManager : MonoBehaviour
                                 tile = cube.TileCheck(cube.aboveLeft_AdjacentPos);   // above left
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willMove = cube.willMoveLeft = false;
                                     cube.lastMovement = Vector3.zero;
                                     tile = null;
@@ -415,7 +442,6 @@ public class GameManager : MonoBehaviour
                                 tile = cube.TileCheck(cube.frontLeft_DiagonalPos);   // front left
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willMove = cube.willMoveLeft = false;
                                     cube.willRoundTrip = cube.willRoundTripLeft = false;
                                     cube.lastMovement = Vector3.zero;
@@ -425,7 +451,6 @@ public class GameManager : MonoBehaviour
                                 tile = cube.TileCheck(cube.backLeft_DiagonalPos);    // back left
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willMove = cube.willMoveLeft = false;
                                     cube.willRoundTrip = cube.willRoundTripLeft = false;
                                     cube.lastMovement = Vector3.zero;
@@ -442,55 +467,50 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                             // -------- below
-                            else if (cube.willMoveDown)
+                            if (cube.willMoveDown)
                             {
                                 Transform tile = cube.TileCheck(cube.belowFront_AdjacentPos);
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willRoundTrip = cube.willRoundTripDown = false;
                                     cube.willMove = cube.willMoveDown = true;
-                                    cube.lastMovement = Vector3.zero;
+                                    cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
                                     tile = null;
                                     break;
                                 }
                                 tile = cube.TileCheck(cube.belowBack_AdjacentPos);
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willRoundTrip = cube.willRoundTripDown = false;
                                     cube.willMove = cube.willMoveDown = true;
-                                    cube.lastMovement = Vector3.zero;
+                                    cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
                                     tile = null;
                                     break;
                                 }
                                 tile = cube.TileCheck(cube.belowRight_AdjacentPos);
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willRoundTrip = cube.willRoundTripDown = false;
                                     cube.willMove = cube.willMoveDown = true;
-                                    cube.lastMovement = Vector3.zero;
+                                    cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
                                     tile = null;
                                     break;
                                 }
                                 tile = cube.TileCheck(cube.belowLeft_AdjacentPos);
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willRoundTrip = cube.willRoundTripDown = false;
                                     cube.willMove = cube.willMoveDown = true;
-                                    cube.lastMovement = Vector3.zero;
+                                    cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
                                     tile = null;
                                     break;
                                 }
                                 tile = cube.TileCheck(cube.below_TwoTilesAwayPos);     // below two tiles away
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willRoundTrip = cube.willRoundTripDown = true;
                                     cube.willMove = cube.willMoveDown = false;
-                                    cube.lastMovement = Vector3.zero;
+                                    cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
                                     tile = null;
                                     break;
                                 }
@@ -506,7 +526,6 @@ public class GameManager : MonoBehaviour
                                 Transform tile = cube.TileCheck(cube.above_TwoTilesAwayPos);     // above two tiles away
                                 if (tile && tile.tag == "Cube" && tile.GetComponent<CubeController>().cubeNumber == cubesControllers[i].cubeNumber)
                                 {
-                                    Debug.Log(cube.name + " A");
                                     cube.willRoundTrip = cube.willRoundTripDown = false;
                                     cube.willMove = cube.willMoveDown = true;
                                     cube.lastMovement = Vector3.zero;
@@ -522,7 +541,7 @@ public class GameManager : MonoBehaviour
             {
                 cube.willRoundTrip = false;
                 cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
-                //if (i == cubesControllers.Length - 1)
+                // if (i == cubesControllers.Length - 1)
                 Debug.Log(cube.name + " do the predicted movement.");
                 continue;
             }
@@ -583,6 +602,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (liftTilesControllers.Length > 0)
+        {
+            foreach (LiftTile liftTile in liftTilesControllers)
+            {
+                liftTile.SetInitialState();
+            }
+        }
+
         foreach (CubeController cube in cubesControllers)
         {
             cube.SetInitialState();
@@ -590,6 +617,10 @@ public class GameManager : MonoBehaviour
         foreach (EndTile endTile in endTilesControllers)
         {
             endTile.SetInitialState();
+        }
+        foreach (EphemereTile ephemereTile in ephemereTilesControllers)
+        {
+            ephemereTile.SetInitialState();
         }
 
         levelIsCompleted = false;

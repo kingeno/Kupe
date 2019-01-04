@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: 40da75af5b4c33c41b8b0a3081ceb52a
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Source Sans Pro
+  fontNames:
+  - Source Sans Pro
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 116b5955a3b5b5743b27cd863dd9703e, type: 3}
+  - {fileID: 12800000, guid: 05b44785c0e115940bb1d5dde2225a61, type: 3}
+  - {fileID: 12800000, guid: 3346d3ccd843d8c488e4d4028da0e43a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

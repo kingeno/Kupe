@@ -6,9 +6,15 @@ public class BlankTile : MonoBehaviour {
 
     public GameObject boardManager;
 
+    public Vector3 above_AdjacentPos;
+    public Transform[,,] tilesBoard;
+    public Transform above_AdjacentTile;
+
+    public bool canOnlyBeBlankTile;
+
     public Transform greenArrowPrefab;
 
-    public float randomGreyValue;
+    //public float randomGreyValue;
     public Color _color;
 
     private Renderer _renderer;
@@ -20,16 +26,28 @@ public class BlankTile : MonoBehaviour {
         boardManager = GameObject.FindGameObjectWithTag("Board Manager");
         _renderer = GetComponent<Renderer>();
 
-        randomGreyValue = Random.Range(0.80f, 0.95f);
+        tilesBoard = BoardManager.original_3DBoard;
+        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+        above_AdjacentTile = TileCheck(above_AdjacentPos);
+        if (above_AdjacentTile && above_AdjacentTile.tag != "Cube")
+        {
+            canOnlyBeBlankTile = true;
+        }
+        else
+        {
+            canOnlyBeBlankTile = false;
+        }
 
-        _color = new Color(randomGreyValue, randomGreyValue, randomGreyValue);
+        //randomGreyValue = Random.Range(0.80f, 0.95f);
+
+        //_color = new Color(randomGreyValue, randomGreyValue, randomGreyValue);    
 
         _renderer.material.color = _color;
     }
 
     private void OnMouseOver()
     {   
-        if (!GameManager.simulationIsRunning && !CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected && GameManager.playerCanModifyBoard)
+        if (!canOnlyBeBlankTile && !GameManager.simulationIsRunning && !CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected && GameManager.playerCanModifyBoard)
         {
             _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
 
@@ -56,5 +74,17 @@ public class BlankTile : MonoBehaviour {
         {
             _renderer.material.SetTexture("_MainTex", blankTileTexture);
         }
+    }
+
+    public Transform TileCheck(Vector3 tilePos)
+    {
+        Transform tile;
+        if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
+        {
+            tile = tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z];
+            return tile;
+        }
+        else
+            return null;
     }
 }

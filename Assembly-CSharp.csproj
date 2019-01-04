@@ -63,16 +63,18 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BlankTile.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
+    <Compile Include="Assets\Scripts\CameraRotator.cs" />
     <Compile Include="Assets\Scripts\CubeController.cs" />
     <Compile Include="Assets\Scripts\CurrentLevelManager.cs" />
     <Compile Include="Assets\Scripts\EndTile.cs" />
+    <Compile Include="Assets\Scripts\EphemereTile.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GreenArrow.cs" />
     <Compile Include="Assets\Scripts\GreenArrowButtonText.cs" />
     <Compile Include="Assets\Scripts\InGameUIManager.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
+    <Compile Include="Assets\Scripts\LiftTile.cs" />
     <Compile Include="Assets\Scripts\MainCamera.cs" />
-    <Compile Include="Assets\Scripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\MainMenuUIManager.cs" />
     <Compile Include="Assets\Scripts\Player_GreenArrow.cs" />
     <Compile Include="Assets\Scripts\Test Scripts\Test_CubeRotation.cs" />

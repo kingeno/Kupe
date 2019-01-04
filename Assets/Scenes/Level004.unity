@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465778, g: 0.49641526, b: 0.5748185, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465772, g: 0.49641484, b: 0.5748179, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,15 +215,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4312900413851908, guid: 893586741e1715541baf0baf1ed1f691, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7
+      value: 6.56
       objectReference: {fileID: 0}
     - target: {fileID: 4312900413851908, guid: 893586741e1715541baf0baf1ed1f691, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 18
+      value: 18.34
       objectReference: {fileID: 0}
     - target: {fileID: 4312900413851908, guid: 893586741e1715541baf0baf1ed1f691, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -2.12
       objectReference: {fileID: 0}
     - target: {fileID: 4312900413851908, guid: 893586741e1715541baf0baf1ed1f691, type: 2}
       propertyPath: m_LocalRotation.x
@@ -424,14 +424,14 @@ Transform:
   - {fileID: 1204656623}
   - {fileID: 704113572}
   - {fileID: 1746808360}
+  - {fileID: 1022706721}
   - {fileID: 1371670401}
+  - {fileID: 1072194041}
   - {fileID: 468904810}
   - {fileID: 1987217972}
-  - {fileID: 1022706721}
-  - {fileID: 1072194041}
   - {fileID: 172009261}
-  - {fileID: 540611662}
   - {fileID: 1642941474}
+  - {fileID: 540611662}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee8a9823889fec469eb5795f76d5c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  original_boardWidth: 6
+  original_boardWidth: 5
   original_boardHeight: 3
   original_boardDepth: 6
   original_boardManagerArray: []
