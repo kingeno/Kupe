@@ -22,7 +22,7 @@ public class CurrentLevelManager : MonoBehaviour {
         }
         else
         {
-                isGreenArrowStockEmpty = false;
+            isGreenArrowStockEmpty = false;
         }
     }
 }

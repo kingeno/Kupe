@@ -9,7 +9,7 @@ public class EndTile : MonoBehaviour {
     public bool isValidated;
     public Vector3 above_AdjacentPos;
     public Transform above_AdjacentTile;
-
+    public GameObject endTileParticleSystem;
 
     void Start () {
         isValidated = false;
@@ -17,10 +17,21 @@ public class EndTile : MonoBehaviour {
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
     }
 
+    private void OnMouseOver()
+    {
+        GameManager.mouseOverTile.transform.position = transform.position;
+    }
+
+    private void OnMouseExit()
+    {
+        GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
+    }
+
     public void SetInitialState()
     {
         isValidated = false;
         tilesBoard = BoardManager.updated_3DBoard;
+        endTileParticleSystem.SetActive(true);
     }
 
     public void TurnInitializer()
@@ -29,13 +40,19 @@ public class EndTile : MonoBehaviour {
         tilesBoard = BoardManager.updated_3DBoard;
         above_AdjacentTile = TileCheck(above_AdjacentPos);
         if (above_AdjacentTile && above_AdjacentTile.tag == "Cube")
+        {
             isValidated = true;
+            endTileParticleSystem.SetActive(false);
+        }
         else if (!above_AdjacentTile)
+        {
             isValidated = false;
+            endTileParticleSystem.SetActive(true);
+        }
     }
 
-    //check the position of the tile relatively to the current cube position
-    public Transform TileCheck(Vector3 tilePos)
+        //check the position of the tile relatively to the current cube position
+        public Transform TileCheck(Vector3 tilePos)
     {
         //Debug.Log("run " + name + " Tile Check");
         Transform tile;

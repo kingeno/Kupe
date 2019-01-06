@@ -43,6 +43,15 @@ public class LiftTile : MonoBehaviour {
             unactiveTimeColorSwap = 0.3f;
     }
 
+    private void OnMouseOver()
+    {
+        GameManager.mouseOverTile.transform.position = transform.position;
+    }
+
+    private void OnMouseExit()
+    {
+        GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
+    }
 
     public void SetInitialState()
     {

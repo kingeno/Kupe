@@ -8,6 +8,7 @@ public class Player_GreenArrow : MonoBehaviour
 
     public bool isActive;
     public bool canBeActivatedAgain;
+    public bool isSelected;
     public int unactiveTurns;
     private int nextActiveTurn;
 
@@ -69,9 +70,45 @@ public class Player_GreenArrow : MonoBehaviour
             unactiveTimeColorSwap = 0.3f;
     }
 
+    private void Update()
+    {
+        if (isSelected)
+            GameManager.mouseOverTile.transform.position = transform.position;
+
+        if (isSelected && Input.GetMouseButtonDown(1))
+        {
+            isSelected = false;
+            GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0, -10f);
+        }
+
+        if (isSelected && canBeRotated && Input.GetKeyDown(KeyCode.R))
+        {
+            if (transform.rotation == forwardArrow)
+            {
+                tileOrientation = "Right";
+                transform.rotation = rightArrow;
+            }
+            else if (transform.rotation == rightArrow)
+            {
+                transform.rotation = backArrow;
+                tileOrientation = "Back";
+            }
+            else if (transform.rotation == backArrow)
+            {
+                transform.rotation = leftArrow;
+                tileOrientation = "Left";
+            }
+            else if (transform.rotation == leftArrow)
+            {
+                transform.rotation = forwardArrow;
+                tileOrientation = "Forward";
+            }
+        }
+    }
+
     public void SetInitialState()
     {
-
+        isSelected = false;
         isActive = true;
         canBeRotated = true;
         nextActiveTurn = 0;
@@ -134,6 +171,7 @@ public class Player_GreenArrow : MonoBehaviour
     {
         if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard)
         {
+            GameManager.mouseOverTile.transform.position = transform.position;
             if (InGameUIManager.isDeleteTileSelected)
             {
                 _renderer.material.SetTexture("_MainTex", deleteGreenArrowTileTexture);
@@ -149,28 +187,10 @@ public class Player_GreenArrow : MonoBehaviour
                     Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
                 }
             }
-            if (canBeRotated && Input.GetKeyDown(KeyCode.R))
+            if (!isSelected && Input.GetMouseButtonDown(0))
             {
-                if (transform.rotation == forwardArrow)
-                {
-                    tileOrientation = "Right";
-                    transform.rotation = rightArrow;
-                }
-                else if (transform.rotation == rightArrow)
-                {
-                    transform.rotation = backArrow;
-                    tileOrientation = "Back";
-                }
-                else if (transform.rotation == backArrow)
-                {
-                    transform.rotation = leftArrow;
-                    tileOrientation = "Left";
-                }
-                else if (transform.rotation == leftArrow)
-                {
-                    transform.rotation = forwardArrow;
-                    tileOrientation = "Forward";
-                }
+                isSelected = true;
+                GameManager.mouseOverTile_Material_static.color = GameManager.mouseOverTile_selectedColor;
             }
         }
     }
@@ -181,6 +201,8 @@ public class Player_GreenArrow : MonoBehaviour
         {
             _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
         }
+        if (!isSelected)
+            GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
     }
 
     IEnumerator BlinkOverSeconds(Color blinkColor, float seconds, bool isBlinking)
@@ -229,6 +251,12 @@ public class Player_GreenArrow : MonoBehaviour
             GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
             /*"active in " + */(unactiveTurns - 1).ToString()
             , redStyle);
+        }
+
+        if (isSelected && canBeRotated)
+        {
+            GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
+            "press R to rotate", redStyle);
         }
     }
 }

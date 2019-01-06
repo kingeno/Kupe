@@ -17,6 +17,7 @@ TagManager:
   - LiftTile
   - EphemereTile
   - EmptyTile
+  - MouseOverTile
   layers:
   - Default
   - TransparentFX
