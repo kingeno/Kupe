@@ -10,6 +10,7 @@ public class GreenArrow : MonoBehaviour {
     public int nextActiveTurn;
 
     public Transform[,,] tilesBoard;
+    public TileSelectionSquare tileSelectionSquare;
 
     public Vector3 above_AdjacentPos;
     public Transform above_AdjacentTile;
@@ -30,6 +31,9 @@ public class GreenArrow : MonoBehaviour {
 
     void Start()
     {
+        if (!tileSelectionSquare)
+            tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
+
         isActive = true;
         _renderer = GetComponent<Renderer>();
 
@@ -62,12 +66,17 @@ public class GreenArrow : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        GameManager.mouseOverTile.transform.position = transform.position;
+        if (tileSelectionSquare.canBeMoved)
+        {
+            tileSelectionSquare.transform.position = transform.position;
+            tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+        }
     }
 
     private void OnMouseExit()
     {
-        GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
+        if (tileSelectionSquare.canBeMoved)
+            tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
     }
 
     public void SetInitialState()

@@ -19,13 +19,15 @@ public class InGameUIManager : MonoBehaviour
     public Transform blankTilePrefab;
     public Transform greenArrowPrefab;
     
-public static bool isDeleteTileSelected;
+    public static bool isDeleteTileSelected;
     public static bool isGreenArrowSelected;
     public static bool unselectAll;
 
     private void Start()
     {
-        unselectAll = false;
+        unselectAll = true;
+        isDeleteTileSelected = false;
+        isGreenArrowSelected = false;
 
         if (!gameManager)
         {
@@ -79,11 +81,11 @@ public static bool isDeleteTileSelected;
         }
 
 
-        if (GameManager.levelIsRestart)
+        if (GameManager.levelIsStoped)
         {
             playSimulationButton.SetActive(true);
             pauseSimulationButton.SetActive(false);
-            GameManager.levelIsRestart = false;
+            GameManager.levelIsStoped = false;
         }
 
         if (GameManager.levelIsCompleted && !winScreen.activeSelf)
@@ -183,12 +185,12 @@ public static bool isDeleteTileSelected;
         levelLoader.loadNextLevel();
     }
 
-    public void RestartLevel()
+    public void StopSimulation()
     {
-        gameManager.RestartLevel();
+        gameManager.StopSimulation();
     }
 
-    public void QuitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }

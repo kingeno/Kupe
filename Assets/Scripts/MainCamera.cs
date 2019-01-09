@@ -6,11 +6,14 @@ public class MainCamera : MonoBehaviour
 {
 
     public Camera _camera;
-
+    public GameObject CMFreeLookCam;
     private Color currentColor;
     public Color playColor;
     public Color pauseColor;
+    public Color stopColor;
     public Color levelCompletedColor;
+
+    private bool canColorSwap;
 
     public float colorTransitionTime;
     public float levelCompletedColorTransitionTime;
@@ -18,9 +21,11 @@ public class MainCamera : MonoBehaviour
 
     void Start()
     {
+        canColorSwap = true;
         levelCompletedColorSwap = false;
         _camera = GetComponent<Camera>();
-        _camera.backgroundColor = pauseColor;
+        _camera.backgroundColor = stopColor;
+        currentColor = stopColor;
     }
 
     private void Update()
@@ -30,21 +35,33 @@ public class MainCamera : MonoBehaviour
             backgroundColorSwap();
             levelCompletedColorSwap = true;
         }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            if (CMFreeLookCam.activeSelf)
+                CMFreeLookCam.SetActive(false);
+            else
+                CMFreeLookCam.SetActive(true);
+        }
     }
 
     public void backgroundColorSwap()
     {
-        if (!GameManager.levelIsCompleted && GameManager.simulationIsRunning)
+        if (!GameManager.levelIsCompleted && canColorSwap)
         {
-            StartCoroutine(changeBackGroundColor(pauseColor, playColor, colorTransitionTime));
+            if (GameManager.simulationIsRunning && !GameManager.playerCanModifyBoard)
+                StartCoroutine(changeBackGroundColor(currentColor, playColor, colorTransitionTime));
+
+            if (!GameManager.simulationIsRunning && !GameManager.playerCanModifyBoard)
+                StartCoroutine(changeBackGroundColor(currentColor, pauseColor, colorTransitionTime));
+
+            if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard)
+                StartCoroutine(changeBackGroundColor(currentColor, stopColor, colorTransitionTime));
         }
-        else if (!GameManager.levelIsCompleted && !GameManager.simulationIsRunning)
-        {
-            StartCoroutine(changeBackGroundColor(playColor, pauseColor, colorTransitionTime));
-        }
-        else if (GameManager.levelIsCompleted)
+        else if (GameManager.levelIsCompleted && canColorSwap)
         {
             StartCoroutine(changeBackGroundColor(currentColor, levelCompletedColor, levelCompletedColorTransitionTime));
+            canColorSwap = false;
         }
     }
 

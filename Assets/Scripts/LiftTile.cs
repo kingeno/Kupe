@@ -11,6 +11,7 @@ public class LiftTile : MonoBehaviour {
     public int nextActiveTurn;
 
     public Transform[,,] tilesBoard;
+    public TileSelectionSquare tileSelectionSquare;
 
     public Vector3 initialPos;
     public Vector3 above_AdjacentPos;
@@ -26,6 +27,10 @@ public class LiftTile : MonoBehaviour {
     public float reactiveTimeColorSwap;
 
     void Start () {
+
+        if (!tileSelectionSquare)
+            tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
+
         isActive = true;
         _renderer = GetComponent<Renderer>();
 
@@ -45,12 +50,12 @@ public class LiftTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        GameManager.mouseOverTile.transform.position = transform.position;
+        tileSelectionSquare.transform.position = transform.position;
     }
 
     private void OnMouseExit()
     {
-        GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
+        tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
     }
 
     public void SetInitialState()
@@ -80,13 +85,13 @@ public class LiftTile : MonoBehaviour {
                 _renderer.material.SetTexture("_MainTex", unactive_lift);
                 gameObject.tag = "Blank Tile";
                 StartCoroutine(BlinkOverSeconds(Color.grey, unactiveTimeColorSwap, true));
-                StartCoroutine(MoveOverSeconds(this.gameObject, above_AdjacentPos, 0.2f));
+                StartCoroutine(MoveOverSeconds(gameObject, above_AdjacentPos, 0.2f));
                 isActive = false;
             }
             else if (unactiveTurns == 0)
             {
                 StartCoroutine(BlinkOverSeconds(Color.green, unactiveTimeColorSwap, true));
-                StartCoroutine(MoveOverSeconds(this.gameObject, above_AdjacentPos, 0.2f));
+                StartCoroutine(MoveOverSeconds(gameObject, above_AdjacentPos, 0.2f));
             }
         }
         else if (!isActive)
@@ -100,12 +105,12 @@ public class LiftTile : MonoBehaviour {
                 isActive = true;
                 if (goBackDownAfterUse)
                 {
-                    StartCoroutine(MoveOverSeconds(this.gameObject, initialPos, 0.2f));
+                    StartCoroutine(MoveOverSeconds(gameObject, initialPos, 0.2f));
                 }
             }
             else if (!canBeActivatedAgain && goBackDownAfterUse)
             {
-                StartCoroutine(MoveOverSeconds(this.gameObject, initialPos, 0.2f));
+                StartCoroutine(MoveOverSeconds(gameObject, initialPos, 0.2f));
             }
         }
     }

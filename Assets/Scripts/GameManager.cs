@@ -6,18 +6,9 @@ public class GameManager : MonoBehaviour
 {
     private MainCamera _mainCamera;
 
-    public static bool levelIsRestart;
+    public static bool levelIsStoped;
     public static bool gameIsPaused;
     private BoardManager boardManager;
-
-    public Transform mouseOverTilePrefab;
-    public static Transform mouseOverTile;
-    public Material mouseOverTile_Material;
-    public static Material mouseOverTile_Material_static;
-    public static Color mouseOverTile_defaultColor = new Color(255f,150f,0f,255f);
-    public static Color mouseOverTile_selectedColor = new Color(0f, 200f, 0f, 255f);
-    public static Color mouseOverTile_deleteColor = new Color(220f, 0f, 0f, 255f);
-    public static Color mouseOverTile_playerGreenArrow = new Color(0f, 1f, 0f, 100f);
 
     public GameObject[] cubes;
     public CubeController[] cubesControllers;
@@ -64,14 +55,6 @@ public class GameManager : MonoBehaviour
         playerCanModifyBoard = true;
         turnCount = 0;
 
-        if (!mouseOverTile)
-        {
-            mouseOverTile = Instantiate(mouseOverTilePrefab, new Vector3(-10f, 0f, -10f), Quaternion.identity);
-        }
-
-        mouseOverTile_Material_static = mouseOverTile_Material;
-        mouseOverTile_Material_static.color = mouseOverTile_defaultColor;
-
         if (!boardManager)
             boardManager = GameObject.FindGameObjectWithTag("Board Manager").GetComponent<BoardManager>();
 
@@ -113,15 +96,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //mouseOverTile_Material_static = mouseOverTile_Material;
-
-        if (InGameUIManager.isDeleteTileSelected)
-            mouseOverTile_Material_static.color = mouseOverTile_deleteColor;
-        else if (InGameUIManager.isGreenArrowSelected)
-            mouseOverTile_Material_static.color = mouseOverTile_playerGreenArrow;
-        //else
-        //    mouseOverTile_Material_static.color = mouseOverTile_defaultColor;
-
         if (!_mainCamera)
         {
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>();
@@ -591,10 +565,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void RestartLevel()
+    public void StopSimulation()
     {
         if (simulationIsRunning)
-            levelIsRestart = true;
+            levelIsStoped = true;
         if (simulationIsRunning)
         {
             simulationIsRunning = false;

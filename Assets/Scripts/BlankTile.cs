@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlankTile : MonoBehaviour {
+public class BlankTile : MonoBehaviour
+{
 
     public GameObject boardManager;
+    public TileSelectionSquare tileSelectionSquare;
 
     public Vector3 above_AdjacentPos;
     public Transform[,,] tilesBoard;
@@ -22,9 +24,13 @@ public class BlankTile : MonoBehaviour {
     private Renderer _renderer;
     public Texture blankTileTexture;
     public Texture greenArrowSelectedTexture;
+    public Texture blankTileDeletedTexture;
 
     private void Start()
     {
+        if (!tileSelectionSquare)
+            tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
+
         boardManager = GameObject.FindGameObjectWithTag("Board Manager");
         _renderer = GetComponent<Renderer>();
 
@@ -38,25 +44,24 @@ public class BlankTile : MonoBehaviour {
         else
         {
             canOnlyBeBlankTile = false;
-        }
-
-
-
-        //randomGreyValue = Random.Range(0.80f, 0.95f);
-
-        //_color = new Color(randomGreyValue, randomGreyValue, randomGreyValue);    
-
-        _renderer.material.color = _color;
+        }   
     }
 
     private void OnMouseOver()
     {
-        if (!canOnlyBeBlankTile)
+        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved)
         {
-            GameManager.mouseOverTile.transform.position = transform.position;
-            if (!GameManager.simulationIsRunning && !CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected && GameManager.playerCanModifyBoard)
+            tileSelectionSquare.transform.position = transform.position;
+
+            if (!InGameUIManager.isGreenArrowSelected && !InGameUIManager.isDeleteTileSelected)
+                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+
+            else if (!CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected)
             {
                 _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
+
+                float lerp = Mathf.PingPong(Time.time, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
+                tileSelectionSquare.material.color = Color.Lerp(tileSelectionSquare.canPlaceTileColor1, tileSelectionSquare.canPlaceTileColor2, lerp);
 
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -73,17 +78,25 @@ public class BlankTile : MonoBehaviour {
                     _renderer.material.SetTexture("_MainTex", blankTileTexture);
                 }
             }
-            
+            else if (InGameUIManager.isDeleteTileSelected)
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
+                _renderer.material.SetTexture("_MainTex", blankTileDeletedTexture);
+            }
+
         }
     }
 
     private void OnMouseExit()
     {
-        GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
-        if (InGameUIManager.isGreenArrowSelected)
+        if (!GameManager.simulationIsRunning && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved)
+            tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+
+        if (!GameManager.simulationIsRunning && !canOnlyBeBlankTile && InGameUIManager.isGreenArrowSelected)
         {
             _renderer.material.SetTexture("_MainTex", blankTileTexture);
         }
+        _renderer.material.SetTexture("_MainTex", blankTileTexture);
     }
 
     public Transform TileCheck(Vector3 tilePos)

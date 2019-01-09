@@ -78,7 +78,7 @@ public class MainMenuUIManager : MonoBehaviour {
         }
     }
 
-    public void QuitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }

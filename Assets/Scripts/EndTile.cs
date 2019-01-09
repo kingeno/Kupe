@@ -5,6 +5,8 @@ using UnityEngine;
 public class EndTile : MonoBehaviour {
 
     public Transform[,,] tilesBoard;
+    public Transform tileSelectionSquareTransform;
+    public TileSelectionSquare tileSelectionSquare;
 
     public bool isValidated;
     public Vector3 above_AdjacentPos;
@@ -12,6 +14,10 @@ public class EndTile : MonoBehaviour {
     public GameObject endTileParticleSystem;
 
     void Start () {
+        if (!tileSelectionSquareTransform)
+            tileSelectionSquareTransform = GameObject.FindGameObjectWithTag("TileSelectionSquare").transform;
+        if (!tileSelectionSquare)
+            tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
         isValidated = false;
         tilesBoard = BoardManager.original_3DBoard;
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
@@ -19,12 +25,12 @@ public class EndTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        GameManager.mouseOverTile.transform.position = transform.position;
+        tileSelectionSquareTransform.position = transform.position;
     }
 
     private void OnMouseExit()
     {
-        GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
+        tileSelectionSquareTransform.position = tileSelectionSquare.hiddenPosition;
     }
 
     public void SetInitialState()

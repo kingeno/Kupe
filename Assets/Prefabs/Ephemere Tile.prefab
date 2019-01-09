@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1665715696392404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_Children: []
   m_Father: {fileID: 0}
@@ -394,6 +394,7 @@ MonoBehaviour:
   canBeActivatedAgain: 0
   unactiveTurns: 0
   nextActiveTurn: 0
+  tileSelectionSquare: {fileID: 0}
   above_AdjacentPos: {x: 0, y: 0, z: 0}
   above_AdjacentTile: {fileID: 0}
   tagWhenActive: 

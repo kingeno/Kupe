@@ -10,6 +10,7 @@ public class EphemereTile : MonoBehaviour {
     public int nextActiveTurn;
 
     public Transform[,,] tilesBoard;
+    public TileSelectionSquare tileSelectionSquare;
 
     public Vector3 above_AdjacentPos;
     public Transform above_AdjacentTile;
@@ -28,6 +29,9 @@ public class EphemereTile : MonoBehaviour {
 
     void Start()
     {
+        if (!tileSelectionSquare)
+            tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
+
         isActive = true;
         _renderer = GetComponent<Renderer>();
 
@@ -48,12 +52,12 @@ public class EphemereTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        GameManager.mouseOverTile.transform.position = transform.position;
+        tileSelectionSquare.transform.position = transform.position;
     }
 
     private void OnMouseExit()
     {
-        GameManager.mouseOverTile.transform.position = new Vector3(-10f, 0f, -10f);
+        tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
     }
 
     public void SetInitialState()

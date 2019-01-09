@@ -37,8 +37,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609803106600784}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_Children: []
   m_Father: {fileID: 0}
@@ -376,17 +376,9 @@ MonoBehaviour:
     angleError: 8
     areaError: 15
   dontDestroyMeshOnDelete: 0
-  m_selectedFaces: 00000000
-  m_SelectedEdges:
-  - x: 0
-    y: 1
-  - x: 2
-    y: 0
-  - x: 1
-    y: 3
-  - x: 3
-    y: 2
-  m_selectedTriangles: 00000000010000000200000003000000
+  m_selectedFaces: 
+  m_SelectedEdges: []
+  m_selectedTriangles: 
 --- !u!114 &114476576338948914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,6 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 0}
+  tileSelectionSquare: {fileID: 0}
   above_AdjacentPos: {x: 0, y: 0, z: 0}
   above_AdjacentTile: {fileID: 0}
   canOnlyBeBlankTile: 0
@@ -410,4 +403,6 @@ MonoBehaviour:
   _color: {r: 1, g: 1, b: 1, a: 1}
   blankTileTexture: {fileID: 2800000, guid: a9e731e5579b01f439e43ba467547294, type: 3}
   greenArrowSelectedTexture: {fileID: 2800000, guid: 328617551cdfa1d4b8be249893ba802c,
+    type: 3}
+  blankTileDeletedTexture: {fileID: 2800000, guid: 25d9d6528270e6d40ab01e93a19aacfe,
     type: 3}
