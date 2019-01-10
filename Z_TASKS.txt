@@ -3,18 +3,16 @@ Tâches :
 - Impératif :
 	* avoir un bouton qui reset le niveau complètement (supprime toute les cases posées)
 	* coder :
-		- case aiguillage (texture "séparator" dans le projet Unity)
+		- case aiguillage ("switch")
 
-	* interface utilisateur
-		- in game (boutons : lancer simulation, recommancer, choisir cube, pause)
-		- pause in game (boutons : reprendre, quitter, controls)
-		- menu titre (jouer, options, quitter)
-			--> jouer : commencer depuis le début, choisir un niveau
+	* interface utilisateur In Game
+		- curseur custom
+		- bouton "remettre la camera à sa position d'origine"
+		- bouton "vitesse simulation x2 et x4
 
 	* création d'une Quarantaine de niveaux (40 minimum)
 
 	* gérer les conditions de "défaite"
-	* mouvements de camera avec la souris (voir ici https://forum.unity.com/threads/click-drag-camera-movement.39513/)
 	* feedback sonores et visuels
 	* animation des cubes
 	* musique / son d'ambiance
@@ -24,7 +22,6 @@ Tâches :
 
 - Facultatif :
 	* interface utilisateur chiadée
-	* système de bloque ascenseur (avec direction)
 	* système de tour permettant d'avoir des animations qui s'enchaînent avec fluidité (actuellement les animations sont sacadé due à un temps de calcule nécessaire entre les tours)
 	* créer un système de scriptable object
 	* intégrer TAA de PlayDead (à la fin car prend du temps lors de la build)
