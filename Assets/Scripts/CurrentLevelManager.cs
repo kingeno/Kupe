@@ -5,17 +5,24 @@ using UnityEngine;
 public class CurrentLevelManager : MonoBehaviour {
 
     public int greenArrowStock;
+    public int currentGreenArrowStock;
     public static int greenArrowStock_static;
     public static bool isGreenArrowStockEmpty;
+    public static bool greenArrowStockIsFull;
     
     private void Awake()
     {
-        greenArrowStock_static = greenArrowStock;
+        greenArrowStock_static = currentGreenArrowStock = greenArrowStock;
         isGreenArrowStockEmpty = false;
     }
 
     private void Update()
     {
+        if (greenArrowStock_static != currentGreenArrowStock)
+        {
+            currentGreenArrowStock = greenArrowStock_static;
+        }
+
         if (greenArrowStock_static <= 0)
         {
             isGreenArrowStockEmpty = true;
@@ -24,5 +31,10 @@ public class CurrentLevelManager : MonoBehaviour {
         {
             isGreenArrowStockEmpty = false;
         }
+
+        if (currentGreenArrowStock == greenArrowStock)
+            greenArrowStockIsFull = true;
+        else if (currentGreenArrowStock < greenArrowStock)
+            greenArrowStockIsFull = false;
     }
 }

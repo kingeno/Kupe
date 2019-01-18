@@ -6,8 +6,15 @@ public class CubeController : MonoBehaviour
 {
     public int cubeNumber;
 
+    public bool isOnEndTile;
+
     public Transform[,,] tilesBoard;
     public int xPos, yPos, zPos;
+
+    public MeshRenderer _renderer;
+
+    public GameObject stuckParticleSystem;
+    public GameObject isOnEndTileParticleSystem;
 
     public Vector3 startPos;
 
@@ -25,6 +32,8 @@ public class CubeController : MonoBehaviour
 
     public Vector3 above_TwoTilesAwayPos, below_TwoTilesAwayPos;    // two tiles away positions
     public Vector3 front_TwoTilesAwayPos, back_TwoTilesAwayPos, right_TwoTilesAwayPos, left_TwoTilesAwayPos;
+
+    public bool willNotMoveAnymore;
 
     // Used to determine if the cube will move and where will it moves based on predicted futur position
     public bool willMove;
@@ -47,10 +56,15 @@ public class CubeController : MonoBehaviour
 
     private void Start()
     {
+        if (!_renderer)
+        {
+            _renderer = cubeAvatar.GetComponent<MeshRenderer>();
+        }
+
         tilesBoard = BoardManager.original_3DBoard;
         _opaqueCubeColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         _transparentCubeColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-
+        willNotMoveAnymore = false;
         startPos = transform.position;
 
         movementBoolArray = new bool[] {
@@ -61,21 +75,22 @@ public class CubeController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.simulationIsRunning)
-        {
-            cubeAvatar.GetComponent<MeshRenderer>().material.color = _opaqueCubeColor;
-        }
-        else
-            cubeAvatar.GetComponent<MeshRenderer>().material.color = _transparentCubeColor;
+        ChangeMaterialOpacity();
 
         if (GameManager.playerCanModifyBoard && GameManager.simulationIsRunning)
         {
             GameManager.playerCanModifyBoard = false;
         }
+
+        if (isOnEndTile)
+        {
+            TriggerIsOnEndTileParticleStytem();
+        }
     }
 
     public void SetInitialState()
     {
+        StopAllCoroutines();
         willMove =
         willMoveForward =
         willMoveBack =
@@ -91,6 +106,13 @@ public class CubeController : MonoBehaviour
         willRoundTripLeft =
         willRoundTripUp =
         willRoundTripDown = false;
+
+        isOnEndTile = false;
+
+        stuckParticleSystem.SetActive(false);
+        isOnEndTileParticleSystem.SetActive(false);
+
+        willNotMoveAnymore = false;
 
         transform.position = startPos;
         tilesBoard = BoardManager.original_3DBoard;
@@ -413,6 +435,42 @@ public class CubeController : MonoBehaviour
         }
     }
 
+    public void ChangeMaterialOpacity()
+    {
+        if (_renderer)
+        {
+            if (GameManager.simulationIsRunning)
+            {
+                _renderer.material.color = _opaqueCubeColor;
+            }
+            else
+                _renderer.material.color = _transparentCubeColor;
+        }
+    }
+
+    public void TriggerStuckParticleStytem()
+    {
+        if (!stuckParticleSystem.activeSelf)
+        {
+            stuckParticleSystem.SetActive(true);
+        }
+        //else if (stuckParticleSystem.activeSelf)
+        //{
+        //    stuckParticleSystem.SetActive(false);
+        //}
+    }
+
+    public void TriggerIsOnEndTileParticleStytem()
+    {
+        if (!isOnEndTileParticleSystem.activeSelf)
+        {
+            isOnEndTileParticleSystem.SetActive(true);
+        }
+        //else if (isOnEndTileParticleSystem.activeSelf)
+        //{
+        //    isOnEndTileParticleSystem.SetActive(false);
+        //}
+    }
 
     IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endPos, float seconds)     // original code : https://answers.unity.com/questions/296347/move-transform-to-target-in-x-seconds.html
     {

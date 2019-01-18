@@ -47,6 +47,14 @@ public class BlankTile : MonoBehaviour
         }   
     }
 
+    private void Update()
+    {
+        if (GameManager.simulationIsRunning || Input.GetMouseButtonDown(1) || MainCamera.isFreeLookActive)
+        {
+            _renderer.material.SetTexture("_MainTex", blankTileTexture);
+        }
+    }
+
     private void OnMouseOver()
     {
         if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved)
@@ -73,15 +81,11 @@ public class BlankTile : MonoBehaviour
                     CurrentLevelManager.greenArrowStock_static--;
                     //Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
                 }
-                else if (GameManager.simulationIsRunning || Input.GetMouseButtonDown(1))
-                {
-                    _renderer.material.SetTexture("_MainTex", blankTileTexture);
-                }
             }
             else if (InGameUIManager.isDeleteTileSelected)
             {
                 tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
-                _renderer.material.SetTexture("_MainTex", blankTileDeletedTexture);
+                _renderer.material.SetTexture("_MainTex", blankTileTexture);
             }
 
         }

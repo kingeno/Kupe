@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class MainCamera : MonoBehaviour
 {
-
+    public GameManager gameManager;
+    private InGameUIManager _inGameUIManager;
     public Camera _camera;
     public GameObject CMFreeLookCam;
+    private Renderer CameraTargetRenderer;
     private Color currentColor;
     public Color playColor;
     public Color pauseColor;
     public Color stopColor;
     public Color levelCompletedColor;
 
+    private Vector3 startPos;
+    private Quaternion startRotation;
+
     private bool canColorSwap;
+    public static bool isFreeLookActive;
 
     public float colorTransitionTime;
     public float levelCompletedColorTransitionTime;
@@ -21,6 +27,25 @@ public class MainCamera : MonoBehaviour
 
     void Start()
     {
+        startPos = transform.position;
+        startRotation = transform.rotation;
+        if (!gameManager)
+            gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+        if (!_inGameUIManager)
+        {
+            _inGameUIManager = GameObject.FindGameObjectWithTag("InGameUIManager").GetComponent<InGameUIManager>();
+        }
+
+        isFreeLookActive = false;
+        if (!CameraTargetRenderer)
+        {
+            CameraTargetRenderer = GameObject.FindGameObjectWithTag("CameraTarget").GetComponent<Renderer>();
+        }
+        if (CameraTargetRenderer)
+        {
+            CameraTargetRenderer.material.color = new Color(1f, 1f, 1f, 0f);
+        }
         canColorSwap = true;
         levelCompletedColorSwap = false;
         _camera = GetComponent<Camera>();
@@ -35,14 +60,50 @@ public class MainCamera : MonoBehaviour
             backgroundColorSwap();
             levelCompletedColorSwap = true;
         }
-
-        if (Input.GetMouseButtonDown(2))
+        if (!isFreeLookActive)
         {
-            if (CMFreeLookCam.activeSelf)
-                CMFreeLookCam.SetActive(false);
-            else
-                CMFreeLookCam.SetActive(true);
+            if ((Input.GetKeyDown(KeyCode.C) || Input.GetMouseButtonDown(2)))
+                FreeLook();
         }
+        else if (isFreeLookActive)
+        {
+            if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+                FreeLook();
+        }
+    }
+
+    public void FreeLook()
+    {
+        if (CMFreeLookCam && !GameManager.gameIsPaused)
+        {
+            if (!isFreeLookActive)
+            {
+
+                _inGameUIManager.UnselectAllTiles();
+                GameManager.playerCanModifyBoard = false;
+                isFreeLookActive = true;
+            }
+            else if (isFreeLookActive)
+            {
+                if (GameManager.simulationHasBeenLaunched || GameManager.simulationIsRunning)
+                    GameManager.playerCanModifyBoard = false;
+                else
+                    GameManager.playerCanModifyBoard = true;
+                isFreeLookActive = false;
+            }
+
+            if (isFreeLookActive)
+                CMFreeLookCam.SetActive(true);
+            else if (!isFreeLookActive)
+                CMFreeLookCam.SetActive(false);
+        }
+    }
+
+    public void SetToStartPos()
+    {
+        transform.position = startPos;
+        transform.rotation = startRotation;
+
     }
 
     public void backgroundColorSwap()

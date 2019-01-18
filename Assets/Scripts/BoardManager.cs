@@ -35,23 +35,21 @@ public class BoardManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (playerHasChangedATile) // this has to be placed in LateUpdate because unity can't destroy and replace an array's empty index in one frame.
+        if (playerHasChangedATile) // this has to be placed in LateUpdate because unity can't destroy and replace an array's empty index all within update.
         {
             updated_boardManagerArray = LoopThrough1DArray(updated_boardManagerArray);
             updated_3DBoard = LoopThrough3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
             playerHasChangedATile = false;
         }
+    }
 
+    public void TurnInitializer()
+    {
         if (GameManager.simulationIsRunning && GameManager.turnStart)
         {
             updated_boardManagerArray = LoopThrough1DArray(updated_boardManagerArray);
             updated_3DBoard = LoopThrough3DBoard(updated_boardManagerArray, updated_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
         }
-    }
-
-    public void TurnInitializer()
-    {
-        // copier coller le code du LateUpdate et appeler la fonction dans le GameManager pour que le script s'exécute une seule fois.
     }
 
     public void SetInitialState()

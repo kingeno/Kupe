@@ -18,6 +18,8 @@ TagManager:
   - EphemereTile
   - EmptyTile
   - TileSelectionSquare
+  - CameraTarget
+  - InGameUIManager
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class Player_GreenArrow : MonoBehaviour
 
     public GameObject boardManager;
     public TileSelectionSquare tileSelectionSquare;
+    private InGameUIManager _inGameUIManager;
     public Transform blankTilePrefab;
 
     public Transform[,,] tilesBoard;
@@ -40,6 +41,11 @@ public class Player_GreenArrow : MonoBehaviour
     void Start()
     {
         mouseIsOver = false;
+        if (!_inGameUIManager)
+        {
+            _inGameUIManager = GameObject.FindGameObjectWithTag("InGameUIManager").GetComponent<InGameUIManager>();
+        }
+
         if (!tileSelectionSquare)
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
 
@@ -86,35 +92,41 @@ public class Player_GreenArrow : MonoBehaviour
             if (!InGameUIManager.isDeleteTileSelected)
             {
                 tileSelectionSquare.material.color = tileSelectionSquare.editTileColor;
-
-                if (canBeRotated && mouseIsOver && Input.GetKeyDown(KeyCode.R))
+                _inGameUIManager.isOverPlayerArrowTile = true;
+                if (canBeRotated && mouseIsOver)
                 {
-                    if (transform.rotation == forwardArrow)
+                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R))
                     {
-                        tileOrientation = "Right";
-                        transform.rotation = rightArrow;
-                    }
-                    else if (transform.rotation == rightArrow)
-                    {
-                        transform.rotation = backArrow;
-                        tileOrientation = "Back";
-                    }
-                    else if (transform.rotation == backArrow)
-                    {
-                        transform.rotation = leftArrow;
-                        tileOrientation = "Left";
-                    }
-                    else if (transform.rotation == leftArrow)
-                    {
-                        transform.rotation = forwardArrow;
-                        tileOrientation = "Forward";
+                        if (transform.rotation == forwardArrow)
+                        {
+                            tileOrientation = "Right";
+                            transform.rotation = rightArrow;
+                        }
+                        else if (transform.rotation == rightArrow)
+                        {
+                            transform.rotation = backArrow;
+                            tileOrientation = "Back";
+                        }
+                        else if (transform.rotation == backArrow)
+                        {
+                            transform.rotation = leftArrow;
+                            tileOrientation = "Left";
+                        }
+                        else if (transform.rotation == leftArrow)
+                        {
+                            transform.rotation = forwardArrow;
+                            tileOrientation = "Forward";
+                        }
                     }
                 }
             }
+            else
+                _inGameUIManager.isOverPlayerArrowTile = false;
 
             if (InGameUIManager.isDeleteTileSelected)
             {
-                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
+                float lerp = Mathf.PingPong(Time.time, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
+                tileSelectionSquare.material.color = Color.Lerp(tileSelectionSquare.canDeleteTileColor1, tileSelectionSquare.canDeleteTileColor2, lerp);
                 _renderer.material.SetTexture("_MainTex", deleteGreenArrowTileTexture);
 
                 if (Input.GetMouseButtonDown(0))
@@ -130,6 +142,8 @@ public class Player_GreenArrow : MonoBehaviour
                 }
             }
         }
+        else
+            _inGameUIManager.isOverPlayerArrowTile = false;
     }
 
     private void OnMouseExit()
@@ -138,7 +152,8 @@ public class Player_GreenArrow : MonoBehaviour
         mouseIsOver = false;
         tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
         tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
-        if (InGameUIManager.isDeleteTileSelected || GameManager.simulationIsRunning)
+        _inGameUIManager.isOverPlayerArrowTile = false;
+        if (GameManager.playerCanModifyBoard)
         {
             _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
         }
@@ -229,34 +244,34 @@ public class Player_GreenArrow : MonoBehaviour
         }
     }
 
-    void OnGUI()
-    {
-        GUIStyle redStyle = new GUIStyle();
-        redStyle.normal.textColor = Color.red;
-        redStyle.fontSize = 18;
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        float x = screenPos.x;
-        float y = Screen.height - screenPos.y;
+    //void OnGUI()
+    //{
+    //    GUIStyle redStyle = new GUIStyle();
+    //    redStyle.normal.textColor = Color.red;
+    //    redStyle.fontSize = 18;
+    //    Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+    //    float x = screenPos.x;
+    //    float y = Screen.height - screenPos.y;
 
-        int _nextActiveTurn = (nextActiveTurn - GameManager.currentTurn);
+    //    int _nextActiveTurn = (nextActiveTurn - GameManager.currentTurn);
 
-        if (!isActive && _nextActiveTurn <= 10 && nextActiveTurn > 0)
-        {
-            GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-            /*"active in " + */(_nextActiveTurn - 1).ToString()
-            , redStyle);
-        }
-        else if (isActive && unactiveTurns > 0 && unactiveTurns <= 10)
-        {
-            GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-            /*"active in " + */(unactiveTurns - 1).ToString()
-            , redStyle);
-        }
+    //    if (!isActive && _nextActiveTurn <= 10 && nextActiveTurn > 0)
+    //    {
+    //        GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
+    //        /*"active in " + */(_nextActiveTurn - 1).ToString()
+    //        , redStyle);
+    //    }
+    //    else if (isActive && unactiveTurns > 0 && unactiveTurns <= 10)
+    //    {
+    //        GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
+    //        /*"active in " + */(unactiveTurns - 1).ToString()
+    //        , redStyle);
+    //    }
 
-        if (mouseIsOver && canBeRotated && !InGameUIManager.isDeleteTileSelected)
-        {
-            GUI.Box(new Rect(x - 50f, y - 80.0f, 20.0f, 50.0f),
-            "press R to rotate", redStyle);
-        }
-    }
+    //    if (mouseIsOver && canBeRotated && !_inGameUIManager.isDeleteTileSelected)
+    //    {
+    //        GUI.Box(new Rect(x - 50f, y - 80.0f, 20.0f, 50.0f),
+    //        "press R to rotate", redStyle);
+    //    }
+    //}
 }

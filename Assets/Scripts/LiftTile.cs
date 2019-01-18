@@ -22,6 +22,7 @@ public class LiftTile : MonoBehaviour {
     private Renderer _renderer;
     public Texture active_lift;
     public Texture unactive_lift;
+    public Texture liftTileDeleteImpossible;
 
     public float unactiveTimeColorSwap;
     public float reactiveTimeColorSwap;
@@ -50,12 +51,36 @@ public class LiftTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        tileSelectionSquare.transform.position = transform.position;
+        if (tileSelectionSquare.canBeMoved)
+        {
+            tileSelectionSquare.transform.position = transform.position;
+            if (InGameUIManager.isDeleteTileSelected)
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
+                _renderer.material.SetTexture("_MainTex", liftTileDeleteImpossible);
+            }
+            else
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+                if (isActive)
+                    _renderer.material.SetTexture("_MainTex", active_lift);
+                else
+                    _renderer.material.SetTexture("_MainTex", unactive_lift);
+            }
+        }
     }
 
     private void OnMouseExit()
     {
-        tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+        if (tileSelectionSquare.canBeMoved)
+            tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+        if (!GameManager.simulationHasBeenLaunched)
+        {
+            if (isActive)
+                _renderer.material.SetTexture("_MainTex", active_lift);
+            else
+                _renderer.material.SetTexture("_MainTex", unactive_lift);
+        }
     }
 
     public void SetInitialState()

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class InGameUIManager : MonoBehaviour
 {
     public LevelLoader levelLoader;
     public GameManager gameManager;
     public MainCamera _mainCamera;
+    public GameObject cinemachineCamera;
 
     public GameObject pauseMenu;
     public GameObject controlsScheme;
@@ -16,18 +19,55 @@ public class InGameUIManager : MonoBehaviour
     public GameObject playSimulationButton;
     public GameObject pauseSimulationButton;
 
+    public Button arrowButtonScript;
+    public Button deleteButtonScript;
+
+    public Button playButtonScript;
+    public Button pauseButtonScript;
+    public Button slowDownButtonScript;
+    public Button speedUpButtonScript;
+    public Button stopButtonScript;
+    public Button pauseMenuButtonScript;
+    public Button resetCameraPosButtonScript;
+
+    public Color interactableButtonColor;
+    public Color notInteractableButtonColor;
+
     public Transform blankTilePrefab;
     public Transform greenArrowPrefab;
-    
+
     public static bool isDeleteTileSelected;
     public static bool isGreenArrowSelected;
-    public static bool unselectAll;
+    public static bool nothingIsSelected;
+
+    public GameObject deleteTileSelectedOutline;
+    public GameObject greenArrowSelectedOutline;
+
+    public static bool changeSpeedSimulation;
+
+    public bool isOverPlayerArrowTile;
+    public GameObject contextualWindow;
+    public TextMeshProUGUI contextualWindowText;
+
+    public Image deleteTileButtonImage;
+    public Image greenArrowButtonImage;
+
+    public Image playButtonImage;
+    public Image pauseButtonImage;
+    public Image slowDownButtonImage;
+    public Image speedUpButtonImage;
+    public Image stopSimulationButtonImage;
+    public Image resetCameraPosButtonImage;
+
+    public Image cameraControlButtonImage;
+    public Image pauseMenuButtonImage;
 
     private void Start()
     {
-        unselectAll = true;
+        nothingIsSelected = true;
         isDeleteTileSelected = false;
         isGreenArrowSelected = false;
+        changeSpeedSimulation = false;
 
         if (!gameManager)
         {
@@ -45,32 +85,82 @@ public class InGameUIManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            SpeedUpSimulation();
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+            SlowDownSimulation();
+
         if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log("right mouse input");
-            unselectAll = true;
-        }
-        else
-            unselectAll = false;
+            UnselectAllTiles();
 
-        if (unselectAll)
-        {
-            isGreenArrowSelected = false;
-            isDeleteTileSelected = false;
-            Debug.Log("unselect all tiles");
-        }
 
+        if (MainCamera.isFreeLookActive)
+        {
+                ToggleUIButton(arrowButtonScript, false, greenArrowButtonImage, notInteractableButtonColor);
+                ToggleUIButton(deleteButtonScript, false, deleteTileButtonImage, notInteractableButtonColor);
+                ToggleUIButton(playButtonScript, false, playButtonImage, notInteractableButtonColor);
+                ToggleUIButton(pauseButtonScript, false, pauseButtonImage, notInteractableButtonColor);
+                ToggleUIButton(slowDownButtonScript, false, slowDownButtonImage, notInteractableButtonColor);
+                ToggleUIButton(speedUpButtonScript, false, speedUpButtonImage, notInteractableButtonColor);
+                ToggleUIButton(stopButtonScript, false, stopSimulationButtonImage, notInteractableButtonColor);
+                ToggleUIButton(pauseMenuButtonScript, false, pauseMenuButtonImage, notInteractableButtonColor);
+                ToggleUIButton(resetCameraPosButtonScript, false, resetCameraPosButtonImage, notInteractableButtonColor);
+        }
+        else if (!MainCamera.isFreeLookActive)
+        {
+            ToggleUIButton(resetCameraPosButtonScript, true, resetCameraPosButtonImage, notInteractableButtonColor);
+            ToggleUIButton(pauseButtonScript, true, pauseButtonImage, interactableButtonColor);
+            ToggleUIButton(pauseMenuButtonScript, true, pauseMenuButtonImage, interactableButtonColor);
+            ToggleUIButton(slowDownButtonScript, true, slowDownButtonImage, interactableButtonColor);
+            ToggleUIButton(speedUpButtonScript, true, speedUpButtonImage, interactableButtonColor);
+
+
+            if (gameManager.allEndTilesAreValidated)
+                ToggleUIButton(playButtonScript, false, playButtonImage, notInteractableButtonColor);
+            else
+                ToggleUIButton(playButtonScript, true, playButtonImage, interactableButtonColor);
+
+            if (!CurrentLevelManager.isGreenArrowStockEmpty)
+                ToggleUIButton(arrowButtonScript, true, greenArrowButtonImage, interactableButtonColor);
+            else if (CurrentLevelManager.isGreenArrowStockEmpty)
+            {
+                isGreenArrowSelected = false;
+                greenArrowSelectedOutline.SetActive(false);
+                ToggleUIButton(arrowButtonScript, false, greenArrowButtonImage, notInteractableButtonColor);
+            }
+
+
+            if (!CurrentLevelManager.greenArrowStockIsFull)
+                ToggleUIButton(deleteButtonScript, true, deleteTileButtonImage, interactableButtonColor);
+            else if (CurrentLevelManager.greenArrowStockIsFull)
+            {
+                isDeleteTileSelected = false;
+                deleteTileSelectedOutline.SetActive(false);
+                ToggleUIButton(deleteButtonScript, false, deleteTileButtonImage, notInteractableButtonColor);
+            }
+
+
+            if (!GameManager.simulationHasBeenLaunched)
+                ToggleUIButton(stopButtonScript, false, stopSimulationButtonImage, notInteractableButtonColor);
+            else if (GameManager.simulationHasBeenLaunched)
+            {
+                ToggleUIButton(stopButtonScript, true, stopSimulationButtonImage, interactableButtonColor);
+                ToggleUIButton(deleteButtonScript, false, deleteTileButtonImage, notInteractableButtonColor);
+                ToggleUIButton(arrowButtonScript, false, greenArrowButtonImage, notInteractableButtonColor);
+            }
+        }
 
         if (!GameManager.simulationIsRunning && pauseSimulationButton.activeSelf)
         {
-            pauseSimulationButton.SetActive(false);
+            UnselectAllTiles();
             playSimulationButton.SetActive(true);
+            pauseSimulationButton.SetActive(false);
             if (_mainCamera)
             {
                 _mainCamera.backgroundColorSwap();
             }
         }
-        else if (GameManager.simulationIsRunning && playSimulationButton.activeSelf)
+        else if (GameManager.simulationIsRunning && GameManager.simulationHasBeenLaunched && playSimulationButton.activeSelf)
         {
             playSimulationButton.SetActive(false);
             pauseSimulationButton.SetActive(true);
@@ -78,86 +168,182 @@ public class InGameUIManager : MonoBehaviour
             {
                 _mainCamera.backgroundColorSwap();
             }
-        }
-
-
-        if (GameManager.levelIsStoped)
-        {
-            playSimulationButton.SetActive(true);
-            pauseSimulationButton.SetActive(false);
-            GameManager.levelIsStoped = false;
         }
 
         if (GameManager.levelIsCompleted && !winScreen.activeSelf)
         {
             winScreen.SetActive(true);
         }
+
+        if (isOverPlayerArrowTile)
+        {
+            contextualWindow.SetActive(true);
+            contextualWindowText.text = "rotate : r / left clic";
+        }
+        else
+            contextualWindow.SetActive(false);
+    }
+
+    public void UnselectAllTiles()
+    {
+        isGreenArrowSelected = false;
+        isDeleteTileSelected = false;
+        deleteTileSelectedOutline.SetActive(false);
+        greenArrowSelectedOutline.SetActive(false);
+        nothingIsSelected = true;
+    }
+
+    public void ToggleUIButton(Button button, bool toggleOn, Image buttonImage, Color imageColor)
+    {
+        button.interactable = toggleOn;
+        buttonImage.color = imageColor;
     }
 
     public void DeleteSelection()
     {
-        unselectAll = true;
-        if (unselectAll)
+        if (!MainCamera.isFreeLookActive)
         {
-            isGreenArrowSelected = false;
-            isDeleteTileSelected = false;
-        }
-        if (!isDeleteTileSelected)
-        {
+            UnselectAllTiles();
             isDeleteTileSelected = true;
-            Debug.Log("delete button selected = " + isDeleteTileSelected);
+            deleteTileSelectedOutline.SetActive(true);
         }
     }
 
     public void GreenArrowSelection()
     {
-        unselectAll = true;
-        if (unselectAll)
+        if (!MainCamera.isFreeLookActive)
         {
-            isGreenArrowSelected = false;
-            isDeleteTileSelected = false;
-        }
-        if (!CurrentLevelManager.isGreenArrowStockEmpty && !isGreenArrowSelected)
-        {
-            isGreenArrowSelected = true;
-            Debug.Log("green arrow tile selected = " + isGreenArrowSelected);
+            UnselectAllTiles();
+
+            if (!CurrentLevelManager.isGreenArrowStockEmpty)
+            {
+                isGreenArrowSelected = true;
+                greenArrowSelectedOutline.SetActive(true);
+            }
         }
     }
 
     public void SimulationButton()
     {
-        if (!GameManager.simulationIsRunning)
+        if (!MainCamera.isFreeLookActive)
         {
-            gameManager.LaunchSimulation();
-            playSimulationButton.SetActive(true);
-            pauseSimulationButton.SetActive(false);
-            if (_mainCamera)
+            if (!GameManager.simulationIsRunning)
             {
-                _mainCamera.backgroundColorSwap();
+                UnselectAllTiles();
+                gameManager.LaunchSimulation();
+                greenArrowButtonImage.color = notInteractableButtonColor;
+                deleteTileButtonImage.color = notInteractableButtonColor;
+
+                stopButtonScript.interactable = true;
+                stopSimulationButtonImage.color = interactableButtonColor;
+
+                if (_mainCamera)
+                {
+                    _mainCamera.backgroundColorSwap();
+                }
             }
-        }
-        else if (GameManager.simulationIsRunning)
-        {
-            gameManager.LaunchSimulation();
-            playSimulationButton.SetActive(false);
-            pauseSimulationButton.SetActive(true);
-            if (_mainCamera)
+            else if (GameManager.simulationIsRunning)
             {
-                _mainCamera.backgroundColorSwap();
+                gameManager.LaunchSimulation();
+                if (_mainCamera)
+                {
+                    _mainCamera.backgroundColorSwap();
+                }
             }
         }
     }
 
-    public void PauseGame()
+    public void SpeedUpSimulation()
     {
-        Time.timeScale = 0f;
-        pauseMenu.SetActive(true);
+        //if (!MainCamera.isFreeLookActive)
+        //{
+            if (gameManager.simulationSpeed == 1f)
+            {
+                changeSpeedSimulation = true;
+                gameManager.simulationSpeed = 2f;
+            }
+            else if (gameManager.simulationSpeed == 2f)
+            {
+                changeSpeedSimulation = true;
+                gameManager.simulationSpeed = 3f;
+            }
+            else if (gameManager.simulationSpeed == 3f)
+            {
+                changeSpeedSimulation = true;
+                gameManager.simulationSpeed = 1f;
+            }
+        //}
+    }
+
+    public void SlowDownSimulation()
+    {
+        //if (!MainCamera.isFreeLookActive)
+        //{
+            if (gameManager.simulationSpeed == 1f)
+            {
+                changeSpeedSimulation = true;
+                gameManager.simulationSpeed = 3f;
+            }
+            else if (gameManager.simulationSpeed == 2f)
+            {
+                changeSpeedSimulation = true;
+                gameManager.simulationSpeed = 1f;
+            }
+            else if (gameManager.simulationSpeed == 3f)
+            {
+                changeSpeedSimulation = true;
+                gameManager.simulationSpeed = 2f;
+            }
+        //}
+    }
+
+    public void StopSimulation()
+    {
+        if (!MainCamera.isFreeLookActive)
+        {
+            UnselectAllTiles();
+            gameManager.StopSimulation();
+            ToggleUIButton(playButtonScript, true, playButtonImage, interactableButtonColor);
+
+            stopButtonScript.interactable = false;
+            stopSimulationButtonImage.color = notInteractableButtonColor;
+
+            greenArrowButtonImage.color = interactableButtonColor;
+            deleteTileButtonImage.color = interactableButtonColor;
+        }
+    }
+
+    public void ToggleFreeLook()
+    {
+        UnselectAllTiles();
+        _mainCamera.FreeLook();
+    }
+
+    public void ResetCameraPosition()
+    {
+        _mainCamera.SetToStartPos();
+        cinemachineCamera.transform.position = _mainCamera.transform.position;
+    }
+
+    public void PauseMenu()
+    {
+        if (!MainCamera.isFreeLookActive)
+        {
+            UnselectAllTiles();
+            GameManager.gameIsPaused = true;
+            GameManager.playerCanModifyBoard = false;
+            Time.timeScale = 0f;
+            pauseMenu.SetActive(true);
+        }
     }
 
     public void ResumeGame()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = gameManager.simulationSpeed;
         pauseMenu.SetActive(false);
+        GameManager.gameIsPaused = false;
+        if (!GameManager.simulationIsRunning && !GameManager.simulationHasBeenLaunched)
+            GameManager.playerCanModifyBoard = true;
     }
 
     public void DisplayControls()
@@ -182,12 +368,12 @@ public class InGameUIManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        levelLoader.loadNextLevel();
-    }
-
-    public void StopSimulation()
-    {
-        gameManager.StopSimulation();
+        if (!MainCamera.isFreeLookActive)
+        {
+            Time.timeScale = gameManager.simulationSpeed = 1f;
+            UnselectAllTiles();
+            levelLoader.loadNextLevel();
+        }
     }
 
     public void ExitGame()

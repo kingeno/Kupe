@@ -25,6 +25,7 @@ public class GreenArrow : MonoBehaviour {
     private Renderer _renderer;
     public Texture active_greenArrow;
     public Texture unactive_greenArrow;
+    public Texture arrowTileDeleteImpossible;
 
     public float unactiveTimeColorSwap;
     public float reactiveTimeColorSwap;
@@ -69,7 +70,19 @@ public class GreenArrow : MonoBehaviour {
         if (tileSelectionSquare.canBeMoved)
         {
             tileSelectionSquare.transform.position = transform.position;
-            tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+            if (InGameUIManager.isDeleteTileSelected)
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
+                _renderer.material.SetTexture("_MainTex", arrowTileDeleteImpossible);
+            }
+            else
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+                if (isActive)
+                    _renderer.material.SetTexture("_MainTex", active_greenArrow);
+                else
+                    _renderer.material.SetTexture("_MainTex", unactive_greenArrow);
+            }
         }
     }
 
@@ -77,6 +90,13 @@ public class GreenArrow : MonoBehaviour {
     {
         if (tileSelectionSquare.canBeMoved)
             tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+        if (!GameManager.simulationHasBeenLaunched)
+        {
+            if (isActive)
+                _renderer.material.SetTexture("_MainTex", active_greenArrow);
+            else
+                _renderer.material.SetTexture("_MainTex", unactive_greenArrow);
+        }
     }
 
     public void SetInitialState()

@@ -13,11 +13,19 @@ public class EndTile : MonoBehaviour {
     public Transform above_AdjacentTile;
     public GameObject endTileParticleSystem;
 
+    private Renderer _renderer;
+    public Texture active;
+    public Texture impossibleToDelete;
+
     void Start () {
+        _renderer = GetComponent<Renderer>();
+
         if (!tileSelectionSquareTransform)
             tileSelectionSquareTransform = GameObject.FindGameObjectWithTag("TileSelectionSquare").transform;
+
         if (!tileSelectionSquare)
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
+
         isValidated = false;
         tilesBoard = BoardManager.original_3DBoard;
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
@@ -25,12 +33,28 @@ public class EndTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        tileSelectionSquareTransform.position = transform.position;
+        if (tileSelectionSquare.canBeMoved)
+        {
+            tileSelectionSquare.transform.position = transform.position;
+            if (InGameUIManager.isDeleteTileSelected)
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
+                _renderer.material.SetTexture("_MainTex", impossibleToDelete);
+            }
+            else
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+                _renderer.material.SetTexture("_MainTex", active);
+            }
+        }
     }
 
     private void OnMouseExit()
     {
-        tileSelectionSquareTransform.position = tileSelectionSquare.hiddenPosition;
+        if (tileSelectionSquare.canBeMoved)
+            tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+        if (!GameManager.simulationHasBeenLaunched)
+            _renderer.material.SetTexture("_MainTex", active);
     }
 
     public void SetInitialState()

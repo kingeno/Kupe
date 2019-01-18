@@ -19,7 +19,7 @@ public class EphemereTile : MonoBehaviour {
 
     private Renderer _renderer;
     public Texture active;
-    //public Texture unactive;
+    public Texture impossibleToDelete;
 
     public float unactiveTimeColorSwap;
     public float reactiveTimeColorSwap;
@@ -52,12 +52,28 @@ public class EphemereTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        tileSelectionSquare.transform.position = transform.position;
+        if (tileSelectionSquare.canBeMoved)
+        {
+            tileSelectionSquare.transform.position = transform.position;
+            if (InGameUIManager.isDeleteTileSelected)
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
+                _renderer.material.SetTexture("_MainTex", impossibleToDelete);
+            }
+            else
+            {
+                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+                _renderer.material.SetTexture("_MainTex", active);
+            }
+        }
     }
 
     private void OnMouseExit()
     {
-        tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+        if (tileSelectionSquare.canBeMoved)
+            tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+        if (!GameManager.simulationHasBeenLaunched)
+            _renderer.material.SetTexture("_MainTex", active);
     }
 
     public void SetInitialState()
@@ -65,7 +81,7 @@ public class EphemereTile : MonoBehaviour {
         isActive = true;
         nextActiveTurn = 0;
         _renderer.material.color = Color.white;
-        //_renderer.material.SetTexture("_MainTex", active);
+        _renderer.material.SetTexture("_MainTex", active);
         tag = tagWhenActive;
     }
 
