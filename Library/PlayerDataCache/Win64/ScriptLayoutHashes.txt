@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/Theodore/Desktop/Kupe_TestBuild_2019.01.18/Tile Base Cube Puzzle Game.exe
+C:/Users/Theodore/Desktop/Kupe_Build_2019.01.18_v0.0.3/Tile Base Cube Puzzle Game.exe
 SceneListBegin?
 Assets/Scenes/Level000.unity
 Assets/Scenes/Level001.unity

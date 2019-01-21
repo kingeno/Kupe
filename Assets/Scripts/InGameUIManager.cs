@@ -372,6 +372,7 @@ public class InGameUIManager : MonoBehaviour
         {
             Time.timeScale = gameManager.simulationSpeed = 1f;
             UnselectAllTiles();
+            GameManager.simulationHasBeenLaunched = false;
             levelLoader.loadNextLevel();
         }
     }

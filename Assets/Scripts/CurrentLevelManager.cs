@@ -13,6 +13,7 @@ public class CurrentLevelManager : MonoBehaviour {
     private void Awake()
     {
         greenArrowStock_static = currentGreenArrowStock = greenArrowStock;
+        greenArrowStockIsFull = true;
         isGreenArrowStockEmpty = false;
     }
 
