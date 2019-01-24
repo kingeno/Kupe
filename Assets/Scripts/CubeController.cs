@@ -379,9 +379,23 @@ public class CubeController : MonoBehaviour
 
         else if (belowTile.tag == "End Tile")
         {
-            predictedPos = currentTurnPos;
-            willMove = willRoundTrip = false;
-            lastMovement = new Vector3(0, 0, 0);
+            // Use this for the cube to stop when on EndTile
+            //predictedPos = currentTurnPos;
+            //willMove = willRoundTrip = false;
+            //lastMovement = new Vector3(0, 0, 0);
+
+
+            // Use this so the cube not to stop when on EndTile
+            predictedPos = (currentTurnPos + lastMovement);
+            willMove = true;
+            if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            {
+                predictedPos = currentTurnPos;
+                lastMovement = new Vector3(0, 0, 0);
+                willMove = false;
+            }
+
+
             //if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
             //{
             //    predictedPos = currentTurnPos;

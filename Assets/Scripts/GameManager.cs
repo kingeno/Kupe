@@ -297,7 +297,6 @@ public class GameManager : MonoBehaviour
                 if (cube.yPos == 0)
                 {
                     cube.willNotMoveAnymore = true;
-                    Debug.LogError(cube.name + " will not move anymore");
                 }
                 else if (cube.yPos != 0)
                 {
@@ -306,7 +305,6 @@ public class GameManager : MonoBehaviour
                     if (cube.predicted_NextTurnPos == cube.currentTurnPos)
                     {
                         cube.willNotMoveAnymore = true;
-                        Debug.LogError(cube.name + " will not move anymore");
                     }
                 }
             }

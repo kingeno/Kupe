@@ -322,7 +322,6 @@ public class InGameUIManager : MonoBehaviour
     public void ResetCameraPosition()
     {
         _mainCamera.SetToStartPos();
-        cinemachineCamera.transform.position = _mainCamera.transform.position;
     }
 
     public void PauseMenu()
