@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     public static bool turnIsFinished;
 
     public float currentTurnTime;
-    public float turnTime = 0.6f;
+    public float turnTime = 0.4f;
     public float initialTurnTime;
 
     public static bool simulationIsRunning;
@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //Time.timeScale = 0.1f;
+
         if (Input.GetKeyDown(KeyCode.S))
             Debug.LogError(simulationSpeed);
 
@@ -264,6 +266,12 @@ public class GameManager : MonoBehaviour
         {
             if (cube.willNotMoveAnymore)
             {
+                cube.willMove = false;
+                cube.cubeAnimator.SetBool("will move", false);
+                cube.cubeAnimator.SetBool("move forward", false);
+                cube.cubeAnimator.SetBool("move back", false);
+                cube.cubeAnimator.SetBool("move right", false);
+                cube.cubeAnimator.SetBool("move left", false);
                 if (cube.yPos != 0f && cube.TileCheck(cube.below_AdjacentPos).gameObject.tag != "End Tile")
                 {
                     cube.TriggerStuckParticleStytem();

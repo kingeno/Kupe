@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubeNumber: 1
+  isOnEndTile: 0
   xPos: 0
   yPos: 0
   zPos: 0
@@ -115,7 +116,6 @@ MonoBehaviour:
   stuckParticleSystem: {fileID: 5025537607050290020}
   isOnEndTileParticleSystem: {fileID: 4679713801384434517}
   startPos: {x: 0, y: 0, z: 0}
-  isOnEndTile: 0
   currentTurnPos: {x: 0, y: 0, z: 0}
   lastMovement: {x: 0, y: 0, z: 0}
   predicted_NextTurnPos: {x: 0, y: 0, z: 0}

@@ -56,7 +56,7 @@ MonoBehaviour:
   ephemereTiles: []
   ephemereTilesControllers: []
   currentTurnTime: 0
-  turnTime: 0.6
+  turnTime: 0.5
   initialTurnTime: 0
   allEndTilesAreValidated: 0
   playerIsStuck: 0

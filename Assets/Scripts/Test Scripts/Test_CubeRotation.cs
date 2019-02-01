@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Test_CubeRotation : MonoBehaviour {
 
-    // Origines du script : https://blog.susfour.net/?p=197
+    // script blog post origin : https://blog.susfour.net/?p=197
+    // to rotate a parallepiped : https://blog.susfour.net/memo/unity-script-for-roll-a-rectangular-parallelpiped/
 
     public float rotationPeriod = 0.3f;     // Temps nécessaire pour passer à côté de
     public float sideLength = 1f;           // Cube La longueur du côté de

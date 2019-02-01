@@ -5,6 +5,7 @@ using UnityEngine;
 public class CubeController : MonoBehaviour
 {
     public int cubeNumber;
+    public bool playRollAnimation;
 
     public bool isOnEndTile;
 
@@ -60,6 +61,9 @@ public class CubeController : MonoBehaviour
         {
             _renderer = cubeAvatar.GetComponent<MeshRenderer>();
         }
+
+        if (!cubeAnimator)
+            cubeAnimator = cubeAvatar.GetComponent<Animator>();
 
         tilesBoard = BoardManager.original_3DBoard;
         _opaqueCubeColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -148,6 +152,12 @@ public class CubeController : MonoBehaviour
             willRoundTripDown = false;
         }
 
+        cubeAnimator.SetBool("will move", false);
+        cubeAnimator.SetBool("move forward", false);
+        cubeAnimator.SetBool("move back", false);
+        cubeAnimator.SetBool("move right", false);
+        cubeAnimator.SetBool("move left", false);
+
         above_AdjacentPos = (currentTurnPos + new Vector3(0, 1, 0));
         below_AdjacentPos = (currentTurnPos + new Vector3(0, -1, 0));
 
@@ -206,7 +216,8 @@ public class CubeController : MonoBehaviour
             Debug.Log(name + " has no tile below it");
             predictedPos = (currentTurnPos + new Vector3(0, -1, 0));
             Debug.Log(predictedPos);
-            willMove = willMoveDown = true;
+            if (transform.position.y != 0f)
+                willMove = willMoveDown = true;
         }
         else if (belowTile.tag == "Green Arrow" && belowTile.GetComponent<GreenArrow>())
         {
@@ -437,15 +448,50 @@ public class CubeController : MonoBehaviour
         {
             // no animation needed -> maybe some effects or a blink of the cube
             transform.position = currentTurnPos;
+            cubeAnimator.SetBool("will move", false);
+            cubeAnimator.SetBool("move forward", false);
+            cubeAnimator.SetBool("move back", false);
+            cubeAnimator.SetBool("move right", false);
+            cubeAnimator.SetBool("move left", false);
         }
         else if (willMove)
         {
             //Debug.Log(name + " will move coroutine");
+            if (willMoveDown || willMoveUp)
+            {
+                cubeAnimator.SetBool("will move", false);
+                cubeAnimator.SetBool("move forward", false);
+                cubeAnimator.SetBool("move back", false);
+                cubeAnimator.SetBool("move right", false);
+                cubeAnimator.SetBool("move left", false);
+            }
+            else if (playRollAnimation)
+            {
+                cubeAnimator.SetBool("will move", true);
+                if (willMoveForward)
+                    cubeAnimator.SetBool("move forward", true);
+                else if (willMoveBack)
+                    cubeAnimator.SetBool("move back", true);
+                else if (willMoveRight)
+                    cubeAnimator.SetBool("move right", true);
+                else if (willMoveLeft)
+                    cubeAnimator.SetBool("move left", true);
+            }
+
             StartCoroutine(MoveOverSeconds(this.gameObject, confirmed_NextTurnPos, 0.2f));
         }
         else if (willRoundTrip)
         {
-            StartCoroutine(RoundTripOverSeconds(this.gameObject, predicted_NextTurnPos, 0.20f));
+            //StartCoroutine(RoundTripOverSeconds(this.gameObject, predicted_NextTurnPos, 0.20f));
+
+            if (willRoundTripForward)
+                StartCoroutine(RoundTripOverSeconds(this.gameObject, new Vector3(predicted_NextTurnPos.x, predicted_NextTurnPos.y, predicted_NextTurnPos.z - 0.5f), 0.10f));
+            else if (willRoundTripBack)
+                StartCoroutine(RoundTripOverSeconds(this.gameObject, new Vector3(predicted_NextTurnPos.x, predicted_NextTurnPos.y, predicted_NextTurnPos.z + 0.5f), 0.10f));
+            else if (willRoundTripRight)
+                StartCoroutine(RoundTripOverSeconds(this.gameObject, new Vector3(predicted_NextTurnPos.x - 0.5f, predicted_NextTurnPos.y, predicted_NextTurnPos.z), 0.10f));
+            else if (willRoundTripLeft)
+                StartCoroutine(RoundTripOverSeconds(this.gameObject, new Vector3(predicted_NextTurnPos.x + 0.5f, predicted_NextTurnPos.y, predicted_NextTurnPos.z), 0.10f));
         }
     }
 
@@ -466,6 +512,11 @@ public class CubeController : MonoBehaviour
     {
         if (!stuckParticleSystem.activeSelf)
         {
+            cubeAnimator.SetBool("will move", false);
+            cubeAnimator.SetBool("move forward", false);
+            cubeAnimator.SetBool("move back", false);
+            cubeAnimator.SetBool("move right", false);
+            cubeAnimator.SetBool("move left", false);
             stuckParticleSystem.SetActive(true);
         }
         //else if (stuckParticleSystem.activeSelf)
@@ -478,6 +529,11 @@ public class CubeController : MonoBehaviour
     {
         if (!isOnEndTileParticleSystem.activeSelf)
         {
+            cubeAnimator.SetBool("will move", false);
+            cubeAnimator.SetBool("move forward", false);
+            cubeAnimator.SetBool("move back", false);
+            cubeAnimator.SetBool("move right", false);
+            cubeAnimator.SetBool("move left", false);
             isOnEndTileParticleSystem.SetActive(true);
         }
         //else if (isOnEndTileParticleSystem.activeSelf)
@@ -495,11 +551,17 @@ public class CubeController : MonoBehaviour
             objectToMove.transform.position = Vector3.Lerp(startingPos, endPos, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
+            {
+                cubeAnimator.SetBool("will move", false);
                 objectToMove.transform.position = endPos;
+            }
             yield return null;
         }
         if (GameManager.simulationIsRunning)
+        {
+            cubeAnimator.SetBool("will move", false);
             objectToMove.transform.position = endPos;
+        }
         else
             transform.position = endPos;
     }
@@ -513,7 +575,10 @@ public class CubeController : MonoBehaviour
             objectToMove.transform.position = Vector3.Lerp(startingPos, halfWayPos, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
+            {
+                cubeAnimator.SetBool("will move", false);
                 break;
+            }
             yield return null;
         }
         elapsedTime = 0;
@@ -524,13 +589,17 @@ public class CubeController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
             {
+                cubeAnimator.SetBool("will move", false);
                 transform.position = startingPos;
                 break;
             }
             yield return null;
         }
         if (GameManager.simulationIsRunning)
+        {
+            cubeAnimator.SetBool("will move", false);
             objectToMove.transform.position = startingPos;
+        }
         else
             transform.position = startPos;
     }
