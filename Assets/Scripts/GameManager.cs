@@ -10,42 +10,42 @@ public class GameManager : MonoBehaviour
     public static bool gameIsPaused;
     private BoardManager boardManager;
 
-    public GameObject[] cubes;
-    public CubeController[] cubesControllers;
+    [HideInInspector] public GameObject[] cubes;
+    [HideInInspector] public CubeController[] cubesControllers;
 
-    public GameObject[] endTiles;
-    public EndTile[] endTilesControllers;
+    [HideInInspector] public GameObject[] endTiles;
+    [HideInInspector] public EndTile[] endTilesControllers;
 
-    public GameObject[] greenArrows;
-    public GreenArrow[] greenArrowsControllers;
+    [HideInInspector] public GameObject[] greenArrows;
+    [HideInInspector] public GreenArrow[] greenArrowsControllers;
 
-    public GameObject[] player_GreenArrows;
-    public Player_GreenArrow[] player_GreenArrowsControllers;
+    [HideInInspector] public GameObject[] player_GreenArrows;
+    [HideInInspector] public Player_GreenArrow[] player_GreenArrowsControllers;
 
-    public GameObject[] liftTiles;
-    public LiftTile[] liftTilesControllers;
+    [HideInInspector] public GameObject[] liftTiles;
+    [HideInInspector] public LiftTile[] liftTilesControllers;
 
-    public GameObject[] ephemereTiles;
-    public EphemereTile[] ephemereTilesControllers;
+    [HideInInspector] public GameObject[] ephemereTiles;
+    [HideInInspector] public EphemereTile[] ephemereTilesControllers;
 
     public static int turnCount;
     public static int currentTurn;
     public static bool turnStart;
     public static bool turnIsFinished;
 
-    public float currentTurnTime;
+    [HideInInspector] public float currentTurnTime;
     public float turnTime = 0.4f;
-    public float initialTurnTime;
+    [HideInInspector] public float initialTurnTime;
 
     public static bool simulationIsRunning;
     public static bool playerCanModifyBoard;
     public static bool simulationHasBeenLaunched;
 
-    public bool allEndTilesAreValidated;
+    [HideInInspector] public bool allEndTilesAreValidated;
     public static bool levelIsCompleted;
-    public bool playerIsStuck;
+    [HideInInspector] public bool playerIsStuck;
 
-    public float simulationSpeed;
+    [HideInInspector] public float simulationSpeed;
 
     private void Start()
     {

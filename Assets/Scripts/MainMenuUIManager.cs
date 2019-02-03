@@ -6,13 +6,21 @@ using TMPro;
 
 public class MainMenuUIManager : MonoBehaviour {
 
+    
     public GameObject mainMenu;
     public GameObject levelHub;
     public GameObject controlsScheme;
+
+    [Header("Level Containers")]
     public GameObject levelContainer1;
     public GameObject levelContainer2;
     public GameObject levelContainer3;
     public GameObject levelContainer4;
+
+    [Header("Button Text Colors")]
+    public Color defaultColor;
+    public Color highlightColor;
+    public Color notInteractableColor;
 
     public void DisplayLevelHub()
     {

@@ -7,61 +7,81 @@ using TMPro;
 
 public class InGameUIManager : MonoBehaviour
 {
-    public LevelLoader levelLoader;
-    public GameManager gameManager;
-    public MainCamera _mainCamera;
-    public GameObject cinemachineCamera;
+    private GameManager gameManager;
+    private LevelLoader levelLoader;
+    private MainCamera _mainCamera;
+    private GameObject cinemachineCamera;
 
+    [Header("Tile Prefabs")]
+    public Transform blankTilePrefab;
+    public Transform greenArrowPrefab;
+
+    [Header("General UI")]
     public GameObject inGameUI;
     public GameObject pauseMenu;
     public GameObject controlsScheme;
     public GameObject winScreen;
 
-    public GameObject playSimulationButton;
-    public GameObject pauseSimulationButton;
+    [Header("Contextual Window")]
+    public GameObject contextualWindow;
+    public TextMeshProUGUI contextualWindowText;
 
-    public Button arrowButtonScript;
+    [Header("Button Outlines")]
+    public GameObject deleteTileSelectedOutline;
+    public GameObject greenArrowSelectedOutline;
+
+    [Header("Delete Tile Button")]
     public Button deleteButtonScript;
+    public Image deleteTileButtonImage;
 
-    public Button playButtonScript;
-    public Button pauseButtonScript;
+    [Header("Arrow Tile Button")]
+    public Button arrowButtonScript;
+    public Image greenArrowButtonImage;
+
+    [Header("Slow Down Button")]
     public Button slowDownButtonScript;
+    public Image slowDownButtonImage;
+
+    [Header("Speed Up Button")]
     public Button speedUpButtonScript;
+    public Image speedUpButtonImage;
+
+    [Header("Play Simulation Button")]
+    public GameObject playSimulationButton;
+    public Button playButtonScript;
+    public Image playButtonImage;
+
+    [Header("Pause Simulation Button")]
+    public GameObject pauseSimulationButton;
+    public Button pauseButtonScript;
+    public Image pauseButtonImage;
+
+    [Header("Stop Simulation Button")]
     public Button stopButtonScript;
+    public Image stopSimulationButtonImage;
+
+    [Header("Pause Menu Button")]
     public Button pauseMenuButtonScript;
+    public Image pauseMenuButtonImage;
+
+    [Header("Camera Buttons")]
     public Button resetCameraPosButtonScript;
+    public Image resetCameraPosButtonImage;
 
-    public Color interactableButtonColor;
+    public Image cameraControlButtonImage;
+
+    [Header("Interactable Colors")]
     public Color notInteractableButtonColor;
-
-    public Transform blankTilePrefab;
-    public Transform greenArrowPrefab;
+    public Color interactableButtonColor;
 
     public static bool isDeleteTileSelected;
     public static bool isGreenArrowSelected;
     public static bool nothingIsSelected;
 
-    public GameObject deleteTileSelectedOutline;
-    public GameObject greenArrowSelectedOutline;
-
     public static bool changeSpeedSimulation;
 
-    public bool isOverPlayerArrowTile;
-    public GameObject contextualWindow;
-    public TextMeshProUGUI contextualWindowText;
+    [HideInInspector] public bool isOverPlayerArrowTile;
 
-    public Image deleteTileButtonImage;
-    public Image greenArrowButtonImage;
-
-    public Image playButtonImage;
-    public Image pauseButtonImage;
-    public Image slowDownButtonImage;
-    public Image speedUpButtonImage;
-    public Image stopSimulationButtonImage;
-    public Image resetCameraPosButtonImage;
-
-    public Image cameraControlButtonImage;
-    public Image pauseMenuButtonImage;
 
     private void Start()
     {
@@ -71,17 +91,14 @@ public class InGameUIManager : MonoBehaviour
         changeSpeedSimulation = false;
 
         if (!gameManager)
-        {
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        }
-        if (!_mainCamera)
-        {
-            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>();
-        }
         if (!levelLoader)
-        {
             levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
-        }
+
+        if (!_mainCamera)
+            _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>();
+        if (!cinemachineCamera)
+            cinemachineCamera = GameObject.FindGameObjectWithTag("CMFreeLookCamera");
     }
 
     private void Update()

@@ -6,8 +6,12 @@ using TMPro;
 
 public class TileSelectionSquare : MonoBehaviour {
 
-    public Material material;
+    [HideInInspector] public Material material;
+    public GameObject contextualWindow;
+
     public Vector3 hiddenPosition = new Vector3(0f, 20f, 0f);
+
+    [Header("Material Colors")]
     public Color defaultColor;
     public Color canPlaceTileColor1;
     public Color canPlaceTileColor2;
@@ -17,11 +21,10 @@ public class TileSelectionSquare : MonoBehaviour {
     public Color canDeleteTileColor1;
     public Color canDeleteTileColor2;
 
-    public GameObject contextualWindow;
-
+    [Header("Blink Parameters")]
     public float blinkingDuration;
 
-    public bool canBeMoved;
+    [HideInInspector] public bool canBeMoved;
 
     void Start () {
         if (blinkingDuration == 0)

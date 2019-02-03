@@ -189,11 +189,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2144,46 +2144,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840f69d89fa39b84c8f9cf23aab50cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelLoader: {fileID: 0}
-  gameManager: {fileID: 0}
-  _mainCamera: {fileID: 0}
-  cinemachineCamera: {fileID: 0}
-  inGameUI: {fileID: 1966810814223482}
-  pauseMenu: {fileID: 1766356693972180}
-  controlsScheme: {fileID: 1309721676881078}
-  winScreen: {fileID: 1752155161413692}
-  playSimulationButton: {fileID: 1854982261764536}
-  pauseSimulationButton: {fileID: 1188428758660260}
-  arrowButtonScript: {fileID: 114530804436613332}
-  deleteButtonScript: {fileID: 114019094658023222}
-  playButtonScript: {fileID: 114712468021303634}
-  pauseButtonScript: {fileID: 114284548417825134}
-  slowDownButtonScript: {fileID: 2762079436191309717}
-  speedUpButtonScript: {fileID: 4313810098097214618}
-  stopButtonScript: {fileID: 114865586090678406}
-  pauseMenuButtonScript: {fileID: 114602711732378760}
-  resetCameraPosButtonScript: {fileID: 891024700671402450}
-  interactableButtonColor: {r: 1, g: 1, b: 1, a: 1}
-  notInteractableButtonColor: {r: 1, g: 1, b: 1, a: 0.3529412}
   blankTilePrefab: {fileID: 4893285859897830, guid: dc778a470ed486241967a692376765c9,
     type: 3}
   greenArrowPrefab: {fileID: 4965006877203814, guid: 3c4447353f1573f468fe294e65a84c73,
     type: 3}
-  deleteTileSelectedOutline: {fileID: 839640655139319561}
-  greenArrowSelectedOutline: {fileID: 4156858491827812781}
-  isOverPlayerArrowTile: 0
+  inGameUI: {fileID: 1966810814223482}
+  pauseMenu: {fileID: 1766356693972180}
+  controlsScheme: {fileID: 1309721676881078}
+  winScreen: {fileID: 1752155161413692}
   contextualWindow: {fileID: 27358483}
   contextualWindowText: {fileID: 354687585}
+  deleteTileSelectedOutline: {fileID: 839640655139319561}
+  greenArrowSelectedOutline: {fileID: 4156858491827812781}
+  deleteButtonScript: {fileID: 114019094658023222}
   deleteTileButtonImage: {fileID: 114569831756416056}
+  arrowButtonScript: {fileID: 114530804436613332}
   greenArrowButtonImage: {fileID: 114308927582150616}
-  playButtonImage: {fileID: 114355090575423176}
-  pauseButtonImage: {fileID: 114788693905471598}
+  slowDownButtonScript: {fileID: 2762079436191309717}
   slowDownButtonImage: {fileID: 7121436369863194423}
+  speedUpButtonScript: {fileID: 4313810098097214618}
   speedUpButtonImage: {fileID: 3888146195963071458}
+  playSimulationButton: {fileID: 1854982261764536}
+  playButtonScript: {fileID: 114712468021303634}
+  playButtonImage: {fileID: 114355090575423176}
+  pauseSimulationButton: {fileID: 1188428758660260}
+  pauseButtonScript: {fileID: 114284548417825134}
+  pauseButtonImage: {fileID: 114788693905471598}
+  stopButtonScript: {fileID: 114865586090678406}
   stopSimulationButtonImage: {fileID: 114768087408325364}
+  pauseMenuButtonScript: {fileID: 114602711732378760}
+  pauseMenuButtonImage: {fileID: 114147020054530368}
+  resetCameraPosButtonScript: {fileID: 891024700671402450}
   resetCameraPosButtonImage: {fileID: 9098740248354387909}
   cameraControlButtonImage: {fileID: 203813364343731683}
-  pauseMenuButtonImage: {fileID: 114147020054530368}
+  notInteractableButtonColor: {r: 1, g: 1, b: 1, a: 0.3529412}
+  interactableButtonColor: {r: 1, g: 1, b: 1, a: 1}
+  isOverPlayerArrowTile: 0
 --- !u!1 &1766356693972180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2201,7 +2197,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224550116506943438
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2983,7 +2979,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0, g: 0, b: 0, a: 0}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 1, g: 0.78431374, b: 0, a: 1}
     m_PressedColor: {r: 0.8349056, g: 1, b: 0.8349056, a: 1}
     m_DisabledColor: {r: 0, g: 0, b: 0, a: 0}
@@ -3656,11 +3652,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3777,7 +3773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224872829138192860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4274,11 +4270,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4657,11 +4653,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4819,11 +4815,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5203,11 +5199,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5364,11 +5360,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5526,11 +5522,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5706,11 +5702,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5867,11 +5863,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -6028,11 +6024,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -6189,11 +6185,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:

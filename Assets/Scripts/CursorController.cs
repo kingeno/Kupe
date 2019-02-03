@@ -10,8 +10,9 @@ public class CursorController : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
     private Vector2 hotSpot = Vector2.zero;
 
-    private void Start()
+    private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
         Cursor.SetCursor(defaultCursorTexture, hotSpot, cursorMode);
     }
 

@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainCamera : MonoBehaviour
 {
-    public GameManager gameManager;
+    private GameManager gameManager;
     private InGameUIManager _inGameUIManager;
-    public Camera _camera;
-    public GameObject CMFreeLookCam;
+    private Camera _camera;
+    private GameObject CMFreeLookCam;
     private Renderer CameraTargetRenderer;
     private Color currentColor;
+
+    [Header("Background Colors")]
     public Color playColor;
     public Color pauseColor;
     public Color stopColor;
@@ -21,9 +24,10 @@ public class MainCamera : MonoBehaviour
     private bool canColorSwap;
     public static bool isFreeLookActive;
 
+    [Header("Transition Time")]
     public float colorTransitionTime;
     public float levelCompletedColorTransitionTime;
-    public bool levelCompletedColorSwap;
+    [HideInInspector] public bool levelCompletedColorSwap;
 
     void Start()
     {

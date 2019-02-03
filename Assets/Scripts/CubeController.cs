@@ -5,19 +5,19 @@ using UnityEngine;
 public class CubeController : MonoBehaviour
 {
     public int cubeNumber;
-    public bool playRollAnimation;
 
-    public bool isOnEndTile;
+    [HideInInspector] public bool isOnEndTile;
 
-    public Transform[,,] tilesBoard;
-    public int xPos, yPos, zPos;
+    [HideInInspector] public Transform[,,] tilesBoard;
+    [HideInInspector] public int xPos, yPos, zPos;
 
-    public MeshRenderer _renderer;
+    [HideInInspector] public MeshRenderer _renderer;
 
+    [Header("Particle Systems")]
     public GameObject stuckParticleSystem;
     public GameObject isOnEndTileParticleSystem;
 
-    public Vector3 startPos;
+    [HideInInspector] public Vector3 startPos;
 
     [HideInInspector] public Vector3 currentTurnPos;
     [HideInInspector] public Vector3 lastMovement;
@@ -25,35 +25,37 @@ public class CubeController : MonoBehaviour
     [HideInInspector] public Vector3 confirmed_NextTurnPos, confirmed_NextTurnMovement;
 
     // Used to store tiles positions and use them
-    public Vector3 above_AdjacentPos, below_AdjacentPos;        // adjacent positions
-    public Vector3 front_AdjacentPos, back_AdjacentPos, right_AdjacentPos, left_AdjacentPos;
-    public Vector3 frontRight_DiagonalPos, frontLeft_DiagonalPos, backRight_DiagonalPos, backLeft_DiagonalPos;
-    public Vector3 aboveFront_AdjacentPos, aboveBack_AdjacentPos, aboveRight_AdjacentPos, aboveLeft_AdjacentPos;
-    public Vector3 belowFront_AdjacentPos, belowBack_AdjacentPos, belowRight_AdjacentPos, belowLeft_AdjacentPos;
+    [HideInInspector] public Vector3 above_AdjacentPos, below_AdjacentPos;        // adjacent positions
+    [HideInInspector] public Vector3 front_AdjacentPos, back_AdjacentPos, right_AdjacentPos, left_AdjacentPos;
+    [HideInInspector] public Vector3 frontRight_DiagonalPos, frontLeft_DiagonalPos, backRight_DiagonalPos, backLeft_DiagonalPos;
+    [HideInInspector] public Vector3 aboveFront_AdjacentPos, aboveBack_AdjacentPos, aboveRight_AdjacentPos, aboveLeft_AdjacentPos;
+    [HideInInspector] public Vector3 belowFront_AdjacentPos, belowBack_AdjacentPos, belowRight_AdjacentPos, belowLeft_AdjacentPos;
 
-    public Vector3 above_TwoTilesAwayPos, below_TwoTilesAwayPos;    // two tiles away positions
-    public Vector3 front_TwoTilesAwayPos, back_TwoTilesAwayPos, right_TwoTilesAwayPos, left_TwoTilesAwayPos;
+    [HideInInspector] public Vector3 above_TwoTilesAwayPos, below_TwoTilesAwayPos;    // two tiles away positions
+    [HideInInspector] public Vector3 front_TwoTilesAwayPos, back_TwoTilesAwayPos, right_TwoTilesAwayPos, left_TwoTilesAwayPos;
 
-    public bool willNotMoveAnymore;
+    [HideInInspector] public bool willNotMoveAnymore;
 
     // Used to determine if the cube will move and where will it moves based on predicted futur position
-    public bool willMove;
-    public bool willMoveForward, willMoveBack, willMoveRight, willMoveLeft, willMoveUp, willMoveDown;
+    [HideInInspector] public bool willMove;
+    [HideInInspector] public bool willMoveForward, willMoveBack, willMoveRight, willMoveLeft, willMoveUp, willMoveDown;
 
-    public bool willRoundTrip;
-    public bool willRoundTripForward, willRoundTripBack, willRoundTripRight, willRoundTripLeft, willRoundTripUp, willRoundTripDown;
+    [HideInInspector] public bool willRoundTrip;
+    [HideInInspector] public bool willRoundTripForward, willRoundTripBack, willRoundTripRight, willRoundTripLeft, willRoundTripUp, willRoundTripDown;
 
-    public bool[] movementBoolArray;
+    [HideInInspector] public bool[] movementBoolArray;
 
+    [Header("Cube Avatar")]
+    public bool playRollAnimation;
+    public GameObject cubeAvatar;
     public Animator cubeAnimator;
 
-    public Color _opaqueCubeColor;
-    public Color _transparentCubeColor;
+    [HideInInspector] public Color _opaqueCubeColor;
+    [HideInInspector] public Color _transparentCubeColor;
     // public Animation forward_animation, back_Animation, right_Animation, left_Animation, moveDown_Animation, moveUp_Animation;
     // public Animation forward_RoundTripAnimation, back_RoundTripAnimation, right_RoundTripAnimation, left_RoundTripAnimation;
     // public Animation notMoving_Animation;
 
-    public GameObject cubeAvatar;
 
     private void Start()
     {
