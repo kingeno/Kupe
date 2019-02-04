@@ -7,10 +7,13 @@ using TMPro;
 
 public class InGameUIManager : MonoBehaviour
 {
-    private GameManager gameManager;
+    public GameManager gameManager;
     private LevelLoader levelLoader;
-    private MainCamera _mainCamera;
-    private GameObject cinemachineCamera;
+    public MainCamera _mainCamera;
+    public GameObject cinemachineCamera;
+
+    [Header ("Level Name")]
+    public TextMeshProUGUI levelNameText;
 
     [Header("Tile Prefabs")]
     public Transform blankTilePrefab;
@@ -19,6 +22,7 @@ public class InGameUIManager : MonoBehaviour
     [Header("General UI")]
     public GameObject inGameUI;
     public GameObject pauseMenu;
+    public GameObject levelHub;
     public GameObject controlsScheme;
     public GameObject winScreen;
 
@@ -85,6 +89,8 @@ public class InGameUIManager : MonoBehaviour
 
     private void Start()
     {
+        SetLevelNameText();
+
         nothingIsSelected = true;
         isDeleteTileSelected = false;
         isGreenArrowSelected = false;
@@ -92,19 +98,28 @@ public class InGameUIManager : MonoBehaviour
 
         if (!gameManager)
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        if (!levelLoader)
-            levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
 
         if (!_mainCamera)
             _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>();
-        if (!cinemachineCamera)
-            cinemachineCamera = GameObject.FindGameObjectWithTag("CMFreeLookCamera");
+
+        if (!levelLoader)
+            levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
     }
 
     private void Update()
     {
+        if (!cinemachineCamera)
+        {
+            cinemachineCamera = GameObject.FindGameObjectWithTag("CMFreeLookCamera");
+            if(cinemachineCamera)
+                cinemachineCamera.SetActive(false);
+        }
+
         if (!GameManager.gameIsPaused)
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                PauseMenu();
+
             if (Input.GetKeyDown(KeyCode.UpArrow))
                 SpeedUpSimulation();
             else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -203,7 +218,13 @@ public class InGameUIManager : MonoBehaviour
             else
                 contextualWindow.SetActive(false);
         }
-        
+
+        else if (GameManager.gameIsPaused)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                ResumeGame();
+        }
+
     }
 
     public void UnselectAllTiles()
@@ -277,52 +298,46 @@ public class InGameUIManager : MonoBehaviour
 
     public void SpeedUpSimulation()
     {
-        //if (!MainCamera.isFreeLookActive)
-        //{
-            if (gameManager.simulationSpeed == 1f)
-            {
-                changeSpeedSimulation = true;
-                gameManager.simulationSpeed = 2f;
-                gameManager.turnTime = 0.47f;
-            }
-            else if (gameManager.simulationSpeed == 2f)
-            {
-                changeSpeedSimulation = true;
-                gameManager.simulationSpeed = 3f;
-                gameManager.turnTime = 0.44f;
+        if (GameManager.simulationSpeed == 1f)
+        {
+            changeSpeedSimulation = true;
+            GameManager.simulationSpeed = 2f;
+            gameManager.turnTime = 0.47f;
         }
-            else if (gameManager.simulationSpeed == 3f)
-            {
-                changeSpeedSimulation = true;
-                gameManager.simulationSpeed = 1f;
+        else if (GameManager.simulationSpeed == 2f)
+        {
+            changeSpeedSimulation = true;
+            GameManager.simulationSpeed = 3f;
+            gameManager.turnTime = 0.44f;
+        }
+        else if (GameManager.simulationSpeed == 3f)
+        {
+            changeSpeedSimulation = true;
+            GameManager.simulationSpeed = 1f;
             gameManager.turnTime = 0.5f;
         }
-        //}
     }
 
     public void SlowDownSimulation()
     {
-        //if (!MainCamera.isFreeLookActive)
-        //{
-            if (gameManager.simulationSpeed == 1f)
-            {
-                changeSpeedSimulation = true;
-                gameManager.simulationSpeed = 3f;
+        if (GameManager.simulationSpeed == 1f)
+        {
+            changeSpeedSimulation = true;
+            GameManager.simulationSpeed = 3f;
             gameManager.turnTime = 0.44f;
         }
-            else if (gameManager.simulationSpeed == 2f)
-            {
-                changeSpeedSimulation = true;
-                gameManager.simulationSpeed = 1f;
+        else if (GameManager.simulationSpeed == 2f)
+        {
+            changeSpeedSimulation = true;
+            GameManager.simulationSpeed = 1f;
             gameManager.turnTime = 0.5f;
         }
-            else if (gameManager.simulationSpeed == 3f)
-            {
-                changeSpeedSimulation = true;
-                gameManager.simulationSpeed = 2f;
+        else if (GameManager.simulationSpeed == 3f)
+        {
+            changeSpeedSimulation = true;
+            GameManager.simulationSpeed = 2f;
             gameManager.turnTime = 0.47f;
         }
-        //}
     }
 
     public void StopSimulation()
@@ -368,7 +383,6 @@ public class InGameUIManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        Time.timeScale = gameManager.simulationSpeed;
         pauseMenu.SetActive(false);
         GameManager.gameIsPaused = false;
         inGameUI.gameObject.SetActive(true);
@@ -382,8 +396,15 @@ public class InGameUIManager : MonoBehaviour
         controlsScheme.SetActive(true);
     }
 
+    public void DisplayLevelHub()
+    {
+        pauseMenu.SetActive(false);
+        levelHub.SetActive(true);
+    }
+
     public void ExitToMainMenu()
     {
+        GameManager.simulationSpeed = Time.timeScale = 1f;
         levelLoader.loadSpecificLevel(0);
     }
 
@@ -394,17 +415,26 @@ public class InGameUIManager : MonoBehaviour
             controlsScheme.SetActive(false);
             pauseMenu.SetActive(true);
         }
+        else if(levelHub.activeSelf)
+        {
+            levelHub.SetActive(false);
+            pauseMenu.SetActive(true);
+        }
     }
 
     public void LoadNextLevel()
     {
         if (!MainCamera.isFreeLookActive)
         {
-            Time.timeScale = gameManager.simulationSpeed = 1f;
             UnselectAllTiles();
             GameManager.simulationHasBeenLaunched = false;
             levelLoader.loadNextLevel();
         }
+    }
+
+    private void SetLevelNameText()
+    {
+        levelNameText.text = "Level #" + SceneManager.GetActiveScene().buildIndex;
     }
 
     public void ExitGame()

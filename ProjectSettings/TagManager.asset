@@ -22,6 +22,7 @@ TagManager:
   - InGameUIManager
   - MainMenuUIManager
   - CMFreeLookCamera
+  - BottomBox
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,12 +46,15 @@ public class GameManager : MonoBehaviour
     public static bool levelIsCompleted;
     [HideInInspector] public bool playerIsStuck;
 
-    [HideInInspector] public float simulationSpeed;
+    [HideInInspector] public static float simulationSpeed;
 
     private void Start()
     {
-        simulationSpeed = 1;
-        Time.timeScale = simulationSpeed;
+        if (simulationSpeed < 1f)
+            simulationSpeed = 1f;
+
+        if (Time.timeScale != simulationSpeed)
+            Time.timeScale = simulationSpeed;
 
         currentTurnTime = turnTime;
         levelIsCompleted = false;
@@ -100,10 +104,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //Time.timeScale = 0.1f;
-
-        if (Input.GetKeyDown(KeyCode.S))
-            Debug.LogError(simulationSpeed);
+        if (Time.timeScale != simulationSpeed && SceneManager.GetActiveScene().buildIndex != 0)
+            Time.timeScale = simulationSpeed;
 
         if (InGameUIManager.changeSpeedSimulation)
         {
@@ -238,7 +240,7 @@ public class GameManager : MonoBehaviour
                     allEndTilesAreValidated = true;
                     simulationIsRunning = false;
                     levelIsCompleted = true;
-                    Time.timeScale = simulationSpeed = 1f;
+                    //Time.timeScale = simulationSpeed = 1f;
                     break;
                 }
             }
@@ -249,7 +251,7 @@ public class GameManager : MonoBehaviour
             {
                 if (endTile.isValidated)
                 {
-                    Time.timeScale = simulationSpeed = 1f;
+                    //Time.timeScale = simulationSpeed = 1f;
                     allEndTilesAreValidated = true;
                     levelIsCompleted = true;
                     simulationIsRunning = false;

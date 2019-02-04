@@ -6,16 +6,10 @@ using TMPro;
 
 public class MainMenuUIManager : MonoBehaviour {
 
-    
+    [Header("Menu Screens")]
     public GameObject mainMenu;
     public GameObject levelHub;
     public GameObject controlsScheme;
-
-    [Header("Level Containers")]
-    public GameObject levelContainer1;
-    public GameObject levelContainer2;
-    public GameObject levelContainer3;
-    public GameObject levelContainer4;
 
     [Header("Button Text Colors")]
     public Color defaultColor;
@@ -45,46 +39,6 @@ public class MainMenuUIManager : MonoBehaviour {
         {
             levelHub.SetActive(false);
             mainMenu.SetActive(true);
-        }
-    }
-
-    public void LevelHubArrowButton(string direction)
-    {
-        if(direction == "right")
-        {
-            if (levelContainer1.activeSelf)
-            {
-                levelContainer1.SetActive(false);
-                levelContainer2.SetActive(true);
-            }
-            else if (levelContainer2.activeSelf)
-            {
-                levelContainer2.SetActive(false);
-                levelContainer3.SetActive(true);
-            }
-            else if (levelContainer3.activeSelf)
-            {
-                levelContainer3.SetActive(false);
-                levelContainer4.SetActive(true);
-            }
-        }
-        else if (direction == "left")
-        {
-            if (levelContainer4.activeSelf)
-            {
-                levelContainer4.SetActive(false);
-                levelContainer3.SetActive(true);
-            }
-            else if (levelContainer3.activeSelf)
-            {
-                levelContainer3.SetActive(false);
-                levelContainer2.SetActive(true);
-            }
-            else if (levelContainer2.activeSelf)
-            {
-                levelContainer2.SetActive(false);
-                levelContainer1.SetActive(true);
-            }
         }
     }
 

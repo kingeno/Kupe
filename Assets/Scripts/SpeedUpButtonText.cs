@@ -29,7 +29,7 @@ public class SpeedUpButtonText : MonoBehaviour {
     {
         if (textmeshPro && gameManager)
         {
-            if (gameManager.simulationSpeed == multiplier)
+            if (GameManager.simulationSpeed == multiplier)
             {
                 textmeshPro.fontSize = 18;
                 textmeshPro.color = highlightedColor;

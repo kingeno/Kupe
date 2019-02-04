@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainCamera : MonoBehaviour
 {
+    
     private GameManager gameManager;
     private InGameUIManager _inGameUIManager;
     private Camera _camera;
-    private GameObject CMFreeLookCam;
+    [SerializeField] private GameObject _CMFreeLookCam;
     private Renderer CameraTargetRenderer;
     private Color currentColor;
 
@@ -31,25 +32,28 @@ public class MainCamera : MonoBehaviour
 
     void Start()
     {
+        isFreeLookActive = false;
         startPos = transform.position;
         startRotation = transform.rotation;
+
+        if (!_CMFreeLookCam)
+            _CMFreeLookCam = GameObject.FindGameObjectWithTag("CMFreeLookCamera");
+
         if (!gameManager)
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 
         if (!_inGameUIManager)
-        {
             _inGameUIManager = GameObject.FindGameObjectWithTag("InGameUIManager").GetComponent<InGameUIManager>();
-        }
 
-        isFreeLookActive = false;
         if (!CameraTargetRenderer)
-        {
             CameraTargetRenderer = GameObject.FindGameObjectWithTag("CameraTarget").GetComponent<Renderer>();
-        }
+
         if (CameraTargetRenderer)
-        {
             CameraTargetRenderer.material.color = new Color(1f, 1f, 1f, 0f);
-        }
+
+        if (!_CMFreeLookCam)
+            _CMFreeLookCam = GameObject.FindGameObjectWithTag("CMFreeLookCamera");
+
         canColorSwap = true;
         levelCompletedColorSwap = false;
         _camera = GetComponent<Camera>();
@@ -78,11 +82,10 @@ public class MainCamera : MonoBehaviour
 
     public void FreeLook()
     {
-        if (CMFreeLookCam && !GameManager.gameIsPaused)
+        if (_CMFreeLookCam && !GameManager.gameIsPaused)
         {
             if (!isFreeLookActive)
             {
-
                 _inGameUIManager.UnselectAllTiles();
                 GameManager.playerCanModifyBoard = false;
                 isFreeLookActive = true;
@@ -97,9 +100,9 @@ public class MainCamera : MonoBehaviour
             }
 
             if (isFreeLookActive)
-                CMFreeLookCam.SetActive(true);
+                _CMFreeLookCam.SetActive(true);
             else if (!isFreeLookActive)
-                CMFreeLookCam.SetActive(false);
+                _CMFreeLookCam.SetActive(false);
         }
     }
 

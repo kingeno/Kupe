@@ -1,12 +1,7 @@
 D:\Projects\PuzzleGame\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
 D:\Projects\PuzzleGame\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
 D:\Projects\PuzzleGame\Temp\bin\Debug\Boo.Lang.dll
-D:\Projects\PuzzleGame\Temp\bin\Debug\KdTreeLib.dll
 D:\Projects\PuzzleGame\Temp\bin\Debug\mscorlib.dll
-D:\Projects\PuzzleGame\Temp\bin\Debug\pb_Stl.dll
-D:\Projects\PuzzleGame\Temp\bin\Debug\Poly2Tri.dll
-D:\Projects\PuzzleGame\Temp\bin\Debug\ProBuilderCore.dll
-D:\Projects\PuzzleGame\Temp\bin\Debug\ProBuilderMeshOps.dll
 D:\Projects\PuzzleGame\Temp\bin\Debug\System.Core.dll
 D:\Projects\PuzzleGame\Temp\bin\Debug\System.dll
 D:\Projects\PuzzleGame\Temp\bin\Debug\System.Runtime.Serialization.dll
@@ -179,3 +174,4 @@ D:\Projects\PuzzleGame\Temp\bin\Debug\UnityEngine.UnityTestProtocolModule.xml
 D:\Projects\PuzzleGame\Temp\bin\Debug\UnityEngine.VFXModule.xml
 D:\Projects\PuzzleGame\Temp\bin\Debug\UnityEngine.TestRunner.xml
 D:\Projects\PuzzleGame\Temp\bin\Debug\nunit.framework.xml
+D:\Projects\PuzzleGame\Temp\bin\Debug\Unity.ProBuilder.AssetIdRemapUtility.dll

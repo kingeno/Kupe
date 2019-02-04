@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\MenuCube.cs" />
     <Compile Include="Assets\Scripts\BlankTile.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\CubeController.cs" />
@@ -72,15 +73,17 @@
     <Compile Include="Assets\Scripts\GreenArrow.cs" />
     <Compile Include="Assets\Scripts\GreenArrowButtonText.cs" />
     <Compile Include="Assets\Scripts\InGameUIManager.cs" />
+    <Compile Include="Assets\Scripts\LevelListButton.cs" />
+    <Compile Include="Assets\Scripts\LevelListController.cs" />
     <Compile Include="Assets\Scripts\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\LiftTile.cs" />
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\MainMenuUIManager.cs" />
     <Compile Include="Assets\Scripts\Player_GreenArrow.cs" />
+    <Compile Include="Assets\Scripts\SetTextColor_MainMenu.cs" />
     <Compile Include="Assets\Scripts\SpeedUpButtonText.cs" />
     <Compile Include="Assets\Scripts\Test Scripts\Test_CubeRotation.cs" />
     <Compile Include="Assets\Scripts\TileSelectionSquare.cs" />
-    <Compile Include="Assets\SetColorText.cs" />
     <Reference Include="Cinemachine">
       <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
