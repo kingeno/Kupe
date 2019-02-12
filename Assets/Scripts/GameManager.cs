@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
         currentTurnTime = turnTime;
         levelIsCompleted = false;
         simulationIsRunning = false;
+        simulationHasBeenLaunched = false;
         allEndTilesAreValidated = false;
         playerCanModifyBoard = true;
         turnCount = 0;
@@ -104,10 +105,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale != simulationSpeed && SceneManager.GetActiveScene().buildIndex != 0)
+        if (Time.timeScale != simulationSpeed && SceneManager.GetActiveScene().buildIndex != 0 && !gameIsPaused)
             Time.timeScale = simulationSpeed;
 
-        if (InGameUIManager.changeSpeedSimulation)
+        if (InGameUIManager.changeSpeedSimulation && !gameIsPaused)
         {
             Time.timeScale = simulationSpeed;
             InGameUIManager.changeSpeedSimulation = false;

@@ -125,7 +125,7 @@ public class Player_GreenArrow : MonoBehaviour
 
             if (InGameUIManager.isDeleteTileSelected)
             {
-                float lerp = Mathf.PingPong(Time.time, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
+                float lerp = Mathf.PingPong(Time.unscaledTime, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
                 tileSelectionSquare.material.color = Color.Lerp(tileSelectionSquare.canDeleteTileColor1, tileSelectionSquare.canDeleteTileColor2, lerp);
                 _renderer.material.SetTexture("_MainTex", deleteGreenArrowTileTexture);
 

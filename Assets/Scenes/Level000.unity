@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465778, g: 0.49641526, b: 0.5748185, a: 1}
+  m_IndirectSpecularColor: {r: 0.43848282, g: 0.4865712, b: 0.5668475, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -616,6 +616,23 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 295012410}
+          m_MethodName: SetDefaultTextColor
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
 --- !u!43 &97416000
 Mesh:
@@ -954,6 +971,23 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1272424783}
+          m_MethodName: SetDefaultTextColor
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
 --- !u!1 &118394509
 GameObject:
@@ -986,15 +1020,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1845944294}
   - {fileID: 1524689201}
+  - {fileID: 1845944294}
   m_Father: {fileID: 1501329091}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20, y: -20}
-  m_SizeDelta: {x: 160, y: 100}
+  m_SizeDelta: {x: 160, y: 90}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &118394511
 MonoBehaviour:
@@ -1008,8 +1042,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a6382076e93f94e9c27e6576fddd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 1524689202}
-  levelNumber: 0
+  outlinLevelImage: {fileID: 0}
+  _levelNumber: 0
+  _levelName: {fileID: 1524689202}
+  levelImage: {fileID: 1845944295}
 --- !u!114 &118394512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1083,7 +1119,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: cd02d1ca0f0e12f498c678147903a67b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1463,6 +1499,23 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2070400830}
+          m_MethodName: SetDefaultTextColor
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 4
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -1987,6 +2040,16 @@ PrefabInstance:
     - target: {fileID: 4494635562959916, guid: 039fda89955860a4fb5f85ad8faacc26, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114660222852694320, guid: 039fda89955860a4fb5f85ad8faacc26,
+        type: 3}
+      propertyPath: hotSpot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114660222852694320, guid: 039fda89955860a4fb5f85ad8faacc26,
+        type: 3}
+      propertyPath: hotSpot.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 039fda89955860a4fb5f85ad8faacc26, type: 3}
@@ -3239,6 +3302,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1248563959915188899, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138639278463515787, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 893586741e1715541baf0baf1ed1f691, type: 3}
 --- !u!1 &384640704
@@ -3365,7 +3438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.78431374, g: 0, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3401,6 +3474,7 @@ GameObject:
   - component: {fileID: 389227391}
   - component: {fileID: 389227390}
   - component: {fileID: 389227389}
+  - component: {fileID: 389227393}
   - component: {fileID: 389227394}
   m_Layer: 5
   m_Name: Main Menu Ui Manager
@@ -3492,6 +3566,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &389227393
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389227388}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &389227394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3510,6 +3596,8 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   highlightColor: {r: 0, g: 0, b: 0, a: 1}
   notInteractableColor: {r: 0, g: 0, b: 0, a: 0}
+  fadeDuration: 1
+  timeToWaitBeforeFade: 1.5
 --- !u!1 &414519082
 GameObject:
   m_ObjectHideFlags: 0
@@ -3809,7 +3897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.78431374, g: 0, b: 0.11764706, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3928,7 +4016,7 @@ GameObject:
   - component: {fileID: 539211618}
   - component: {fileID: 539211617}
   m_Layer: 5
-  m_Name: BuildVersion
+  m_Name: BuildVersion (Text)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3985,7 +4073,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: v. 0.0.4 (02.04.2019)
+  m_text: v. 0.0.5 (12.02.2019)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3acf34396df4f8b4ea555c9b5d4f8136, type: 2}
   m_sharedMaterial: {fileID: 21093042719103516, guid: 3acf34396df4f8b4ea555c9b5d4f8136,
@@ -5380,7 +5468,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.005
-  m_ScrollSensitivity: 15
+  m_ScrollSensitivity: 20
   m_Viewport: {fileID: 414519083}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1502639841}
@@ -8182,23 +8270,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.32374436
+      value: -0.61289304
       objectReference: {fileID: 0}
     - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5825634
+      value: 0.054558508
       objectReference: {fileID: 0}
     - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.27165374
+      value: 0.0056940163
       objectReference: {fileID: 0}
     - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6942721
+      value: -0.7882595
       objectReference: {fileID: 0}
     - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 74.93201
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 339.041
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906391790768444, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -16.964
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3547610624a8f9c4e8c956736191ec82, type: 3}
@@ -9620,7 +9720,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 210}
-  m_SizeDelta: {x: 560, y: 20}
+  m_SizeDelta: {x: 560, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1501329093
 CanvasRenderer:
@@ -9664,8 +9764,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 160, y: 100}
-  m_Spacing: {x: 20, y: 20}
+  m_CellSize: {x: 160, y: 90}
+  m_Spacing: {x: 20, y: 30}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!1 &1502639839
@@ -9932,7 +10032,7 @@ GameObject:
   - component: {fileID: 1524689203}
   - component: {fileID: 1524689202}
   m_Layer: 5
-  m_Name: TextMeshPro Text
+  m_Name: Level Name (Text)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9950,12 +10050,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 118394510}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 90}
+  m_AnchoredPosition: {x: -10, y: -35}
+  m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1524689202
 MonoBehaviour:
@@ -9979,15 +10079,16 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3281a9ef53e194a4c80a8cc47c603bf9, type: 2}
+  m_sharedMaterial: {fileID: 21612270700684812, guid: 3281a9ef53e194a4c80a8cc47c603bf9,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10012,7 +10113,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 514
+  m_textAlignment: 516
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -10054,7 +10155,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -11295,7 +11396,7 @@ GameObject:
   - component: {fileID: 1845944296}
   - component: {fileID: 1845944295}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Level Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11310,15 +11411,15 @@ RectTransform:
   m_GameObject: {fileID: 1845944293}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
   m_Father: {fileID: 118394510}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 90}
+  m_SizeDelta: {x: 160, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1845944295
 MonoBehaviour:
@@ -11437,7 +11538,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7808
+  m_Name: pb_Mesh-2964
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -11857,6 +11958,23 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2074371492}
+          m_MethodName: SetDefaultTextColor
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 4
     callback:
       m_PersistentCalls:
         m_Calls:

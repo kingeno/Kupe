@@ -40,8 +40,9 @@ public class LevelListController : MonoBehaviour
             button.SetActive(true);
 
             button.name = "level_" + i;
-            button.GetComponent<LevelListButton>().SetLevelName("Level #" + i);
+            button.GetComponent<LevelListButton>().SetLevelName("Level " + i);
             button.GetComponent<LevelListButton>().SetLevelNumber(i);
+            button.GetComponent<LevelListButton>().SetLevelImage(i);
 
             button.transform.SetParent(buttonTemplate.transform.parent, false);
         }

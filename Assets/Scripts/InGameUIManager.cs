@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class InGameUIManager : MonoBehaviour
 {
@@ -12,7 +13,19 @@ public class InGameUIManager : MonoBehaviour
     public MainCamera _mainCamera;
     public GameObject cinemachineCamera;
 
-    [Header ("Level Name")]
+    [Header("Level Completed Text")]
+    public float levelCompletedText_displayDelay;
+    public float levelCompletedText_distanceToTravel;
+    public float levelCompletedText_timeOfTravel;
+    public bool levelCompletedText_fadeIsDone;
+
+    [Header("Next Level Button")]
+    public float nextLevelButton_displayDelay;
+    public float nextLevelButton_distanceToTravel;
+    public float nextLevelButton_timeOfTravel;
+    public bool nextLevelButton_fadeIsDone;
+
+    [Header("Level Name")]
     public TextMeshProUGUI levelNameText;
 
     [Header("Tile Prefabs")]
@@ -25,6 +38,10 @@ public class InGameUIManager : MonoBehaviour
     public GameObject levelHub;
     public GameObject controlsScheme;
     public GameObject winScreen;
+
+    [Header("Level Completed UI")]
+    public GameObject levelCompletedText;
+    public GameObject nextLevelButton;
 
     [Header("Contextual Window")]
     public GameObject contextualWindow;
@@ -41,6 +58,7 @@ public class InGameUIManager : MonoBehaviour
     [Header("Arrow Tile Button")]
     public Button arrowButtonScript;
     public Image greenArrowButtonImage;
+    public GreenArrowStockText greenArrowStockText;
 
     [Header("Slow Down Button")]
     public Button slowDownButtonScript;
@@ -87,14 +105,22 @@ public class InGameUIManager : MonoBehaviour
     [HideInInspector] public bool isOverPlayerArrowTile;
 
 
+    float normalizedTime = 0;
+
     private void Start()
     {
         SetLevelNameText();
 
+        //greenArrowStockText.SetArrowStockToDisplay();
+
+        GameManager.gameIsPaused = false;
         nothingIsSelected = true;
         isDeleteTileSelected = false;
         isGreenArrowSelected = false;
         changeSpeedSimulation = false;
+
+        levelCompletedText_fadeIsDone = false;
+        nextLevelButton_fadeIsDone = false;
 
         if (!gameManager)
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -106,12 +132,16 @@ public class InGameUIManager : MonoBehaviour
             levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
     }
 
+    private bool levelCompletedText_fadeStarted = false;
+    private bool nextLevelButton_fadeStarted = false;
+
     private void Update()
     {
+
         if (!cinemachineCamera)
         {
             cinemachineCamera = GameObject.FindGameObjectWithTag("CMFreeLookCamera");
-            if(cinemachineCamera)
+            if (cinemachineCamera)
                 cinemachineCamera.SetActive(false);
         }
 
@@ -127,7 +157,6 @@ public class InGameUIManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1))
                 UnselectAllTiles();
-
 
             if (MainCamera.isFreeLookActive)
             {
@@ -209,6 +238,32 @@ public class InGameUIManager : MonoBehaviour
             {
                 winScreen.SetActive(true);
             }
+            else if (GameManager.levelIsCompleted && winScreen.activeSelf)
+            {
+                if (!levelCompletedText_fadeStarted)
+                {
+                    StartCoroutine(FadeAndMoveText(levelCompletedText, levelCompletedText_displayDelay, levelCompletedText_timeOfTravel,
+                    new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y),
+                    new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y + levelCompletedText_distanceToTravel)));
+
+                    StartCoroutine(FadeAndMoveText(nextLevelButton, nextLevelButton_displayDelay, nextLevelButton_timeOfTravel,
+                    new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y),
+                    new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y + nextLevelButton_distanceToTravel)));
+
+                    levelCompletedText_fadeStarted = true;
+                }
+
+                //if (!nextLevelButton_fadeStarted)
+                //{
+                //    Action onEnd = () => { nextLevelButton_fadeIsDone = true; };
+                //    StartCoroutine(FadeAndMoveText(nextLevelButton, nextLevelButton_displayDelay, nextLevelButton_timeOfTravel,
+                //    new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y),
+                //    new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y + nextLevelButton_distanceToTravel),
+                //    onEnd));
+
+                //    nextLevelButton_fadeStarted = true;
+                //}
+            }
 
             if (isOverPlayerArrowTile)
             {
@@ -234,6 +289,7 @@ public class InGameUIManager : MonoBehaviour
         deleteTileSelectedOutline.SetActive(false);
         greenArrowSelectedOutline.SetActive(false);
         nothingIsSelected = true;
+        //greenArrowStockText.SetArrowStockToDisplay();
     }
 
     public void ToggleUIButton(Button button, bool toggleOn, Image buttonImage, Color imageColor)
@@ -262,6 +318,8 @@ public class InGameUIManager : MonoBehaviour
             {
                 isGreenArrowSelected = true;
                 greenArrowSelectedOutline.SetActive(true);
+
+                greenArrowStockText.SetArrowStockToDisplay();
             }
         }
     }
@@ -415,7 +473,7 @@ public class InGameUIManager : MonoBehaviour
             controlsScheme.SetActive(false);
             pauseMenu.SetActive(true);
         }
-        else if(levelHub.activeSelf)
+        else if (levelHub.activeSelf)
         {
             levelHub.SetActive(false);
             pauseMenu.SetActive(true);
@@ -434,11 +492,32 @@ public class InGameUIManager : MonoBehaviour
 
     private void SetLevelNameText()
     {
-        levelNameText.text = "Level #" + SceneManager.GetActiveScene().buildIndex;
+        levelNameText.text = "Level " + SceneManager.GetActiveScene().buildIndex;
     }
 
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+
+
+    // no working
+    IEnumerator FadeAndMoveText(GameObject target, float timeToWaitBeforeFade, float timeOfTravel, Vector2 startPos, Vector2 endPos)
+    {
+        yield return new WaitForSecondsRealtime(timeToWaitBeforeFade);
+
+        float currentTime = 0f;
+        float normalizedValue;
+
+        while (currentTime <= timeOfTravel)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / timeOfTravel;
+
+            target.GetComponent<CanvasGroup>().alpha = EasingFunction.EaseInOutSine(0f, 1f, normalizedValue);
+            target.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(startPos, endPos, EasingFunction.EaseOutExpo(0f, 1f, normalizedValue));
+            yield return null;
+        }
     }
 }

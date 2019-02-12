@@ -63,9 +63,6 @@
   <ItemGroup>
     <Compile Include="Assets\Plugins\Gulti (Color Blindness Simulator)\ColorBlindSimulator\Scripts\ColorBlindnessSimulator.cs" />
     <Compile Include="Assets\Plugins\Gulti (Color Blindness Simulator)\Scripts\PostEffectsBase.cs" />
-    <Compile Include="Assets\Plugins\ScreenshotCompanion\Framework\CameraObject.cs" />
-    <Compile Include="Assets\Plugins\ScreenshotCompanion\Framework\SettingsObject.cs" />
-    <Compile Include="Assets\Plugins\ScreenshotCompanion\ScreenshotCompanion.cs" />
     <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

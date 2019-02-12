@@ -19,11 +19,11 @@ public class LevelLoader : MonoBehaviour {
         if (currentSceneBuildIndex != SceneManager.GetActiveScene().buildIndex)
             currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            StartCoroutine(LoadNextAsyncScene(currentSceneBuildIndex + 1));
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            StartCoroutine(LoadPreviousAsyncScene(currentSceneBuildIndex - 1));
+        // Uncomment to activate level skipping shortcut
+        //if (Input.GetKeyDown(KeyCode.RightArrow))
+        //    StartCoroutine(LoadNextAsyncScene(currentSceneBuildIndex + 1));
+        //else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        //    StartCoroutine(LoadPreviousAsyncScene(currentSceneBuildIndex - 1));
     }
 
     public void loadFirstLevel()
@@ -54,7 +54,11 @@ public class LevelLoader : MonoBehaviour {
         // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
         // a sceneBuildIndex of 1 as shown in Build Settings.
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
+        AsyncOperation asyncLoad;
+        if (sceneBuildIndexToLoad < 10)
+            asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
+        else
+            asyncLoad = SceneManager.LoadSceneAsync("Level0" + sceneBuildIndexToLoad.ToString());
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
@@ -65,7 +69,11 @@ public class LevelLoader : MonoBehaviour {
 
     IEnumerator LoadPreviousAsyncScene(int sceneBuildIndexToLoad)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
+        AsyncOperation asyncLoad;
+        if (sceneBuildIndexToLoad < 10)
+            asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
+        else
+            asyncLoad = SceneManager.LoadSceneAsync("Level0" + sceneBuildIndexToLoad.ToString());
 
         while (!asyncLoad.isDone)
         {
@@ -75,7 +83,11 @@ public class LevelLoader : MonoBehaviour {
 
     IEnumerator LoadSpecificAsyncScene(int sceneBuildIndexToLoad)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
+        AsyncOperation asyncLoad;
+        if (sceneBuildIndexToLoad < 10)
+            asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
+        else
+            asyncLoad = SceneManager.LoadSceneAsync("Level0" + sceneBuildIndexToLoad.ToString());
 
         while (!asyncLoad.isDone)
         {

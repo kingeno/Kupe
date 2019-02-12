@@ -83,6 +83,7 @@ public class EphemereTile : MonoBehaviour {
         _renderer.material.color = Color.white;
         _renderer.material.SetTexture("_MainTex", active);
         tag = tagWhenActive;
+        transform.parent = GameObject.FindGameObjectWithTag("Board Manager").GetComponent<Transform>();
     }
 
     public void TurnInitializer()
@@ -173,5 +174,6 @@ public class EphemereTile : MonoBehaviour {
             yield return null;
         }
         _renderer.material.color = fadedColor;
+        transform.parent = null;
     }
 }

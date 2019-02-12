@@ -68,7 +68,7 @@ public class BlankTile : MonoBehaviour
             {
                 _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
 
-                float lerp = Mathf.PingPong(Time.time, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
+                float lerp = Mathf.PingPong(Time.unscaledTime, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
                 tileSelectionSquare.material.color = Color.Lerp(tileSelectionSquare.canPlaceTileColor1, tileSelectionSquare.canPlaceTileColor2, lerp);
 
                 if (Input.GetMouseButtonDown(0))
@@ -79,7 +79,6 @@ public class BlankTile : MonoBehaviour
                     newTile.SetSiblingIndex(hierarchyIndex);                                                                                  //Use the stored hierarchy index to put the new tile in place of the deleted one.
                     BoardManager.playerHasChangedATile = true;
                     CurrentLevelManager.greenArrowStock_static--;
-                    //Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
                 }
             }
             else if (InGameUIManager.isDeleteTileSelected)

@@ -46,4 +46,8 @@ MonoBehaviour:
   defaultCursorTexture: {fileID: 2800000, guid: 5c3948c05bc42a04c9bb10c08e90cf26,
     type: 3}
   cameraCursorTexture: {fileID: 2800000, guid: e5e281f4fd6fc9e47afbca12a42241f2, type: 3}
+  deleteTileCursorTexture: {fileID: 2800000, guid: fa1935808ef587a48a889383b18c2187,
+    type: 3}
+  greenArrowTileCursorTexture: {fileID: 2800000, guid: 550c654610afa494fbeeff6687570f21,
+    type: 3}
   cursorMode: 0

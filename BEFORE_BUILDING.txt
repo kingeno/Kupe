@@ -1,0 +1,17 @@
+--- What to do before buiding the project ---
+
+  * * *
+
+in Unity :
+
+1) check if all levels are in correct order (Project Window/Scenes)
+
+2) test all levels from start to finish
+
+3) test all levels by loading from the Main Menu AND from a level
+
+4) verify that all the images from the loading level screen are corresponding to loaded levels
+
+5) (about sound)
+
+6) Congratulations ! You can build the game :)

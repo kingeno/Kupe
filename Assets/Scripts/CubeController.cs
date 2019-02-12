@@ -232,7 +232,7 @@ public class CubeController : MonoBehaviour
                     willMove = willMoveForward = true;
                     willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
                 }
-                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z]) // if there is already something a the predicted position
+                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z] && tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z].tag != "EmptyTile") // if there is already something a the predicted position
                 {
                     predictedPos = currentTurnPos; // set the next turn position as the current so the cube doesn't move
                     lastMovement = new Vector3(0, 0, 0);    // idem for the last movement
@@ -248,7 +248,7 @@ public class CubeController : MonoBehaviour
                     willMove = willMoveBack = true;
                     willMoveForward = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
                 }
-                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z] && tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z].tag != "EmptyTile")
                 {
                     predictedPos = currentTurnPos;
                     lastMovement = new Vector3(0, 0, 0);
@@ -264,7 +264,7 @@ public class CubeController : MonoBehaviour
                     willMove = willMoveRight = true;
                     willMoveForward = willMoveBack = willMoveLeft = willMoveUp = willMoveDown = false;
                 }
-                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z] && tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z].tag != "EmptyTile")
                 {
                     predictedPos = currentTurnPos;
                     lastMovement = new Vector3(0, 0, 0);
@@ -280,7 +280,7 @@ public class CubeController : MonoBehaviour
                     willMove = willMoveLeft = true;
                     willMoveForward = willMoveBack = willMoveRight = willMoveUp = willMoveDown = false;
                 }
-                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z] && tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z].tag != "EmptyTile")
                 {
                     predictedPos = currentTurnPos;
                     lastMovement = new Vector3(0, 0, 0);
@@ -299,7 +299,7 @@ public class CubeController : MonoBehaviour
                     willMove = willMoveForward = true;
                     willMoveBack = willMoveRight = willMoveLeft = willMoveUp = willMoveDown = false;
                 }
-                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z]) // if there is already something a the predicted position
+                else if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z] && tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z].tag != "EmptyTile") // if there is already something a the predicted position
                 {
                     predictedPos = currentTurnPos; // set the next turn position as the current so the cube doesn't move
                     lastMovement = new Vector3(0, 0, 0);    // idem for the last movement
@@ -359,7 +359,7 @@ public class CubeController : MonoBehaviour
         {
             predictedPos = (currentTurnPos + lastMovement);
             willMove = true;
-            if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
+            if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z] && tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z].tag != "EmptyTile")
             {
                 predictedPos = currentTurnPos;
                 lastMovement = new Vector3(0, 0, 0);
@@ -392,13 +392,13 @@ public class CubeController : MonoBehaviour
 
         else if (belowTile.tag == "End Tile")
         {
-            // Use this for the cube to stop when on EndTile
+            // Use this if you want the cube to stop when on EndTile
             //predictedPos = currentTurnPos;
             //willMove = willRoundTrip = false;
             //lastMovement = new Vector3(0, 0, 0);
 
 
-            // Use this so the cube not to stop when on EndTile
+            // Use this if you want cubes NOT to stop when on EndTile
             predictedPos = (currentTurnPos + lastMovement);
             willMove = true;
             if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z])
