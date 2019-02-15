@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2916171321210584962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2916171321210584960}
+  - component: {fileID: 2916171321210584963}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2916171321210584960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916171321210584962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 0, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2916171321210584963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916171321210584962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ad443707879764a9c6376b92b12eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lowPitchRange: 0.95
+  highPitchRange: 1.05
+  sounds:
+  - name: menu game opening
+    clip: {fileID: 0}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: menu button hovering
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: menu button click
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: menu button close
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig button hovering
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig simulation play
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig simulation pause
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig simulation speed up
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig simulation slow down
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig simlation stop
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig free look on
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig free look off
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig pause menu open
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig pause menu pause
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig pause menu close
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig level opening
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig level completed
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig tile hovering
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig tile green arrow placed
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig tile deleted
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig tile delete impossible
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig tile end tile validated
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

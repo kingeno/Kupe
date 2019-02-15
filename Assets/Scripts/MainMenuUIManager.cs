@@ -28,6 +28,9 @@ public class MainMenuUIManager : MonoBehaviour {
             StartCoroutine(MenuButtonFadeIn(this.gameObject, timeToWaitBeforeFade, fadeDuration));
             fadeIsCompleted = true;
         }
+
+        if (Input.GetMouseButtonDown(0))
+            AudioManager.instance.Play("button click");
     }
 
     IEnumerator MenuButtonFadeIn(GameObject target, float timeToWaitBeforeFade, float fadeDuration)

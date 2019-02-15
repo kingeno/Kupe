@@ -61,19 +61,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ButtonBlinking.cs" />
-    <Compile Include="Assets\DirectionalLight.cs" />
-    <Compile Include="Assets\EasingFunctions.cs" />
-    <Compile Include="Assets\GradiantBackground.cs" />
-    <Compile Include="Assets\MenuCube.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\BlankTile.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
+    <Compile Include="Assets\Scripts\ButtonBlinking.cs" />
     <Compile Include="Assets\Scripts\CubeController.cs" />
     <Compile Include="Assets\Scripts\CurrentLevelManager.cs" />
     <Compile Include="Assets\Scripts\CursorController.cs" />
+    <Compile Include="Assets\Scripts\DirectionalLight.cs" />
+    <Compile Include="Assets\Scripts\EasingFunctions.cs" />
     <Compile Include="Assets\Scripts\EndTile.cs" />
     <Compile Include="Assets\Scripts\EphemereTile.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GradiantBackground.cs" />
     <Compile Include="Assets\Scripts\GreenArrow.cs" />
     <Compile Include="Assets\Scripts\GreenArrowStockText.cs" />
     <Compile Include="Assets\Scripts\InGameUIManager.cs" />
@@ -83,8 +83,10 @@
     <Compile Include="Assets\Scripts\LiftTile.cs" />
     <Compile Include="Assets\Scripts\MainCamera.cs" />
     <Compile Include="Assets\Scripts\MainMenuUIManager.cs" />
+    <Compile Include="Assets\Scripts\MenuCube.cs" />
     <Compile Include="Assets\Scripts\Player_GreenArrow.cs" />
     <Compile Include="Assets\Scripts\SetTextColor_MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Sound.cs" />
     <Compile Include="Assets\Scripts\SpeedUpButtonText.cs" />
     <Compile Include="Assets\Scripts\Test Scripts\Test_CubeRotation.cs" />
     <Compile Include="Assets\Scripts\TileSelectionSquare.cs" />
