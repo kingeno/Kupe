@@ -385,6 +385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ef6bf9fda92e54b8586908a171e3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 1842762633062874217}
-  topColor: {r: 0.49237174, g: 0, b: 0.8207547, a: 1}
-  bottomColor: {r: 0.12474149, g: 0, b: 0.3490566, a: 1}
+  backgroundImage: {fileID: 1842762633062874217}
+  fadeDuration: 0
+  defaultTopColor: {r: 0.35858575, g: 0, b: 0.4433962, a: 1}
+  defaultBottomColor: {r: 0.174737, g: 0, b: 0.21698111, a: 1}
+  levelCompletedTopColor: {r: 0.7075472, g: 0, b: 0.40336645, a: 1}
+  levelCompletedBottomColor: {r: 0.4056604, g: 0, b: 0.23212789, a: 1}

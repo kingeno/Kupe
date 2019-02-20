@@ -3366,6 +3366,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 55.000004
       objectReference: {fileID: 0}
+    - target: {fileID: 20005635055296866, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: orthographic size
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 20005635055296866, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 114863143425981784, guid: 893586741e1715541baf0baf1ed1f691,
         type: 3}
       propertyPath: levelCompletedColor.r
@@ -3385,11 +3395,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20005635055296866, guid: 893586741e1715541baf0baf1ed1f691,
-        type: 3}
-      propertyPath: orthographic size
-      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 114450706007052790, guid: 893586741e1715541baf0baf1ed1f691,
         type: 3}

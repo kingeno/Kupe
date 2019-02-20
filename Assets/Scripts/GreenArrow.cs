@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenArrow : MonoBehaviour {
+public class GreenArrow : MonoBehaviour
+{
 
     public bool isActive;
     public bool canBeActivatedAgain;
@@ -67,13 +68,20 @@ public class GreenArrow : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        if (tileSelectionSquare.canBeMoved)
+        if (tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
-            tileSelectionSquare.transform.position = transform.position;
+            if (tileSelectionSquare.transform.position != transform.position)
+            {
+                AudioManager.instance.Play("ig tile hovering");
+                tileSelectionSquare.transform.position = transform.position;
+            }
+
             if (InGameUIManager.isDeleteTileSelected)
             {
                 tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
                 _renderer.material.SetTexture("_MainTex", arrowTileDeleteImpossible);
+                if (Input.GetMouseButtonDown(0))
+                    AudioManager.instance.Play("ig tile delete impossible");
             }
             else
             {
@@ -114,6 +122,18 @@ public class GreenArrow : MonoBehaviour {
         StateCheck();
     }
 
+    public Transform TileCheck(Vector3 tilePos)
+    {
+        Transform tile;
+        if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
+        {
+            tile = tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z];
+            return tile;
+        }
+        else
+            return null;
+    }
+
     public void StateCheck()
     {
         if (isActive && above_AdjacentTile && above_AdjacentTile.tag == "Cube" && unactiveTurns != 0)
@@ -144,18 +164,6 @@ public class GreenArrow : MonoBehaviour {
             StartCoroutine(BlinkOverSeconds(Color.green, reactiveTimeColorSwap, true));
             isActive = true;
         }
-    }
-
-    public Transform TileCheck(Vector3 tilePos)
-    {
-        Transform tile;
-        if (tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z])
-        {
-            tile = tilesBoard[(int)tilePos.x, (int)tilePos.y, (int)tilePos.z];
-            return tile;
-        }
-        else
-            return null;
     }
 
     IEnumerator BlinkOverSeconds(Color blinkColor, float seconds, bool isBlinking)

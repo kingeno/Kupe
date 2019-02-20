@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndTile : MonoBehaviour {
+public class EndTile : MonoBehaviour
+{
 
     public Transform[,,] tilesBoard;
     public Transform tileSelectionSquareTransform;
@@ -17,7 +18,8 @@ public class EndTile : MonoBehaviour {
     public Texture active;
     public Texture impossibleToDelete;
 
-    void Start () {
+    void Start()
+    {
         _renderer = GetComponent<Renderer>();
 
         if (!tileSelectionSquareTransform)
@@ -33,13 +35,20 @@ public class EndTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        if (tileSelectionSquare.canBeMoved)
+        if (tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
-            tileSelectionSquare.transform.position = transform.position;
+            if (tileSelectionSquare.transform.position != transform.position)
+            {
+                AudioManager.instance.Play("ig tile hovering");
+                tileSelectionSquare.transform.position = transform.position;
+            }
+
             if (InGameUIManager.isDeleteTileSelected)
             {
                 tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
                 _renderer.material.SetTexture("_MainTex", impossibleToDelete);
+                if (Input.GetMouseButtonDown(0))
+                    AudioManager.instance.Play("ig tile delete impossible");
             }
             else
             {
@@ -81,8 +90,8 @@ public class EndTile : MonoBehaviour {
         }
     }
 
-        //check the position of the tile relatively to the current cube position
-        public Transform TileCheck(Vector3 tilePos)
+    //check the position of the tile relatively to the current cube position
+    public Transform TileCheck(Vector3 tilePos)
     {
         //Debug.Log("run " + name + " Tile Check");
         Transform tile;

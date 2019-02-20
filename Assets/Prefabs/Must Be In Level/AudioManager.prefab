@@ -54,13 +54,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: menu button hovering
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: menu button click
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}

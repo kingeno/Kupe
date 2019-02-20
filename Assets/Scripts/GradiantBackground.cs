@@ -5,29 +5,68 @@ using UnityEngine.UI;
 
 public class GradiantBackground : MonoBehaviour
 {
-
-    public RawImage img;
+    public RawImage backgroundImage;
     private Texture2D backgroundTexture;
-    public Color topColor;
-    public Color bottomColor;
+
+    public float fadeDuration;
+
+    [Header("Default Colors")]
+    public Color defaultTopColor;
+    public Color defaultBottomColor;
+
+    [Header("Level Complete Colors")]
+    public Color levelCompletedTopColor;
+    public Color levelCompletedBottomColor;
+
+    private bool levelCompletedFade;
 
     void Awake()
     {
         backgroundTexture = new Texture2D(1, 2);
         backgroundTexture.wrapMode = TextureWrapMode.Clamp;
         backgroundTexture.filterMode = FilterMode.Trilinear;
-        SetColor(Color.blue, Color.red);
+        levelCompletedFade = false;
+
+    }
+
+    private void Start()
+    {
+        SetColor(defaultBottomColor, defaultTopColor);
     }
 
     private void Update()
     {
-        SetColor(bottomColor, topColor);
+        if (!levelCompletedFade && GameManager.levelIsCompleted)
+        {
+            StartCoroutine(LevelCompletedBackgroundColorFade(0.8f, defaultTopColor, defaultBottomColor, levelCompletedTopColor, levelCompletedBottomColor));
+            levelCompletedFade = true;
+        }
     }
 
     public void SetColor(Color color1, Color color2)
     {
         backgroundTexture.SetPixels(new Color[] { color1, color2 });
         backgroundTexture.Apply();
-        img.texture = backgroundTexture;
+        backgroundImage.texture = backgroundTexture;
+    }
+
+    IEnumerator LevelCompletedBackgroundColorFade(float fadeTime, Color currentColor1, Color currentColor2, Color lerpedColor1, Color lerpedColor2)
+    {
+        float currentTime = 0f;
+        float normalizedValue;
+
+        Color topColor;
+        Color bottomColor;
+
+        while (currentTime <= fadeTime)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / fadeTime;
+
+            topColor = Color.Lerp(currentColor1, lerpedColor1, normalizedValue);
+            bottomColor = Color.Lerp(currentColor2, lerpedColor2, normalizedValue);
+            SetColor(bottomColor, topColor);
+            yield return null;
+        }
     }
 }
