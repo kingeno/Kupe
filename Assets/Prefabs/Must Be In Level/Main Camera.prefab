@@ -48,7 +48,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.32156864, g: 0.18431373, b: 0.30980393, a: 1}
+  m_BackGroundColor: {r: 0.32156864, g: 0.18431373, b: 0.30980393, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -101,13 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _CMFreeLookCam: {fileID: 0}
-  playColor: {r: 0.17501779, g: 0.5377358, b: 0.21047908, a: 1}
-  pauseColor: {r: 0.13968495, g: 0.4056604, b: 0.16570425, a: 1}
-  stopColor: {r: 0.32156864, g: 0.18431373, b: 0.30980393, a: 1}
-  levelCompletedColor: {r: 0.49019608, g: 0.12156863, b: 0.45490196, a: 1}
-  colorTransitionTime: 0.1
-  levelCompletedColorTransitionTime: 0.3
-  levelCompletedColorSwap: 0
 --- !u!114 &114018467364049914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +378,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ef6bf9fda92e54b8586908a171e3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  img: {fileID: 1842762633062874217}
-  topColor: {r: 0.49237174, g: 0, b: 0.8207547, a: 1}
-  bottomColor: {r: 0.12474149, g: 0, b: 0.3490566, a: 1}
+  backgroundImage: {fileID: 1842762633062874217}
+  fadeDuration: 0.8
+  defaultTopColor: {r: 0.4928085, g: 0.2269491, b: 0.6415094, a: 1}
+  defaultBottomColor: {r: 0.25562522, g: 0.13381097, b: 0.2924528, a: 1}
+  levelCompletedTopColor: {r: 0.7735849, g: 0.032840855, b: 0.5366975, a: 1}
+  levelCompletedBottomColor: {r: 0.4245283, g: 0, b: 0.2900243, a: 1}

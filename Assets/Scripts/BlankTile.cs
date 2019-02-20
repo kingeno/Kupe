@@ -57,9 +57,13 @@ public class BlankTile : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved)
+        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
-            tileSelectionSquare.transform.position = transform.position;
+            if (tileSelectionSquare.transform.position != transform.position)
+            {
+                AudioManager.instance.Play("ig tile hovering");
+                tileSelectionSquare.transform.position = transform.position;
+            }
 
             if (!InGameUIManager.isGreenArrowSelected && !InGameUIManager.isDeleteTileSelected)
                 tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
@@ -73,6 +77,7 @@ public class BlankTile : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
+                    AudioManager.instance.Play("ig tile green arrow placed");
                     int hierarchyIndex = transform.GetSiblingIndex();                                                                               //Store the current hierarchy index of the blank tile.
                     Destroy(gameObject);                                                                                                            //Destroy the blank tile.
                     Transform newTile = Instantiate(greenArrowPrefab, transform.position, Quaternion.identity, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.

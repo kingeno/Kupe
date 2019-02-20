@@ -21,6 +21,11 @@ public class MainMenuUIManager : MonoBehaviour {
     public float timeToWaitBeforeFade;
     private bool fadeIsCompleted;
 
+    private void Start()
+    {
+        AudioManager.instance.Play("menu game opening");
+    }
+
     private void Update()
     {
         if (!fadeIsCompleted)
@@ -28,9 +33,6 @@ public class MainMenuUIManager : MonoBehaviour {
             StartCoroutine(MenuButtonFadeIn(this.gameObject, timeToWaitBeforeFade, fadeDuration));
             fadeIsCompleted = true;
         }
-
-        if (Input.GetMouseButtonDown(0))
-            AudioManager.instance.Play("button click");
     }
 
     IEnumerator MenuButtonFadeIn(GameObject target, float timeToWaitBeforeFade, float fadeDuration)

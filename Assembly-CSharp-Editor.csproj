@@ -62,16 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Instant Screenshot\ScreenshotTaker.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\EzRR_ErrorCheckers.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\EzRR_FEEDBACKS.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\EzRR_Style.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\EzRR_Window.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\Options\EzRR_CaseChange.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\Options\EzRR_Insert.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\Options\EzRR_Remove.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\Options\EzRR_Rename.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\Options\EzRR_Replace.cs" />
-    <Compile Include="Assets\SMG\Ez Rename\Editor\Options\EzRR_Sort.cs" />
     <Reference Include="Cinemachine">
       <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
