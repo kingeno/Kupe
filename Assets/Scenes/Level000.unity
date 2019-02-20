@@ -3330,10 +3330,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1322792729766440, guid: 893586741e1715541baf0baf1ed1f691, type: 3}
-      propertyPath: m_Name
-      value: Main Camera
-      objectReference: {fileID: 0}
     - target: {fileID: 4312900413851908, guid: 893586741e1715541baf0baf1ed1f691, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.6
@@ -3370,23 +3366,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 55.000004
       objectReference: {fileID: 0}
-    - target: {fileID: 4312900413851908, guid: 893586741e1715541baf0baf1ed1f691, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -44.825
+    - target: {fileID: 114863143425981784, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: levelCompletedColor.r
+      value: 0.8018868
       objectReference: {fileID: 0}
-    - target: {fileID: 4312900413851908, guid: 893586741e1715541baf0baf1ed1f691, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+    - target: {fileID: 114863143425981784, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: levelCompletedColor.g
+      value: 0.68473953
+      objectReference: {fileID: 0}
+    - target: {fileID: 114863143425981784, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: levelCompletedColor.b
+      value: 0.056737266
       objectReference: {fileID: 0}
     - target: {fileID: 114863143425981784, guid: 893586741e1715541baf0baf1ed1f691,
         type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 20005635055296866, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: orthographic size
+      value: 5.5
+      objectReference: {fileID: 0}
     - target: {fileID: 114450706007052790, guid: 893586741e1715541baf0baf1ed1f691,
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248563959915188899, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138639278463515787, guid: 893586741e1715541baf0baf1ed1f691,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 893586741e1715541baf0baf1ed1f691, type: 3}
@@ -4145,21 +4163,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2916171321210584963, guid: 36dc59c24afde074e8ae7fc2a77f21c7,
-        type: 3}
-      propertyPath: sounds.Array.data[2].volume
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2916171321210584963, guid: 36dc59c24afde074e8ae7fc2a77f21c7,
-        type: 3}
-      propertyPath: sounds.Array.data[3].volume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2916171321210584963, guid: 36dc59c24afde074e8ae7fc2a77f21c7,
-        type: 3}
-      propertyPath: sounds.Array.data[1].volume
-      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36dc59c24afde074e8ae7fc2a77f21c7, type: 3}

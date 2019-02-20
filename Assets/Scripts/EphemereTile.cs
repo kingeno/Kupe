@@ -52,20 +52,13 @@ public class EphemereTile : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        if (tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        if (tileSelectionSquare.canBeMoved)
         {
-            if (tileSelectionSquare.transform.position != transform.position)
-            {
-                AudioManager.instance.Play("ig tile hovering");
-                tileSelectionSquare.transform.position = transform.position;
-            }
-
+            tileSelectionSquare.transform.position = transform.position;
             if (InGameUIManager.isDeleteTileSelected)
             {
                 tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
                 _renderer.material.SetTexture("_MainTex", impossibleToDelete);
-                if (Input.GetMouseButtonDown(0))
-                    AudioManager.instance.Play("ig tile delete impossible");
             }
             else
             {

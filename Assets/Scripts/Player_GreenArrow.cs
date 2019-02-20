@@ -84,16 +84,11 @@ public class Player_GreenArrow : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved)
         {
             canBeRotated = true;
             mouseIsOver = true;
-            if (tileSelectionSquare.transform.position != transform.position)
-            {
-                AudioManager.instance.Play("ig tile hovering");
-                tileSelectionSquare.transform.position = transform.position;
-            }
-
+            tileSelectionSquare.transform.position = transform.position;
             if (!InGameUIManager.isDeleteTileSelected)
             {
                 tileSelectionSquare.material.color = tileSelectionSquare.editTileColor;
@@ -102,7 +97,6 @@ public class Player_GreenArrow : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R))
                     {
-                        AudioManager.instance.Play("not existing yet");
                         if (transform.rotation == forwardArrow)
                         {
                             tileOrientation = "Right";
@@ -137,7 +131,6 @@ public class Player_GreenArrow : MonoBehaviour
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    AudioManager.instance.Play("ig tile deleted");
                     tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
                     int hierarchyIndex = transform.GetSiblingIndex();                                                                        //Store the current hierarchy index of the blank tile.
                     Destroy(gameObject);                                                                                                     //Destroy green arrow tile.

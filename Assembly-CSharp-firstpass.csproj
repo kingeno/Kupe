@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Assets\Plugins\Gulti (Color Blindness Simulator)\ColorBlindSimulator\Scripts\ColorBlindnessSimulator.cs" />
     <Compile Include="Assets\Plugins\Gulti (Color Blindness Simulator)\Scripts\PostEffectsBase.cs" />
-    <Compile Include="Assets\Plugins\Instant Screenshot\ScreenshotTaker.cs" />
     <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -99,7 +98,6 @@
     <Compile Include="Assets\Plugins\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Plugins\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-    <None Include="Assets\Plugins\SMG\Ez Rename\_READ ME - Ez Rename.txt" />
     <None Include="Assets\Plugins\Gulti (Color Blindness Simulator)\ColorBlindSimulator\LICENSE.txt" />
     <None Include="Assets\Plugins\Gulti (Color Blindness Simulator)\ColorBlindSimulator\Resources\ColorBlindSimulator.shader" />
     <None Include="Assets\Plugins\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />

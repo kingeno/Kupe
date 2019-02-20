@@ -47,127 +47,133 @@ MonoBehaviour:
   highPitchRange: 1.05
   sounds:
   - name: menu game opening
-    clip: {fileID: 8300000, guid: ec6b9469870e14d448091bb599e95f5e, type: 3}
+    clip: {fileID: 0}
     volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: menu button hovering
-    clip: {fileID: 8300000, guid: 166a2d5cb89187b448d00f8c8722a85e, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: menu button click
-    clip: {fileID: 8300000, guid: 01dc99b0ed8baec4f9becf086e2e7c32, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: menu button close
-    clip: {fileID: 8300000, guid: 429bbe1731ecc464da7684cee6d7208a, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig button hovering
-    clip: {fileID: 8300000, guid: 2430308a1927f144a9af64a0ed0f0411, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation play
-    clip: {fileID: 8300000, guid: 9aec3497583ed9f408c66e232f983446, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation pause
-    clip: {fileID: 8300000, guid: 1ba568750b065dd4aaeaea7daa3442e4, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation speed up
-    clip: {fileID: 8300000, guid: 164c12f1e47f5fa42b5cbe36b8174cc3, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation slow down
-    clip: {fileID: 8300000, guid: d95bb6e78950e6b458096164cbeb4e17, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: ig simulation stop
-    clip: {fileID: 8300000, guid: ab71915985fd32c40b96dc8484c2e02c, type: 3}
+  - name: ig simlation stop
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig free look on
-    clip: {fileID: 8300000, guid: 10e4ca6ab15ad8d4f89d250dc5519f45, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig free look off
-    clip: {fileID: 8300000, guid: 457db3ff35e349d48ad26dcf2e1303c9, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig pause menu open
-    clip: {fileID: 8300000, guid: 8468c84da4406b04594cfcb5beea661a, type: 3}
+    clip: {fileID: 0}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig pause menu pause
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig pause menu close
-    clip: {fileID: 8300000, guid: 138b4e13c5e532146899ab76b485d0e6, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig level opening
-    clip: {fileID: 8300000, guid: e320a859616c330488f7c362a116cf53, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig level completed
-    clip: {fileID: 8300000, guid: d0e0c2510722dcf47957659e1dc91b99, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile hovering
-    clip: {fileID: 8300000, guid: c1507afbe426e8d47a8561cb46b75e0c, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile green arrow placed
-    clip: {fileID: 8300000, guid: 9b856abc974d7c247a9de381c70b5830, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile deleted
-    clip: {fileID: 8300000, guid: 69e2ad83ace937a48bddf0935ed97147, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile delete impossible
-    clip: {fileID: 8300000, guid: 9b0f0c46ba2368b4daa86bf79b999b87, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile end tile validated
-    clip: {fileID: 8300000, guid: 2b13f5a5112329449aba56f64bce8088, type: 3}
+    clip: {fileID: 0}
     volume: 0.6
     pitch: 1
     loop: 0

@@ -8,10 +8,10 @@ using System;
 
 public class InGameUIManager : MonoBehaviour
 {
-    private GameManager gameManager;
+    public GameManager gameManager;
     private LevelLoader levelLoader;
-    private MainCamera _mainCamera;
-    private GameObject cinemachineCamera;
+    public MainCamera _mainCamera;
+    public GameObject cinemachineCamera;
 
     [Header("Level Completed Text")]
     public float levelCompletedText_displayDelay;
@@ -219,11 +219,19 @@ public class InGameUIManager : MonoBehaviour
                 UnselectAllTiles();
                 playSimulationButton.SetActive(true);
                 pauseSimulationButton.SetActive(false);
+                if (_mainCamera)
+                {
+                    _mainCamera.backgroundColorSwap();
+                }
             }
             else if (GameManager.simulationIsRunning && GameManager.simulationHasBeenLaunched && playSimulationButton.activeSelf)
             {
                 playSimulationButton.SetActive(false);
                 pauseSimulationButton.SetActive(true);
+                if (_mainCamera)
+                {
+                    _mainCamera.backgroundColorSwap();
+                }
             }
 
             if (GameManager.levelIsCompleted && !winScreen.activeSelf)
@@ -234,7 +242,6 @@ public class InGameUIManager : MonoBehaviour
             {
                 if (!levelCompletedText_fadeStarted)
                 {
-                    AudioManager.instance.Play("ig level completed");
                     StartCoroutine(FadeAndMoveText(levelCompletedText, levelCompletedText_displayDelay, levelCompletedText_timeOfTravel,
                     new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y),
                     new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y + levelCompletedText_distanceToTravel)));
@@ -245,6 +252,17 @@ public class InGameUIManager : MonoBehaviour
 
                     levelCompletedText_fadeStarted = true;
                 }
+
+                //if (!nextLevelButton_fadeStarted)
+                //{
+                //    Action onEnd = () => { nextLevelButton_fadeIsDone = true; };
+                //    StartCoroutine(FadeAndMoveText(nextLevelButton, nextLevelButton_displayDelay, nextLevelButton_timeOfTravel,
+                //    new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y),
+                //    new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y + nextLevelButton_distanceToTravel),
+                //    onEnd));
+
+                //    nextLevelButton_fadeStarted = true;
+                //}
             }
 
             if (isOverPlayerArrowTile)
@@ -287,7 +305,6 @@ public class InGameUIManager : MonoBehaviour
             UnselectAllTiles();
             isDeleteTileSelected = true;
             deleteTileSelectedOutline.SetActive(true);
-            AudioManager.instance.Play("ig tile deleted");
         }
     }
 
@@ -321,19 +338,24 @@ public class InGameUIManager : MonoBehaviour
                 stopButtonScript.interactable = true;
                 stopSimulationButtonImage.color = interactableButtonColor;
 
-                AudioManager.instance.Play("ig simulation play");
+                if (_mainCamera)
+                {
+                    _mainCamera.backgroundColorSwap();
+                }
             }
             else if (GameManager.simulationIsRunning)
             {
                 gameManager.LaunchSimulation();
-                AudioManager.instance.Play("ig simulation pause");
+                if (_mainCamera)
+                {
+                    _mainCamera.backgroundColorSwap();
+                }
             }
         }
     }
 
     public void SpeedUpSimulation()
     {
-        AudioManager.instance.Play("ig simulation speed up");
         if (GameManager.simulationSpeed == 1f)
         {
             changeSpeedSimulation = true;
@@ -356,7 +378,6 @@ public class InGameUIManager : MonoBehaviour
 
     public void SlowDownSimulation()
     {
-        AudioManager.instance.Play("ig simulation slow down");
         if (GameManager.simulationSpeed == 1f)
         {
             changeSpeedSimulation = true;
@@ -390,8 +411,6 @@ public class InGameUIManager : MonoBehaviour
 
             greenArrowButtonImage.color = interactableButtonColor;
             deleteTileButtonImage.color = interactableButtonColor;
-
-            AudioManager.instance.Play("ig simulation stop");
         }
     }
 
@@ -410,7 +429,6 @@ public class InGameUIManager : MonoBehaviour
     {
         if (!MainCamera.isFreeLookActive)
         {
-            AudioManager.instance.Play("ig pause menu open");
             UnselectAllTiles();
             GameManager.gameIsPaused = true;
             GameManager.playerCanModifyBoard = false;
@@ -423,7 +441,6 @@ public class InGameUIManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        AudioManager.instance.Play("ig pause menu close");
         pauseMenu.SetActive(false);
         GameManager.gameIsPaused = false;
         inGameUI.gameObject.SetActive(true);
@@ -484,6 +501,8 @@ public class InGameUIManager : MonoBehaviour
     }
 
 
+
+    // no working
     IEnumerator FadeAndMoveText(GameObject target, float timeToWaitBeforeFade, float timeOfTravel, Vector2 startPos, Vector2 endPos)
     {
         yield return new WaitForSecondsRealtime(timeToWaitBeforeFade);

@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\SpeedUpButtonText.cs" />
     <Compile Include="Assets\Scripts\Test Scripts\Test_CubeRotation.cs" />
     <Compile Include="Assets\Scripts\TileSelectionSquare.cs" />
+    <None Include="Assets\SMG\Ez Rename\_READ ME - Ez Rename.txt" />
     <Reference Include="Cinemachine">
       <HintPath>D:/Projects/PuzzleGame/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>

@@ -50,8 +50,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.instance.Play("ig level opening");
-
         if (simulationSpeed < 1f)
             simulationSpeed = 1f;
 
@@ -657,7 +655,7 @@ public class GameManager : MonoBehaviour
         {
             levelIsStopped = true;
             simulationIsRunning = false;
-            AudioManager.instance.Play("ig simulation stop");
+            _mainCamera.backgroundColorSwap();
         }
         playerIsStuck = false;
         simulationHasBeenLaunched = false;
@@ -712,6 +710,7 @@ public class GameManager : MonoBehaviour
 
         levelIsCompleted = false;
         playerCanModifyBoard = true;
+        _mainCamera.levelCompletedColorSwap = false;
 
         boardManager.SetInitialState();
         //_mainCamera.backgroundColorSwap();
