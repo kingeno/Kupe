@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/Theodore/Desktop/2019.02.12_Kupe_Build_v0.0.5/Tile Base Cube Puzzle Game.exe
+C:/Users/Theodore/Desktop/Test/Tile Base Cube Puzzle Game.exe
 SceneListBegin?
 Assets/Scenes/Level000.unity
 Assets/Scenes/Level001.unity
@@ -197,6 +197,7 @@ e9389e944eb81a3a9df56fcdb09ce6a9 Unity.ProBuilder.dll:UnityEngine.ProBuilder.Tri
 e9389e944eb81a3a9df56fcdb09ce6a9 Unity.ProBuilder.dll:UnityEngine.ProBuilder.ColliderBehaviour
 bd543bad7f9f6262f10595aadb130d22 Cinemachine.dll:Cinemachine.CinemachineComposer
 c8d2644c1010524103ec29c183772602 Assembly-CSharp.dll:.MainCamera
+ca9f30b8a7759197f885c0186a189e4c Assembly-CSharp.dll:.AudioManager
 3375c3d749f8f4cad889721b431bdc27 Assembly-CSharp-firstpass.dll:TMPro.Examples.CameraController
 e63944317d2f5958e31963668bb29158 Assembly-CSharp-firstpass.dll:TMPro.Examples.VertexJitter
 15882a52798c275361cd0a3ada984ec5 Cinemachine.dll:Cinemachine.CinemachineDollyCart
