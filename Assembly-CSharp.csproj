@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\BlankTile.cs" />
     <Compile Include="Assets\Scripts\BoardManager.cs" />
     <Compile Include="Assets\Scripts\ButtonBlinking.cs" />
+    <Compile Include="Assets\Scripts\ButtonSoundManager.cs" />
     <Compile Include="Assets\Scripts\CubeController.cs" />
     <Compile Include="Assets\Scripts\CurrentLevelManager.cs" />
     <Compile Include="Assets\Scripts\CursorController.cs" />

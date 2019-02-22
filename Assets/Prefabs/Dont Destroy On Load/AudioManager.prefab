@@ -48,7 +48,7 @@ MonoBehaviour:
   sounds:
   - name: menu game opening
     clip: {fileID: 0}
-    volume: 0.3
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -66,13 +66,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: menu button close
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig button hovering
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -84,97 +84,97 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ig simulation pause
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation speed up
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation slow down
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simlation stop
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig free look on
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig free look off
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig pause menu open
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig pause menu pause
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig pause menu close
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig level opening
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig level completed
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile hovering
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile green arrow placed
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile deleted
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile delete impossible
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile end tile validated
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}

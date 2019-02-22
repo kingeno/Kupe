@@ -57,7 +57,7 @@ public class BlankTile : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
             if (tileSelectionSquare.transform.position != transform.position)
             {

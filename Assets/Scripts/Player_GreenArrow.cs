@@ -84,7 +84,7 @@ public class Player_GreenArrow : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
             canBeRotated = true;
             mouseIsOver = true;

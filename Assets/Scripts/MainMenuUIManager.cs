@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class MainMenuUIManager : MonoBehaviour {
+public class MainMenuUIManager : MonoBehaviour
+{
 
     [Header("Menu Screens")]
     public GameObject mainMenu;
     public GameObject levelHub;
     public GameObject controlsScheme;
+
+    public Button levelHubButton;
 
     [Header("Button Text Colors")]
     public Color defaultColor;
@@ -21,6 +25,13 @@ public class MainMenuUIManager : MonoBehaviour {
     public float timeToWaitBeforeFade;
     private bool fadeIsCompleted;
 
+    private void Start()
+    {
+        AudioManager.instance.Play("menu game opening");
+
+        levelHubButton = levelHub.GetComponent<Button>();
+    }
+
     private void Update()
     {
         if (!fadeIsCompleted)
@@ -28,9 +39,6 @@ public class MainMenuUIManager : MonoBehaviour {
             StartCoroutine(MenuButtonFadeIn(this.gameObject, timeToWaitBeforeFade, fadeDuration));
             fadeIsCompleted = true;
         }
-
-        if (Input.GetMouseButtonDown(0))
-            AudioManager.instance.Play("button click");
     }
 
     IEnumerator MenuButtonFadeIn(GameObject target, float timeToWaitBeforeFade, float fadeDuration)
@@ -70,11 +78,16 @@ public class MainMenuUIManager : MonoBehaviour {
             controlsScheme.SetActive(false);
             mainMenu.SetActive(true);
         }
-        else if(levelHub.activeSelf)
+        else if (levelHub.activeSelf)
         {
             levelHub.SetActive(false);
             mainMenu.SetActive(true);
         }
+    }
+
+    public void PlaySound(string soundName)
+    {
+        AudioManager.instance.Play(soundName);
     }
 
     public void ExitGame()

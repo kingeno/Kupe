@@ -68,7 +68,7 @@ public class GreenArrow : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        if (!GameManager.gameIsPaused && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive && GameManager.playerCanModifyBoard)
         {
             if (tileSelectionSquare.transform.position != transform.position)
             {
