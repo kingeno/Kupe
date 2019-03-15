@@ -287,7 +287,6 @@ public class InGameUIManager : MonoBehaviour
             UnselectAllTiles();
             isDeleteTileSelected = true;
             deleteTileSelectedOutline.SetActive(true);
-            AudioManager.instance.Play("ig tile deleted");
         }
     }
 
@@ -423,7 +422,7 @@ public class InGameUIManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        AudioManager.instance.Play("ig pause menu close");
+        AudioManager.instance.Play("menu button close");
         pauseMenu.SetActive(false);
         GameManager.gameIsPaused = false;
         inGameUI.gameObject.SetActive(true);

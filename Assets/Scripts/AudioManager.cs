@@ -42,12 +42,14 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
-            s.clip = Resources.Load<AudioClip>("sfx/" + s.name);
+            s.clip = Resources.Load<AudioClip>("Audio/" + s.name);
             s.source.clip = s.clip;
             s.source.volume = s.volume;
             /*s.source.pitch = unityengine.random.range(0.95f,1.05f);*/
             s.source.loop = s.loop;
         }
+
+        //Play("music");
     }
 
     public void Play(string name)

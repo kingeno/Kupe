@@ -102,7 +102,7 @@ public class Player_GreenArrow : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R))
                     {
-                        AudioManager.instance.Play("not existing yet");
+                        AudioManager.instance.Play("ig tile rotation");
                         if (transform.rotation == forwardArrow)
                         {
                             tileOrientation = "Right";

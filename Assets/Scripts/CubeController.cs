@@ -459,6 +459,7 @@ public class CubeController : MonoBehaviour
         else if (willMove)
         {
             //Debug.Log(name + " will move coroutine");
+            AudioManager.instance.Play("ig cube move");
             if (willMoveDown || willMoveUp)
             {
                 cubeAnimator.SetBool("will move", false);
@@ -514,6 +515,7 @@ public class CubeController : MonoBehaviour
     {
         if (!stuckParticleSystem.activeSelf)
         {
+            AudioManager.instance.Play("ig cube stuck");
             cubeAnimator.SetBool("will move", false);
             cubeAnimator.SetBool("move forward", false);
             cubeAnimator.SetBool("move back", false);
@@ -531,6 +533,7 @@ public class CubeController : MonoBehaviour
     {
         if (!isOnEndTileParticleSystem.activeSelf)
         {
+            AudioManager.instance.Play("ig tile end tile validated");
             cubeAnimator.SetBool("will move", false);
             cubeAnimator.SetBool("move forward", false);
             cubeAnimator.SetBool("move back", false);

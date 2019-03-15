@@ -54,55 +54,61 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: menu button hovering
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: menu button click
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: menu button close
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig button hovering
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig button click
+    clip: {fileID: 0}
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation play
     clip: {fileID: 0}
-    volume: 0.6
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation pause
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation speed up
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simulation slow down
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig simlation stop
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -124,12 +130,6 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: ig pause menu pause
-    clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
   - name: ig pause menu close
     clip: {fileID: 0}
     volume: 1
@@ -144,37 +144,55 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ig level completed
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile hovering
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile green arrow placed
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile deleted
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.4
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile delete impossible
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig tile rotation
+    clip: {fileID: 0}
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: ig tile end tile validated
     clip: {fileID: 0}
-    volume: 1
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig cube move
+    clip: {fileID: 0}
+    volume: 0.1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ig cube stuck
+    clip: {fileID: 0}
+    volume: 0.4
     pitch: 1
     loop: 0
     source: {fileID: 0}
