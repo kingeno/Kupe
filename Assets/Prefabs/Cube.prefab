@@ -162,10 +162,11 @@ MonoBehaviour:
   willRoundTripUp: 0
   willRoundTripDown: 0
   movementBoolArray: 
+  playRollAnimation: 0
+  cubeAvatar: {fileID: 1964660900077862}
   cubeAnimator: {fileID: 95200338266822378}
   _opaqueCubeColor: {r: 0, g: 0, b: 0, a: 0}
   _transparentCubeColor: {r: 0, g: 0, b: 0, a: 0}
-  cubeAvatar: {fileID: 1964660900077862}
 --- !u!1 &1964660900077862
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +225,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d7ccca2a6d93caa4d9fd755735594258, type: 2}
+  - {fileID: 2100000, guid: 26122d5301914c048856e0d82176d24a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4978,7 +4979,7 @@ ParticleSystem:
 --- !u!199 &7541894691478319391
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -9685,7 +9686,7 @@ ParticleSystem:
 --- !u!199 &8726904140277159167
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}

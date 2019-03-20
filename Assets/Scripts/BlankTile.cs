@@ -24,7 +24,6 @@ public class BlankTile : MonoBehaviour
     private Renderer _renderer;
     public Texture blankTileTexture;
     public Texture greenArrowSelectedTexture;
-    public Texture blankTileDeletedTexture;
 
     private void Start()
     {

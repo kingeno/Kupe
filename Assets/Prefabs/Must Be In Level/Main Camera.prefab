@@ -388,6 +388,6 @@ MonoBehaviour:
   backgroundImage: {fileID: 1842762633062874217}
   fadeDuration: 0
   defaultTopColor: {r: 0.35858575, g: 0, b: 0.4433962, a: 1}
-  defaultBottomColor: {r: 0.174737, g: 0, b: 0.21698111, a: 1}
+  defaultBottomColor: {r: 0.13779677, g: 0, b: 0.21568628, a: 1}
   levelCompletedTopColor: {r: 0.7075472, g: 0, b: 0.40336645, a: 1}
-  levelCompletedBottomColor: {r: 0.4056604, g: 0, b: 0.23212789, a: 1}
+  levelCompletedBottomColor: {r: 0.33962262, g: 0, b: 0.13327561, a: 1}

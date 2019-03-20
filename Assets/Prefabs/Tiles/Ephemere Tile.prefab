@@ -354,7 +354,7 @@ MonoBehaviour:
   above_AdjacentTile: {fileID: 0}
   tagWhenActive: 
   active: {fileID: 2800000, guid: 5b7433ba28c21d84782211e40c264faa, type: 3}
-  impossibleToDelete: {fileID: 0}
+  impossibleToDelete: {fileID: 2800000, guid: 622b9190c53764d4ea727a179b8cc448, type: 3}
   unactiveTimeColorSwap: 0
   reactiveTimeColorSwap: 0
   fadeOutTime: 0.3

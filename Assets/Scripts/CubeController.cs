@@ -355,7 +355,7 @@ public class CubeController : MonoBehaviour
                 }
             }
         }
-        else if (belowTile.tag == "Blank Tile" || belowTile.tag == "Cube" || belowTile.tag == "EphemereTile")
+        else if (belowTile.tag == "Blank Tile" || belowTile.tag == "Cube" || belowTile.tag == "EphemereTile" || belowTile.CompareTag("GreyTile"))
         {
             predictedPos = (currentTurnPos + lastMovement);
             willMove = true;

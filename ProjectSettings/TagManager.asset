@@ -23,6 +23,7 @@ TagManager:
   - MainMenuUIManager
   - CMFreeLookCamera
   - BottomBox
+  - GreyTile
   layers:
   - Default
   - TransparentFX
