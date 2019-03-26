@@ -39,12 +39,12 @@ public class LevelListButton : MonoBehaviour
     {
         if (levelImage)
         {
-            levelImage.sprite = Resources.Load<Sprite>("LevelScreenshots/" + number);
+            levelImage.sprite = Resources.Load<Sprite>("Level Thumbnails/" + number);
         }
         if (outlinLevelImage)
         {
             outlinLevelImage = GetComponent<Image>();
-            outlinLevelImage.sprite = Resources.Load<Sprite>("LevelScreenshots/Outlines/" + number);
+            outlinLevelImage.sprite = Resources.Load<Sprite>("Level Thumbnails/Outlines/" + number);
         }
     }
 

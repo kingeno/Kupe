@@ -21,6 +21,8 @@ public class Player_GreenArrow : MonoBehaviour
     public Vector3 above_AdjacentPos;
     public Transform above_AdjacentTile;
 
+    public float rotationDuration;
+
     private Quaternion forwardArrow;
     private Quaternion backArrow;
     private Quaternion leftArrow;
@@ -100,28 +102,52 @@ public class Player_GreenArrow : MonoBehaviour
                 _inGameUIManager.isOverPlayerArrowTile = true;
                 if (canBeRotated && mouseIsOver)
                 {
-                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R))
+                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y < 0f)
                     {
                         AudioManager.instance.Play("ig tile rotation");
                         if (transform.rotation == forwardArrow)
                         {
+                            StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
                             tileOrientation = "Right";
-                            transform.rotation = rightArrow;
                         }
                         else if (transform.rotation == rightArrow)
                         {
-                            transform.rotation = backArrow;
+                            StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
                             tileOrientation = "Back";
                         }
                         else if (transform.rotation == backArrow)
                         {
-                            transform.rotation = leftArrow;
+                            StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
                             tileOrientation = "Left";
                         }
                         else if (transform.rotation == leftArrow)
                         {
-                            transform.rotation = forwardArrow;
+                            StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
                             tileOrientation = "Forward";
+                        }
+                    }
+                    else if (Input.mouseScrollDelta.y > 0f || Input.GetKeyDown(KeyCode.L))
+                    {
+                        AudioManager.instance.Play("ig tile rotation");
+                        if (transform.rotation == forwardArrow)
+                        {
+                            StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
+                            tileOrientation = "Left";
+                        }
+                        else if (transform.rotation == rightArrow)
+                        {
+                            StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
+                            tileOrientation = "Forward";
+                        }
+                        else if (transform.rotation == backArrow)
+                        {
+                            StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
+                            tileOrientation = "Right";
+                        }
+                        else if (transform.rotation == leftArrow)
+                        {
+                            StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
+                            tileOrientation = "Back";
                         }
                     }
                 }
@@ -249,6 +275,24 @@ public class Player_GreenArrow : MonoBehaviour
             }
             _renderer.material.color = startColor;
         }
+    }
+
+    IEnumerator TileRotation(Quaternion currentRotation, Quaternion targetRotation, float duration)
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, (elapsedTime / duration));
+            elapsedTime += Time.deltaTime;
+
+            if (tileSelectionSquare.transform.rotation != transform.rotation)
+                tileSelectionSquare.transform.rotation = transform.rotation;
+
+            yield return null;
+        }
+        tileSelectionSquare.transform.rotation = transform.rotation;
+        transform.rotation = targetRotation;
+        yield return null;
     }
 
     //void OnGUI()

@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Blank Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4496926624777184
 Transform:
@@ -359,5 +359,4 @@ MonoBehaviour:
   blankTileTexture: {fileID: 2800000, guid: a9e731e5579b01f439e43ba467547294, type: 3}
   greenArrowSelectedTexture: {fileID: 2800000, guid: 328617551cdfa1d4b8be249893ba802c,
     type: 3}
-  blankTileDeletedTexture: {fileID: 2800000, guid: 25d9d6528270e6d40ab01e93a19aacfe,
-    type: 3}
+  rotationDuration: 0.15

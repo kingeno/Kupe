@@ -226,13 +226,13 @@ public class InGameUIManager : MonoBehaviour
                 pauseSimulationButton.SetActive(true);
             }
 
-            if (GameManager.levelIsCompleted && !winScreen.activeSelf)
+            if (GameManager.levelIsCompleted)
             {
-                winScreen.SetActive(true);
-            }
-            else if (GameManager.levelIsCompleted && winScreen.activeSelf)
-            {
-                if (!levelCompletedText_fadeStarted)
+                if (!winScreen.activeSelf)
+                {
+                    winScreen.SetActive(true);
+                }
+                else if (winScreen.activeSelf && !levelCompletedText_fadeStarted)
                 {
                     AudioManager.instance.Play("ig level completed");
                     StartCoroutine(FadeAndMoveText(levelCompletedText, levelCompletedText_displayDelay, levelCompletedText_timeOfTravel,
@@ -259,7 +259,20 @@ public class InGameUIManager : MonoBehaviour
         else if (GameManager.gameIsPaused)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
-                ResumeGame();
+            {
+                if (controlsScheme.activeSelf)
+                {
+                    controlsScheme.SetActive(false);
+                    pauseMenu.SetActive(true);
+                }
+                else if (levelHub.activeSelf)
+                {
+                    levelHub.SetActive(false);
+                    pauseMenu.SetActive(true);
+                }
+                else if (pauseMenu.activeSelf)
+                    ResumeGame();
+            }
         }
 
     }
@@ -446,6 +459,7 @@ public class InGameUIManager : MonoBehaviour
     {
         GameManager.simulationSpeed = Time.timeScale = 1f;
         levelLoader.loadSpecificLevel(0);
+        GameManager.levelIsCompleted = false;
     }
 
     public void BackButton()

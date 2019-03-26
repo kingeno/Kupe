@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BlankTile : MonoBehaviour
 {
-
     public GameObject boardManager;
     public TileSelectionSquare tileSelectionSquare;
 
@@ -25,6 +24,16 @@ public class BlankTile : MonoBehaviour
     public Texture blankTileTexture;
     public Texture greenArrowSelectedTexture;
 
+    public float rotationDuration;
+    private float rotationIsFinished;
+
+    private Quaternion forwardArrow;
+    private Quaternion backArrow;
+    private Quaternion leftArrow;
+    private Quaternion rightArrow;
+
+    public static Quaternion staticCurrentRotation;
+
     private void Start()
     {
         if (!tileSelectionSquare)
@@ -44,6 +53,12 @@ public class BlankTile : MonoBehaviour
         {
             canOnlyBeBlankTile = false;
         }
+
+        staticCurrentRotation = Quaternion.Euler(0, 0, 0);
+        forwardArrow = Quaternion.Euler(0, 0, 0);
+        backArrow = Quaternion.Euler(0, 180, 0);
+        leftArrow = Quaternion.Euler(0, 270, 0);
+        rightArrow = Quaternion.Euler(0, 90, 0);
     }
 
     private void Update()
@@ -69,7 +84,63 @@ public class BlankTile : MonoBehaviour
 
             else if (!CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected)
             {
-                _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
+                if (_renderer.material.GetTexture("_MainTex") != greenArrowSelectedTexture)
+                {
+                    _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
+                    Debug.LogError("super");
+                }
+
+                //if (transform.rotation != currentRotation)
+                //    transform.rotation = currentRotation;
+
+                if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.R))
+                {
+                    AudioManager.instance.Play("ig tile rotation");
+                    if (transform.rotation == forwardArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
+                        staticCurrentRotation = rightArrow;
+                    }
+                    else if (transform.rotation == rightArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
+                        staticCurrentRotation = backArrow;
+                    }
+                    else if (transform.rotation == backArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
+                        staticCurrentRotation = leftArrow;
+                    }
+                    else if (transform.rotation == leftArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
+                        staticCurrentRotation = forwardArrow;
+                    }
+                }
+                else if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(KeyCode.L))
+                {
+                    AudioManager.instance.Play("ig tile rotation");
+                    if (transform.rotation == forwardArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
+                        staticCurrentRotation = leftArrow;
+                    }
+                    else if (transform.rotation == rightArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
+                        staticCurrentRotation = forwardArrow;
+                    }
+                    else if (transform.rotation == backArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
+                        staticCurrentRotation = rightArrow;
+                    }
+                    else if (transform.rotation == leftArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
+                        staticCurrentRotation = backArrow;
+                    }
+                }
 
                 float lerp = Mathf.PingPong(Time.unscaledTime, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
                 tileSelectionSquare.material.color = Color.Lerp(tileSelectionSquare.canPlaceTileColor1, tileSelectionSquare.canPlaceTileColor2, lerp);
@@ -79,7 +150,7 @@ public class BlankTile : MonoBehaviour
                     AudioManager.instance.Play("ig tile green arrow placed");
                     int hierarchyIndex = transform.GetSiblingIndex();                                                                               //Store the current hierarchy index of the blank tile.
                     Destroy(gameObject);                                                                                                            //Destroy the blank tile.
-                    Transform newTile = Instantiate(greenArrowPrefab, transform.position, Quaternion.identity, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
+                    Transform newTile = Instantiate(greenArrowPrefab, transform.position, transform.rotation, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
                     newTile.SetSiblingIndex(hierarchyIndex);                                                                                  //Use the stored hierarchy index to put the new tile in place of the deleted one.
                     BoardManager.playerHasChangedATile = true;
                     CurrentLevelManager.greenArrowStock_static--;
@@ -91,6 +162,18 @@ public class BlankTile : MonoBehaviour
                 _renderer.material.SetTexture("_MainTex", blankTileTexture);
             }
 
+        }
+    }
+
+    private void OnMouseEnter()
+    {
+        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        {
+            if (!CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected)
+            {
+                if (transform.rotation != staticCurrentRotation)
+                    transform.rotation = staticCurrentRotation;
+            }
         }
     }
 
@@ -116,5 +199,23 @@ public class BlankTile : MonoBehaviour
         }
         else
             return null;
+    }
+
+    IEnumerator TileRotation(Quaternion currentRotation, Quaternion targetRotation, float duration)
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, (elapsedTime/duration));
+            elapsedTime += Time.deltaTime;
+
+            if (tileSelectionSquare.transform.rotation != transform.rotation)
+                tileSelectionSquare.transform.rotation = transform.rotation;
+
+            yield return null;
+        }
+        tileSelectionSquare.transform.rotation = transform.rotation;
+        transform.rotation = targetRotation;
+        yield return null;
     }
 }
