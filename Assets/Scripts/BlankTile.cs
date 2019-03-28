@@ -169,11 +169,8 @@ public class BlankTile : MonoBehaviour
     {
         if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
-            if (!CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected)
-            {
-                if (transform.rotation != staticCurrentRotation)
-                    transform.rotation = staticCurrentRotation;
-            }
+            if (transform.rotation != staticCurrentRotation)
+                transform.rotation = staticCurrentRotation;
         }
     }
 
@@ -207,7 +204,7 @@ public class BlankTile : MonoBehaviour
         while (elapsedTime < duration)
         {
             transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, (elapsedTime/duration));
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
 
             if (tileSelectionSquare.transform.rotation != transform.rotation)
                 tileSelectionSquare.transform.rotation = transform.rotation;

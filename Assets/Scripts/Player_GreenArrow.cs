@@ -179,6 +179,15 @@ public class Player_GreenArrow : MonoBehaviour
             _inGameUIManager.isOverPlayerArrowTile = false;
     }
 
+    private void OnMouseEnter()
+    {
+        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        {
+            if (tileSelectionSquare.transform.rotation != transform.rotation)
+                tileSelectionSquare.transform.rotation = transform.rotation;
+        }
+    }
+
     private void OnMouseExit()
     {
         canBeRotated = false;
@@ -283,7 +292,7 @@ public class Player_GreenArrow : MonoBehaviour
         while (elapsedTime < duration)
         {
             transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, (elapsedTime / duration));
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
 
             if (tileSelectionSquare.transform.rotation != transform.rotation)
                 tileSelectionSquare.transform.rotation = transform.rotation;
