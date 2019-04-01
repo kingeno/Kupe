@@ -45,9 +45,6 @@ public class MainCamera : MonoBehaviour
         if (!_inGameUIManager)
             _inGameUIManager = GameObject.FindGameObjectWithTag("InGameUIManager").GetComponent<InGameUIManager>();
 
-        if (!CameraTargetRenderer)
-            CameraTargetRenderer = GameObject.FindGameObjectWithTag("CameraTarget").GetComponent<Renderer>();
-
         if (CameraTargetRenderer)
             CameraTargetRenderer.material.color = new Color(1f, 1f, 1f, 0f);
 

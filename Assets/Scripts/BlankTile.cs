@@ -87,7 +87,6 @@ public class BlankTile : MonoBehaviour
                 if (_renderer.material.GetTexture("_MainTex") != greenArrowSelectedTexture)
                 {
                     _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
-                    Debug.LogError("super");
                 }
 
                 //if (transform.rotation != currentRotation)
@@ -177,7 +176,9 @@ public class BlankTile : MonoBehaviour
     private void OnMouseExit()
     {
         if (!GameManager.simulationIsRunning && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved)
+        {
             tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
+        }
 
         if (!GameManager.simulationIsRunning && !canOnlyBeBlankTile && InGameUIManager.isGreenArrowSelected)
         {
@@ -206,8 +207,7 @@ public class BlankTile : MonoBehaviour
             transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, (elapsedTime/duration));
             elapsedTime += Time.unscaledDeltaTime;
 
-            if (tileSelectionSquare.transform.rotation != transform.rotation)
-                tileSelectionSquare.transform.rotation = transform.rotation;
+            tileSelectionSquare.transform.rotation = transform.rotation;
 
             yield return null;
         }
