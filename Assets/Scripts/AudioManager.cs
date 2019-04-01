@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class AudioManager : MonoBehaviour
 {
     public float lowPitchRange = .95f;
     public float highPitchRange = 1.05f;
+
+    public AudioMixer mixer1;
 
     [Header("Sound List")]
     public Sound[] sounds;
@@ -47,6 +51,8 @@ public class AudioManager : MonoBehaviour
             s.source.volume = s.volume;
             /*s.source.pitch = unityengine.random.range(0.95f,1.05f);*/
             s.source.loop = s.loop;
+
+            mixer1.SetFloat("name of the exposed parameter", 1); // faire une coroutine qui change le paramètre au cours du temps
         }
 
         //Play("music");
@@ -62,4 +68,6 @@ public class AudioManager : MonoBehaviour
         }
         s.source.Play();
     }
+
+    // mixer1
 }
