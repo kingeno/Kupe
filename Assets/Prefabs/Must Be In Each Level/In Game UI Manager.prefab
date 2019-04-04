@@ -1950,7 +1950,7 @@ MonoBehaviour:
   notInteractableButtonColor: {r: 1, g: 1, b: 1, a: 0.3529412}
   interactableButtonColor: {r: 1, g: 1, b: 1, a: 1}
   imageToFade: {fileID: 7162457961829086730}
-  fadeInDuration: 1
+  fadeInDuration: 0.5
   isOverPlayerArrowTile: 0
 --- !u!1 &1766356693972180
 GameObject:

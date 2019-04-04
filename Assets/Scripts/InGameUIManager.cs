@@ -531,7 +531,7 @@ public class InGameUIManager : MonoBehaviour
             currentTime += Time.unscaledDeltaTime;
             normalizedValue = currentTime / fadeDuration;
             _cR = target.GetComponent<CanvasRenderer>();
-            _cR.SetAlpha(EasingFunction.EaseOutQuad(startFadeValue, endFadeValue, normalizedValue));
+            _cR.SetAlpha(Mathf.Lerp(startFadeValue, endFadeValue, normalizedValue));
 
             yield return null;
         }

@@ -78,7 +78,7 @@ public class MainMenuUIManager : MonoBehaviour
             currentTime += Time.unscaledDeltaTime;
             normalizedValue = currentTime / fadeDuration;
             _cR = target.GetComponent<CanvasRenderer>();
-            _cR.SetAlpha(EasingFunction.EaseOutQuad(0f, 1f, normalizedValue));
+            _cR.SetAlpha(Mathf.Lerp(0f, 1f, normalizedValue));
 
             yield return null;
         }
