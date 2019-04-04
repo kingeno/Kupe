@@ -9,15 +9,26 @@ using UnityEditor;
 
 public class AudioManager : MonoBehaviour
 {
-    public float lowPitchRange = .95f;
-    public float highPitchRange = 1.05f;
+    public static AudioManager instance;
 
-    public AudioMixer mixer1;
+    public AudioMixer audioMixer;
+    [Header("Pause Music Parameters")]
+    [Header ("Music Cutoff")]
+    public float playCutoffFreq;
+    public float pauseCutoffFreq;
+    [Header("Music Volume")]
+    public float playVolume;
+    public float pauseVolume;
+    public float fadeDuration;
+
+    [Header("New Game music crossfade")]
+    public float crossFadeDuration;
 
     [Header("Sound List")]
     public Sound[] sounds;
 
-    public static AudioManager instance;
+    private bool pauseMusicCutoff;
+    private bool playMusicCutoff;
 
     void Awake()
     {
@@ -31,32 +42,50 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        // for debug
-        //for (int i = 0; i < sounds.Length; i++)
-        //{
-        //    sounds[i].source = gameObject.AddComponent<AudioSource>();
-        //    sounds[i].clip = Resources.Load<AudioClip>("SFX Debug/" + (i + 1));
-        //    sounds[i].source.clip = sounds[i].clip;
-        //    sounds[i].source.volume = sounds[i].volume;
-        //    //sounds[i].source.pitch = UnityEngine.Random.Range(0.95f, 1.05f);
-        //    sounds[i].source.loop = sounds[i].loop;
-        //}
-
         //for using actual sfx with correct names
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
-            s.clip = Resources.Load<AudioClip>("Audio/" + s.name);
+            s.multipleClips = new AudioClip[s.clipsNumber];
+            if (!s.randomSounds)
+            {
+                s.clip = Resources.Load<AudioClip>("Audio/" + s.name);
+            }
+            else
+            {
+                for (int i = 0; i < s.multipleClips.Length; i++)
+                {
+                    s.multipleClips[i] = Resources.Load<AudioClip>("Audio/" + s.name + " " + i);
+                    if (s.multipleClips[i] == null)
+                    {
+                        Debug.LogWarning("Sound: " + s.name + " " + i + " not found");
+                        return;
+                    }
+                }
+            }
             s.source.clip = s.clip;
             s.source.volume = s.volume;
-            /*s.source.pitch = unityengine.random.range(0.95f,1.05f);*/
             s.source.loop = s.loop;
-
-            mixer1.SetFloat("name of the exposed parameter", 1); // faire une coroutine qui change le paramètre au cours du temps
+            s.source.outputAudioMixerGroup = s.mixerGroup;
         }
 
-        //Play("music");
+        if (playCutoffFreq <= pauseCutoffFreq)
+        {
+            playCutoffFreq = 22000;
+            pauseCutoffFreq = 550;
+        }
+        if (playVolume <= pauseVolume)
+        {
+            playVolume = 0;
+            pauseVolume = -5;
+        }
+
+        Play("menu music");
+
+        playMusicCutoff = true;
+        pauseMusicCutoff = false;
     }
+
 
     public void Play(string name)
     {
@@ -66,8 +95,91 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " not found");
             return;
         }
-        s.source.Play();
+        if (!s.randomSounds)
+            s.source.Play();
+        else
+        {
+            int rndIndex = UnityEngine.Random.Range(0, s.multipleClips.Length);
+            s.source.clip = s.clip = s.multipleClips[rndIndex];
+            if (s.source.clip == null)
+            {
+                Debug.LogWarning("A sound must be missing in " + s.name);
+                s.source.clip = s.clip = s.multipleClips[0];
+            }
+            s.source.Play();
+        }
     }
 
-    // mixer1
+
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found");
+            return;
+        }
+        s.source.Stop();
+    }
+
+
+    public void LoadLevelFromMainMenuCrossFade()
+    {
+        StartCoroutine(MusicCrossFade(audioMixer, "menuMusicVolume", "igMusicVolume", crossFadeDuration, "menu music", "ig music"));
+    }
+
+
+    public void ExitToMainMenuCrossFade()
+    {
+        StartCoroutine(MusicCrossFade(audioMixer, "igMusicVolume", "menuMusicVolume", crossFadeDuration, "ig music", "menu music"));
+    }
+
+    public void PauseMenuMusicCutoff()
+    {
+        StartCoroutine(MusicCutoffCoroutine(playCutoffFreq, pauseCutoffFreq, playVolume, pauseVolume, fadeDuration));
+    }
+
+
+    public void ResumeMusicCutoff()
+    {
+        StartCoroutine(MusicCutoffCoroutine(pauseCutoffFreq, playCutoffFreq, pauseVolume, playVolume, fadeDuration));
+    }
+
+
+    IEnumerator MusicCutoffCoroutine(float startMusicCutoff, float endMusicCutoff, float startMusicVolume, float endMusicVolume, float fadeDuration)
+    {
+        float currentTime = 0f;
+        float normalizedValue;
+
+        while (currentTime <= fadeDuration)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / fadeDuration;
+            audioMixer.SetFloat("igMusicCutoff", Mathf.Lerp(startMusicCutoff, endMusicCutoff, normalizedValue));
+            audioMixer.SetFloat("igMusicVolume", Mathf.Lerp(startMusicVolume, endMusicVolume, normalizedValue));
+            yield return null;
+        }
+        audioMixer.SetFloat("igMusicCutoff", endMusicCutoff);
+        audioMixer.SetFloat("igMusicVolume", endMusicVolume);
+        yield return null;
+    }
+
+    public IEnumerator MusicCrossFade(AudioMixer audioMixer, string fadeOutParamName, string fadeInParamName, float crossFadeDuration, string fadedOutMusicName, string fadeInMusicName)
+    {
+        float currentTime = 0f;
+        float normalizedValue;
+        Play(fadeInMusicName);
+        while (currentTime <= crossFadeDuration)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / crossFadeDuration;
+            audioMixer.SetFloat(fadeOutParamName, EasingFunction.EaseInCirc(0f, -80f, normalizedValue));
+            audioMixer.SetFloat(fadeInParamName, EasingFunction.EaseOutCirc(-80f, 0f, normalizedValue));
+            yield return null;
+        }
+        audioMixer.SetFloat(fadeOutParamName, -80f);
+        audioMixer.SetFloat(fadeInParamName, 0f);
+        Stop(fadedOutMusicName);
+        yield return null;
+    }
 }

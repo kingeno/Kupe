@@ -102,10 +102,11 @@ public class InGameUIManager : MonoBehaviour
 
     public static bool changeSpeedSimulation;
 
+    [Header("Scene Fade")]
+    public GameObject imageToFade;
+    public float fadeInDuration;
+
     [HideInInspector] public bool isOverPlayerArrowTile;
-
-
-    float normalizedTime = 0;
 
     private void Start()
     {
@@ -120,7 +121,6 @@ public class InGameUIManager : MonoBehaviour
         changeSpeedSimulation = false;
 
         levelCompletedText_fadeIsDone = false;
-        nextLevelButton_fadeIsDone = false;
 
         if (!gameManager)
             gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
@@ -130,13 +130,17 @@ public class InGameUIManager : MonoBehaviour
 
         if (!levelLoader)
             levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
+
+        imageToFade.SetActive(true);
+        StartCoroutine(SceneFade(imageToFade, fadeInDuration, 1f, 0f));
     }
 
     private bool levelCompletedText_fadeStarted = false;
-    private bool nextLevelButton_fadeStarted = false;
 
     private void Update()
     {
+        if (LevelLoader.loadingLevelFromLevel)
+            StartCoroutine(SceneFade(imageToFade, fadeInDuration, 0f, 1f));
 
         if (!cinemachineCamera)
         {
@@ -423,6 +427,7 @@ public class InGameUIManager : MonoBehaviour
         if (!MainCamera.isFreeLookActive)
         {
             AudioManager.instance.Play("ig pause menu open");
+            AudioManager.instance.PauseMenuMusicCutoff();
             UnselectAllTiles();
             GameManager.gameIsPaused = true;
             GameManager.playerCanModifyBoard = false;
@@ -436,6 +441,7 @@ public class InGameUIManager : MonoBehaviour
     public void ResumeGame()
     {
         AudioManager.instance.Play("menu button close");
+        AudioManager.instance.ResumeMusicCutoff();
         pauseMenu.SetActive(false);
         GameManager.gameIsPaused = false;
         inGameUI.gameObject.SetActive(true);
@@ -459,6 +465,7 @@ public class InGameUIManager : MonoBehaviour
     {
         GameManager.simulationSpeed = Time.timeScale = 1f;
         levelLoader.loadSpecificLevel(0);
+        AudioManager.instance.ExitToMainMenuCrossFade();
         GameManager.levelIsCompleted = false;
     }
 
@@ -510,6 +517,22 @@ public class InGameUIManager : MonoBehaviour
 
             target.GetComponent<CanvasGroup>().alpha = EasingFunction.EaseInOutSine(0f, 1f, normalizedValue);
             target.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(startPos, endPos, EasingFunction.EaseOutExpo(0f, 1f, normalizedValue));
+            yield return null;
+        }
+    }
+
+    IEnumerator SceneFade(GameObject target, float fadeDuration, float startFadeValue, float endFadeValue)
+    {
+        float currentTime = 0f;
+        float normalizedValue;
+        CanvasRenderer _cR;
+        while (currentTime <= fadeDuration)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / fadeDuration;
+            _cR = target.GetComponent<CanvasRenderer>();
+            _cR.SetAlpha(EasingFunction.EaseOutQuad(startFadeValue, endFadeValue, normalizedValue));
+
             yield return null;
         }
     }

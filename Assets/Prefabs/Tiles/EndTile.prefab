@@ -138,7 +138,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.5, y: 0.5}
-      m_Offset: {x: 0, y: -0.25}
+      m_Offset: {x: -0.25, y: -0.5}
       m_Rotation: 0
       m_Anchor: 6
     m_Material: {fileID: 0}
@@ -345,9 +345,17 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 04000000
+  m_SelectedEdges:
+  - a: 16
+    b: 17
+  - a: 18
+    b: 16
+  - a: 17
+    b: 19
+  - a: 19
+    b: 18
+  m_SelectedVertices: 10000000110000001200000013000000
 --- !u!64 &64327970798610238
 MeshCollider:
   m_ObjectHideFlags: 0

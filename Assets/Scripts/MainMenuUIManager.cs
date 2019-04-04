@@ -25,10 +25,15 @@ public class MainMenuUIManager : MonoBehaviour
     public float timeToWaitBeforeFade;
     private bool fadeIsCompleted;
 
+    [Header("Scene Fade")]
+    public GameObject imageToFade;
+    public float fadeOutDuration;
+
     private void Start()
     {
         AudioManager.instance.Play("menu game opening");
-
+        CanvasRenderer _cR = imageToFade.GetComponent<CanvasRenderer>();
+        _cR.SetAlpha(0f);
         levelHubButton = levelHub.GetComponent<Button>();
     }
 
@@ -38,6 +43,10 @@ public class MainMenuUIManager : MonoBehaviour
         {
             StartCoroutine(MenuButtonFadeIn(this.gameObject, timeToWaitBeforeFade, fadeDuration));
             fadeIsCompleted = true;
+        }
+        if (LevelLoader.loadingLevelFromMainMenu)
+        {
+            StartCoroutine(SceneFadeOut(imageToFade, fadeOutDuration));
         }
     }
 
@@ -54,6 +63,22 @@ public class MainMenuUIManager : MonoBehaviour
             normalizedValue = currentTime / fadeDuration;
 
             target.GetComponent<CanvasGroup>().alpha = EasingFunction.EaseOutQuad(0f, 1f, normalizedValue);
+
+            yield return null;
+        }
+    }
+
+    IEnumerator SceneFadeOut(GameObject target, float fadeDuration)
+    {
+        float currentTime = 0f;
+        float normalizedValue;
+        CanvasRenderer _cR;
+        while (currentTime <= fadeDuration)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / fadeDuration;
+            _cR = target.GetComponent<CanvasRenderer>();
+            _cR.SetAlpha(EasingFunction.EaseOutQuad(0f, 1f, normalizedValue));
 
             yield return null;
         }

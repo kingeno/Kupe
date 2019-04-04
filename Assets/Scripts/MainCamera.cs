@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 public class MainCamera : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class MainCamera : MonoBehaviour
     private InGameUIManager _inGameUIManager;
     private Camera _camera;
     [SerializeField] private GameObject _CMFreeLookCam;
-    private Renderer CameraTargetRenderer;
+    //private Renderer CameraTargetRenderer;
     private Color currentColor;
 
     [Header("Background Colors")]
@@ -30,6 +31,13 @@ public class MainCamera : MonoBehaviour
     public float levelCompletedColorTransitionTime;
     [HideInInspector] public bool levelCompletedColorSwap;
 
+    public Vignette m_vignette;
+    public DepthOfField m_depthOfField;
+
+    public PostProcessVolume volume;
+    public float vignetteValue;
+    public bool depthOfField_IsActive;
+
     void Start()
     {
         isFreeLookActive = false;
@@ -45,8 +53,8 @@ public class MainCamera : MonoBehaviour
         if (!_inGameUIManager)
             _inGameUIManager = GameObject.FindGameObjectWithTag("InGameUIManager").GetComponent<InGameUIManager>();
 
-        if (CameraTargetRenderer)
-            CameraTargetRenderer.material.color = new Color(1f, 1f, 1f, 0f);
+        //if (CameraTargetRenderer)
+        //    CameraTargetRenderer.material.color = new Color(1f, 1f, 1f, 0f);
 
         if (!_CMFreeLookCam)
             _CMFreeLookCam = GameObject.FindGameObjectWithTag("CMFreeLookCamera");
@@ -56,6 +64,16 @@ public class MainCamera : MonoBehaviour
         _camera = GetComponent<Camera>();
         _camera.backgroundColor = stopColor;
         currentColor = stopColor;
+
+        volume = gameObject.GetComponent<PostProcessVolume>();
+
+        volume.profile.TryGetSettings(out m_vignette);
+        volume.profile.TryGetSettings(out m_depthOfField);
+
+        //m_vignette = GetComponent<Vignette>();
+        //m_depthOfField = GetComponent<DepthOfField>();
+
+
     }
 
     private void Update()
@@ -74,6 +92,17 @@ public class MainCamera : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
                 FreeLook();
+        }
+
+        if (GameManager.gameIsPaused)
+        {
+            m_vignette.intensity.value = 0.4f;
+            m_depthOfField.enabled.value = true;
+        }
+        else if (!GameManager.gameIsPaused)
+        {
+            m_vignette.intensity.value = 0.3f;
+            m_depthOfField.enabled.value = false;
         }
     }
 
