@@ -51,10 +51,180 @@ MonoBehaviour:
   fadeDuration: 0.2
   crossFadeDuration: 1
   sounds:
-  - name: menu music
-    mixerGroup: {fileID: 243608014869267000, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig button click arrow
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
-    loop: 1
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button click deleted
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button click free look
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button click menu
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button click starting view
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button hovering free look and starting view
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button hovering menu
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button hovering next level and deleted
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button hovering pause
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button hovering play and arrow
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button hovering speed up
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig button hovering stop
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig cube move
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 1
+    clipsNumber: 3
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig cube move continuously
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig cube move desapear
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig cube move mounted
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig cube stuck
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig level completed
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
     volume: 1
     randomSounds: 0
     clipsNumber: 0
@@ -71,8 +241,8 @@ MonoBehaviour:
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: menu game opening
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig pause menu button click controls
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
     volume: 1
@@ -81,108 +251,158 @@ MonoBehaviour:
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: menu button hovering
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig pause menu button click exit game
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.3
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: menu button click
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig pause menu button click exit to main menu
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.5
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: menu button close
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig pause menu button click level selection
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.5
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig button hovering
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig pause menu button click load level
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.2
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig button click
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig pause menu button click resume
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.5
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig simulation play
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: 'ig pause menu button hovering '
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.5
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button hovering close window
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button hovering controls
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button hovering exit game
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button hovering exit to main menu
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button hovering load level
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button hovering resume
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button hovering level selection
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
   - name: ig simulation pause
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.5
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig simulation speed up
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig simulation play
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.5
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
   - name: ig simulation slow down
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 0.5
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: ig simlation stop
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 0.5
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: ig free look on
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
     volume: 1
@@ -191,8 +411,8 @@ MonoBehaviour:
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig free look off
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig simulation speed up
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
     volume: 1
@@ -201,123 +421,221 @@ MonoBehaviour:
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig pause menu open
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig simulation stop
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
     volume: 1
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: ig pause menu close
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 1
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: ig level opening
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 1
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: ig level completed
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 0.7
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: ig tile hovering
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 0.2
-    randomSounds: 1
-    clipsNumber: 2
-    clip: {fileID: 0}
-    multipleClips:
-    - {fileID: 0}
-    - {fileID: 0}
-    source: {fileID: 0}
-  - name: ig tile green arrow placed
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 0.3
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: ig tile deleted
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 0.4
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
   - name: ig tile delete impossible
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.4
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig tile rotation
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig tile deleted
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.2
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
   - name: ig tile end tile validated
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.4
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig cube move
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig tile end tile validated 1
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.1
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig cube stuck
-    mixerGroup: {fileID: 243664198248273790, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+  - name: ig tile green arrow placed
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.4
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig tile hovering
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 1
+    clipsNumber: 5
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig tile rotation
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig tile rotation impossible
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button click close window
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button click controls
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button click exit game
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button click level selection
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button click load level
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button click new game
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button hovering close window
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button hovering controls
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button hovering exit game
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button hovering level selection
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button hovering load level
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu button hovering new game
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: menu music
+    mixerGroup: {fileID: 243608014869267000, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 1
+    volume: 1
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}

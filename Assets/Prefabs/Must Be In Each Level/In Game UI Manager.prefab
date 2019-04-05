@@ -423,8 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering menu
+  onPointerClick: ig button click menu
 --- !u!1 &1039563462960140
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,8 +642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering pause
+  onPointerClick: ig simulation pause
 --- !u!1 &1233862647825486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,8 +1169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: 
+  onPointerEnter: ig pause menu button hovering resume
+  onPointerClick: ig pause menu button click resume
 --- !u!1 &1553593988710054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,8 +1561,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering stop
+  onPointerClick: ig simulation stop
 --- !u!1 &1690554803146062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,8 +1705,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button click
+  onPointerEnter: ig pause menu button hovering controls
+  onPointerClick: ig pause menu button click controls
 --- !u!1 &1752155161413692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,8 +2173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button click
+  onPointerEnter: ig pause menu button hovering exit game
+  onPointerClick: ig pause menu button click exit game
 --- !u!1 &1831924433282064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,8 +2318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering next level and deleted
+  onPointerClick: ig button click deleted
 --- !u!1 &1842083888410660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,8 +2623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button click
+  onPointerEnter: ig pause menu button hovering exit to main menu
+  onPointerClick: ig pause menu button click exit to main menu
 --- !u!1 &1854982261764536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,8 +2768,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering play and arrow
+  onPointerClick: ig simulation play
 --- !u!1 &1869102118345864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2989,8 +2989,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button click
+  onPointerEnter: ig button hovering next level and deleted
+  onPointerClick: 
 --- !u!1 &1896758379823434
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,8 +3297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering play and arrow
+  onPointerClick: ig button click arrow
 --- !u!1 &1932089956274148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,8 +4614,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering slow down
+  onPointerClick: ig simulation slow down
 --- !u!1 &1430940838160088398
 GameObject:
   m_ObjectHideFlags: 0
@@ -6274,8 +6274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering free look and starting view
+  onPointerClick: ig button click free look
 --- !u!1 &3546985259905725515
 GameObject:
   m_ObjectHideFlags: 0
@@ -6970,8 +6970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button close
+  onPointerEnter: ig pause menu button hovering close window
+  onPointerClick: ig pause menu button click close window
 --- !u!1 &4255619766215898410
 GameObject:
   m_ObjectHideFlags: 0
@@ -7595,8 +7595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button close
+  onPointerEnter: ig pause menu button hovering close window
+  onPointerClick: ig pause menu button click close window
 --- !u!1 &4946424940365531127
 GameObject:
   m_ObjectHideFlags: 0
@@ -9644,8 +9644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button click
+  onPointerEnter: ig pause menu button hovering load level
+  onPointerClick: menu button click load level
 --- !u!1 &7909094427982419871
 GameObject:
   m_ObjectHideFlags: 0
@@ -9788,8 +9788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering free look and starting view
+  onPointerClick: ig button click starting view
 --- !u!1 &7971674284904976848
 GameObject:
   m_ObjectHideFlags: 0
@@ -10389,8 +10389,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering
-  onPointerClick: ig button click
+  onPointerEnter: ig button hovering speed up
+  onPointerClick: ig simulation speed up
 --- !u!1 &8473779925146000940
 GameObject:
   m_ObjectHideFlags: 0
