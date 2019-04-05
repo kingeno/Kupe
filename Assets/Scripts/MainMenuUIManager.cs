@@ -31,7 +31,6 @@ public class MainMenuUIManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.instance.Play("menu game opening");
         CanvasRenderer _cR = imageToFade.GetComponent<CanvasRenderer>();
         _cR.SetAlpha(0f);
         levelHubButton = levelHub.GetComponent<Button>();
