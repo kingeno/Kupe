@@ -30,6 +30,8 @@ public class AudioManager : MonoBehaviour
     private bool pauseMusicCutoff;
     private bool playMusicCutoff;
 
+    private int currentIndex = 0;
+
     void Awake()
     {
         if (instance == null)
@@ -47,11 +49,11 @@ public class AudioManager : MonoBehaviour
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.multipleClips = new AudioClip[s.clipsNumber];
-            if (!s.randomSounds)
+            if (!s.randomSounds && !s.followingSounds)
             {
                 s.clip = Resources.Load<AudioClip>("Audio/" + s.name);
             }
-            else
+            else if (s.randomSounds || s.followingSounds)
             {
                 for (int i = 0; i < s.multipleClips.Length; i++)
                 {
@@ -84,6 +86,7 @@ public class AudioManager : MonoBehaviour
 
         playMusicCutoff = true;
         pauseMusicCutoff = false;
+        currentIndex = 0;
     }
 
 
@@ -95,9 +98,11 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " not found");
             return;
         }
-        if (!s.randomSounds)
+        if (!s.randomSounds && !s.followingSounds)
+        {
             s.source.Play();
-        else
+        }
+        else if (s.randomSounds)
         {
             int rndIndex = UnityEngine.Random.Range(0, s.multipleClips.Length);
             s.source.clip = s.clip = s.multipleClips[rndIndex];
@@ -107,6 +112,20 @@ public class AudioManager : MonoBehaviour
                 s.source.clip = s.clip = s.multipleClips[0];
             }
             s.source.Play();
+        }
+        else if (s.followingSounds)
+        {
+            s.source.clip = s.clip = s.multipleClips[currentIndex];
+            if (s.source.clip == null)
+            {
+                Debug.LogWarning("A sound must be missing in " + s.name);
+                s.source.clip = s.clip = s.multipleClips[0];
+            }
+            s.source.Play();
+            if (currentIndex == s.multipleClips.Length - 1)
+                currentIndex = 0;
+            else
+                currentIndex++;
         }
     }
 

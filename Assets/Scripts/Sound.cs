@@ -15,6 +15,7 @@ public class Sound
 
     [Range(0f, 1f)] public float volume;
 
+    public bool followingSounds;
     public bool randomSounds;
 
     public int clipsNumber;

@@ -56,6 +56,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -66,6 +67,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -76,6 +78,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -86,6 +89,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -96,8 +100,9 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 1
     randomSounds: 0
-    clipsNumber: 0
+    clipsNumber: 3
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
@@ -106,6 +111,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -116,6 +122,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -126,6 +133,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -136,6 +144,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -146,6 +155,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -156,6 +166,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -166,6 +177,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -176,6 +188,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -186,6 +199,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 1
     clipsNumber: 3
     clip: {fileID: 0}
@@ -196,6 +210,7 @@ MonoBehaviour:
       type: 2}
     loop: 1
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -206,6 +221,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -216,6 +232,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -226,6 +243,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -236,6 +254,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -246,6 +265,7 @@ MonoBehaviour:
       type: 2}
     loop: 1
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -256,6 +276,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -266,6 +287,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -276,6 +298,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -286,6 +309,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -296,6 +320,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -306,6 +331,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -316,6 +342,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -326,6 +353,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -336,6 +364,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -346,6 +375,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -356,6 +386,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -366,6 +397,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -376,6 +408,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -386,6 +419,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -396,6 +430,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -406,6 +441,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -416,6 +452,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -426,6 +463,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -436,6 +474,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -446,6 +485,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -456,6 +496,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -466,6 +507,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -476,6 +518,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -486,6 +529,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -496,6 +540,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 1
     clipsNumber: 5
     clip: {fileID: 0}
@@ -506,6 +551,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -516,6 +562,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -526,6 +573,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -536,6 +584,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -546,6 +595,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -556,6 +606,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -566,6 +617,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -576,6 +628,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -586,6 +639,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -596,6 +650,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -606,6 +661,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -616,6 +672,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -626,6 +683,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -636,6 +694,7 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}
@@ -646,6 +705,7 @@ MonoBehaviour:
       type: 2}
     loop: 1
     volume: 1
+    followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
     clip: {fileID: 0}

@@ -225,10 +225,10 @@ public class BlankTile : MonoBehaviour
 
     //    _renderer.material.color = transparantColor;
 
-    //    transform.position = new Vector3(transform.position.x, transform.position.y - 2, transform.position.z);
+    //    transform.position = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
     //    Vector3 startingPos = transform.position;
 
-    //    yield return new WaitForSecondsRealtime(Random.Range(0.1f, 0.6f));
+    //    yield return new WaitForSecondsRealtime(Random.Range(0.2f, 0.8f));
 
     //    while (elapsedTime < seconds)
     //    {
@@ -240,6 +240,5 @@ public class BlankTile : MonoBehaviour
     //    }
     //    _renderer.material.color = opaqueColor;
     //    transform.position = endPos;
-    //    //yield return null;
     //}
 }
