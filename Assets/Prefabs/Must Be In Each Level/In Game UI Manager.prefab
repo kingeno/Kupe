@@ -2990,7 +2990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onPointerEnter: ig button hovering next level and deleted
-  onPointerClick: 
+  onPointerClick: ig button click next level
 --- !u!1 &1896758379823434
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,7 +4614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: ig button hovering slow down
+  onPointerEnter: ig button hovering speed up
   onPointerClick: ig simulation slow down
 --- !u!1 &1430940838160088398
 GameObject:
@@ -7757,8 +7757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c77ef0af416ca4f8680ca87c6b3ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onPointerEnter: menu button hovering
-  onPointerClick: menu button click
+  onPointerEnter: ig pause menu button hovering level selection
+  onPointerClick: ig pause menu button click level selection
 --- !u!1 &5082494331015341484
 GameObject:
   m_ObjectHideFlags: 0

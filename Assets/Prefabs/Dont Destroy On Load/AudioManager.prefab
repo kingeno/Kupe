@@ -91,6 +91,16 @@ MonoBehaviour:
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
+  - name: ig button click next level
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
   - name: ig button click starting view
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
@@ -184,7 +194,7 @@ MonoBehaviour:
   - name: ig cube move continuously
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
-    loop: 0
+    loop: 1
     volume: 1
     randomSounds: 0
     clipsNumber: 0
@@ -235,6 +245,16 @@ MonoBehaviour:
     mixerGroup: {fileID: 243906709905772196, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 1
+    volume: 1
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig pause menu button click close window
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
     volume: 1
     randomSounds: 0
     clipsNumber: 0
@@ -292,16 +312,6 @@ MonoBehaviour:
     multipleClips: []
     source: {fileID: 0}
   - name: ig pause menu button click resume
-    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
-      type: 2}
-    loop: 0
-    volume: 1
-    randomSounds: 0
-    clipsNumber: 0
-    clip: {fileID: 0}
-    multipleClips: []
-    source: {fileID: 0}
-  - name: 'ig pause menu button hovering '
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0

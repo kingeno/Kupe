@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < endTilesControllers.Length; i++)
         {
             endTilesControllers[i] = endTiles[i].GetComponent<EndTile>();
+            EndTile.validatedTileNumber = endTiles.Length;
         }
 
         greenArrows = GameObject.FindGameObjectsWithTag("Green Arrow");
@@ -658,6 +659,7 @@ public class GameManager : MonoBehaviour
             levelIsStopped = true;
             simulationIsRunning = false;
             AudioManager.instance.Play("ig simulation stop");
+            AudioManager.instance.Stop("cube move continuously");
         }
         playerIsStuck = false;
         simulationHasBeenLaunched = false;

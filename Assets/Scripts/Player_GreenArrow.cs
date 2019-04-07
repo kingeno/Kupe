@@ -104,7 +104,6 @@ public class Player_GreenArrow : MonoBehaviour
                 {
                     if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y < 0f)
                     {
-                        AudioManager.instance.Play("ig tile rotation");
                         if (transform.rotation == forwardArrow)
                         {
                             StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
@@ -128,7 +127,6 @@ public class Player_GreenArrow : MonoBehaviour
                     }
                     else if (Input.mouseScrollDelta.y > 0f || Input.GetKeyDown(KeyCode.L))
                     {
-                        AudioManager.instance.Play("ig tile rotation");
                         if (transform.rotation == forwardArrow)
                         {
                             StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
@@ -288,6 +286,7 @@ public class Player_GreenArrow : MonoBehaviour
 
     IEnumerator TileRotation(Quaternion currentRotation, Quaternion targetRotation, float duration)
     {
+        AudioManager.instance.Play("ig tile rotation");
         float elapsedTime = 0;
         while (elapsedTime < duration)
         {

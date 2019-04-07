@@ -18,6 +18,8 @@ public class EndTile : MonoBehaviour
     public Texture active;
     public Texture impossibleToDelete;
 
+    public static int validatedTileNumber;
+
     void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -56,6 +58,11 @@ public class EndTile : MonoBehaviour
                 _renderer.material.SetTexture("_MainTex", active);
             }
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        Debug.Log(validatedTileNumber);
     }
 
     private void OnMouseExit()

@@ -110,6 +110,33 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayUnique(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found");
+            return;
+        }
+        if (!s.randomSounds)
+        {
+            if (!s.source.isPlaying)
+                s.source.Play();
+        }
+        else
+        {
+            int rndIndex = UnityEngine.Random.Range(0, s.multipleClips.Length);
+            s.source.clip = s.clip = s.multipleClips[rndIndex];
+            if (s.source.clip == null)
+            {
+                Debug.LogWarning("A sound must be missing in " + s.name);
+                s.source.clip = s.clip = s.multipleClips[0];
+            }
+            if (!s.source.isPlaying)
+                s.source.Play();
+        }
+    }
+
 
     public void Stop(string name)
     {

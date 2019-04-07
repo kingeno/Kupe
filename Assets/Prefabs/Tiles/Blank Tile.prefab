@@ -356,6 +356,8 @@ MonoBehaviour:
     type: 3}
   mouseOverTile: {fileID: 0}
   _color: {r: 1, g: 1, b: 1, a: 1}
+  transparantColor: {r: 1, g: 1, b: 1, a: 0}
+  opaqueColor: {r: 1, g: 1, b: 1, a: 1}
   blankTileTexture: {fileID: 2800000, guid: a9e731e5579b01f439e43ba467547294, type: 3}
   greenArrowSelectedTexture: {fileID: 2800000, guid: 328617551cdfa1d4b8be249893ba802c,
     type: 3}

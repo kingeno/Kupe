@@ -189,6 +189,7 @@ public class LiftTile : MonoBehaviour
     {
         float elapsedTime = 0;
         Vector3 startingPos = objectToMove.transform.position;
+        AudioManager.instance.Play("ig cube move mounted");
         while (elapsedTime < seconds)
         {
             objectToMove.transform.position = Vector3.Lerp(startingPos, endPos, (elapsedTime / seconds));

@@ -96,6 +96,7 @@ public class CubeController : MonoBehaviour
 
     public void SetInitialState()
     {
+        AudioManager.instance.Stop("ig cube move continuously");
         StopAllCoroutines();
         willMove =
         willMoveForward =
@@ -459,7 +460,6 @@ public class CubeController : MonoBehaviour
         else if (willMove)
         {
             //Debug.Log(name + " will move coroutine");
-            AudioManager.instance.Play("ig cube move");
             if (willMoveDown || willMoveUp)
             {
                 cubeAnimator.SetBool("will move", false);
@@ -507,7 +507,9 @@ public class CubeController : MonoBehaviour
                 _renderer.material.color = _opaqueCubeColor;
             }
             else
+            {
                 _renderer.material.color = _transparentCubeColor;
+            }
         }
     }
 
@@ -533,6 +535,7 @@ public class CubeController : MonoBehaviour
     {
         if (!isOnEndTileParticleSystem.activeSelf)
         {
+            AudioManager.instance.Stop("ig cube move continuously");
             AudioManager.instance.Play("ig tile end tile validated");
             cubeAnimator.SetBool("will move", false);
             cubeAnimator.SetBool("move forward", false);
@@ -551,6 +554,13 @@ public class CubeController : MonoBehaviour
     {
         float elapsedTime = 0;
         Vector3 startingPos = objectToMove.transform.position;
+        if (startingPos != endPos)
+        {
+            AudioManager.instance.Play("ig cube move");
+            AudioManager.instance.PlayUnique("ig cube move continuously");
+        }
+        else
+            AudioManager.instance.Stop("ig cube move continuously");
         while (elapsedTime < seconds)
         {
             objectToMove.transform.position = Vector3.Lerp(startingPos, endPos, (elapsedTime / seconds));

@@ -19,6 +19,8 @@ public class BlankTile : MonoBehaviour
 
     //public float randomGreyValue;
     public Color _color;
+    public Color transparantColor;
+    public Color opaqueColor;
 
     private Renderer _renderer;
     public Texture blankTileTexture;
@@ -36,11 +38,13 @@ public class BlankTile : MonoBehaviour
 
     private void Start()
     {
+        _renderer = GetComponent<Renderer>();
+        //StartCoroutine(MoveOverSeconds(new Vector3(transform.position.x, transform.position.y, transform.position.z), 0.8f));
+
         if (!tileSelectionSquare)
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
 
         boardManager = GameObject.FindGameObjectWithTag("Board Manager");
-        _renderer = GetComponent<Renderer>();
 
         tilesBoard = BoardManager.original_3DBoard;
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
@@ -94,7 +98,6 @@ public class BlankTile : MonoBehaviour
 
                 if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.R))
                 {
-                    AudioManager.instance.Play("ig tile rotation");
                     if (transform.rotation == forwardArrow)
                     {
                         StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
@@ -118,7 +121,6 @@ public class BlankTile : MonoBehaviour
                 }
                 else if (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(KeyCode.L))
                 {
-                    AudioManager.instance.Play("ig tile rotation");
                     if (transform.rotation == forwardArrow)
                     {
                         StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
@@ -201,6 +203,7 @@ public class BlankTile : MonoBehaviour
 
     IEnumerator TileRotation(Quaternion currentRotation, Quaternion targetRotation, float duration)
     {
+        AudioManager.instance.Play("ig tile rotation");
         float elapsedTime = 0;
         while (elapsedTime < duration)
         {
@@ -215,4 +218,28 @@ public class BlankTile : MonoBehaviour
         transform.rotation = targetRotation;
         yield return null;
     }
+
+    //IEnumerator MoveOverSeconds(Vector3 endPos, float seconds)
+    //{
+    //    float elapsedTime = 0;
+
+    //    _renderer.material.color = transparantColor;
+
+    //    transform.position = new Vector3(transform.position.x, transform.position.y - 2, transform.position.z);
+    //    Vector3 startingPos = transform.position;
+
+    //    yield return new WaitForSecondsRealtime(Random.Range(0.1f, 0.6f));
+
+    //    while (elapsedTime < seconds)
+    //    {
+    //        _renderer.material.color = Color.Lerp(transparantColor, opaqueColor, (elapsedTime / seconds));
+    //        float newYPos = EasingFunction.EaseOutCirc(startingPos.y, endPos.y, (elapsedTime / seconds));
+    //        transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    _renderer.material.color = opaqueColor;
+    //    transform.position = endPos;
+    //    //yield return null;
+    //}
 }
