@@ -99,7 +99,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
+    volume: 0.37
     followingSounds: 1
     randomSounds: 0
     clipsNumber: 3
@@ -232,6 +232,17 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
+    followingSounds: 1
+    randomSounds: 0
+    clipsNumber: 3
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig cube round trip
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
@@ -264,7 +275,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243906709905772196, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 1
-    volume: 1
+    volume: 0.83
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
@@ -682,7 +693,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
+    volume: 0.7
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
@@ -704,7 +715,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243608014869267000, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 1
-    volume: 1
+    volume: 0.87
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
