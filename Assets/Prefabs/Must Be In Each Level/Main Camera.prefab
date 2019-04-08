@@ -392,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundImage: {fileID: 1842762633062874217}
   fadeDuration: 0.8
-  defaultTopColor: {r: 0.35858575, g: 0, b: 0.4433962, a: 1}
+  defaultTopColor: {r: 0.2627451, g: 0.29411766, b: 0.5176471, a: 1}
   defaultBottomColor: {r: 0.13779677, g: 0, b: 0.21568628, a: 1}
-  levelCompletedTopColor: {r: 0.7075472, g: 0, b: 0.40336645, a: 1}
-  levelCompletedBottomColor: {r: 0.33962262, g: 0, b: 0.13327561, a: 1}
+  levelCompletedTopColor: {r: 0.32872015, g: 0.36587667, b: 0.8396226, a: 1}
+  levelCompletedBottomColor: {r: 0.33685902, g: 0, b: 0.4528302, a: 1}
