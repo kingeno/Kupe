@@ -110,6 +110,7 @@ MonoBehaviour:
   levelCompletedColorSwap: 0
   m_vignette: {fileID: 0}
   m_depthOfField: {fileID: 0}
+  volume: {fileID: 0}
   vignetteValue: 0
   depthOfField_IsActive: 0
 --- !u!114 &114018467364049914
@@ -390,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundImage: {fileID: 1842762633062874217}
-  fadeDuration: 0
+  fadeDuration: 0.8
   defaultTopColor: {r: 0.35858575, g: 0, b: 0.4433962, a: 1}
   defaultBottomColor: {r: 0.13779677, g: 0, b: 0.21568628, a: 1}
   levelCompletedTopColor: {r: 0.7075472, g: 0, b: 0.40336645, a: 1}

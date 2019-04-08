@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Green Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967294
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4204689017449254
 Transform:
@@ -268,10 +268,10 @@ MonoBehaviour:
   - {x: 0.5000001, y: 0.75}
   - {x: 0.7500001, y: 1}
   - {x: 0.5000001, y: 1}
-  - {x: 0.5, y: 0.5}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.5, y: 0.75}
-  - {x: 0.25, y: 0.75}
+  - {x: 0.125, y: 0.125}
+  - {x: -0.125, y: 0.125}
+  - {x: 0.125, y: 0.375}
+  - {x: -0.125, y: 0.375}
   - {x: 0.49999985, y: 0.75}
   - {x: 0.24999991, y: 0.75}
   - {x: 0.49999985, y: 1}
@@ -388,3 +388,13 @@ MonoBehaviour:
     type: 3}
   unactiveTimeColorSwap: 0
   reactiveTimeColorSwap: 0
+  opaqueColor: {r: 1, g: 1, b: 1, a: 1}
+  transparantColor: {r: 1, g: 1, b: 1, a: 0}
+  startingOffset: 3
+  duration: 0.5
+  minDelay: 0.1
+  maxDelay: 0.5
+  dEndingOffset: -3
+  dDuration: 0.5
+  dMinDelay: 0
+  dMaxDelay: 0.5

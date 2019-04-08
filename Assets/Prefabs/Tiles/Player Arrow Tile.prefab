@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Player Green Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 127
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4289432301492070
 Transform:
@@ -374,3 +374,11 @@ MonoBehaviour:
   tagWhenActive: 
   unactiveTimeColorSwap: 0
   reactiveTimeColorSwap: 0
+  opaqueColor: {r: 1, g: 1, b: 1, a: 1}
+  transparantColor: {r: 1, g: 1, b: 1, a: 0}
+  startingOffset: 0.5
+  duration: 0.15
+  dEndingOffset: -3
+  dDuration: 0.5
+  dMinDelay: 0
+  dMaxDelay: 0.5

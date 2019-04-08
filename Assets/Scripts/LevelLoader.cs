@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour {
 
-    private int currentSceneBuildIndex;
+    public int currentSceneBuildIndex;
     public int levelIndexToLaod;
     public static bool loadingLevelFromMainMenu;
     public static bool loadingLevelFromLevel;
@@ -23,21 +23,23 @@ public class LevelLoader : MonoBehaviour {
             currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
-    public void loadFirstLevel()
+    public void LoadFirstLevel()
     {
         if (currentSceneBuildIndex == 0)
             AudioManager.instance.LoadLevelFromMainMenuCrossFade();
         StartCoroutine(LoadNextAsyncScene(1));
+        GameManager.currentSceneTime = 0f;
     }
 
-    public void loadNextLevel()
+    public void LoadNextLevel()
     {
         if (currentSceneBuildIndex == 0)
             AudioManager.instance.LoadLevelFromMainMenuCrossFade();
         StartCoroutine(LoadNextAsyncScene(currentSceneBuildIndex + 1));
+        GameManager.currentSceneTime = 0f;
     }
 
-    public void loadSpecificLevel(int levelIndex)
+    public void LoadSpecificLevel(int levelIndex)
     {
         if (levelIndex == 0)
         {
@@ -52,6 +54,7 @@ public class LevelLoader : MonoBehaviour {
             AudioManager.instance.ResumeMusicCutoff();
 
         StartCoroutine(LoadSpecificAsyncScene(levelIndex));
+        GameManager.currentSceneTime = 0f;
     }
 
 
@@ -67,7 +70,7 @@ public class LevelLoader : MonoBehaviour {
         if (currentSceneBuildIndex == 0)
         {
             loadingLevelFromMainMenu = true;
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(1.2f);
 
             if (sceneBuildIndexToLoad < 10)
                 asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
@@ -84,7 +87,7 @@ public class LevelLoader : MonoBehaviour {
         else
         {
             loadingLevelFromLevel = true;
-            yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(1.2f);
 
             if (sceneBuildIndexToLoad < 10)
                 asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
@@ -106,7 +109,7 @@ public class LevelLoader : MonoBehaviour {
 
         loadingLevelFromMainMenu = true;
         loadingLevelFromLevel = true;
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(1.2f);
         
         if (sceneBuildIndexToLoad < 10)
             asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());

@@ -48,8 +48,11 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public static float simulationSpeed;
 
+    public static float currentSceneTime;
+
     private void Start()
     {
+        currentSceneTime = 0f;
         AudioManager.instance.Play("ig level opening");
 
         if (simulationSpeed < 1f)
@@ -108,6 +111,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        currentSceneTime += Time.unscaledDeltaTime;
+
         if (Time.timeScale != simulationSpeed && SceneManager.GetActiveScene().buildIndex != 0 && !gameIsPaused)
             Time.timeScale = simulationSpeed;
 
@@ -716,28 +721,5 @@ public class GameManager : MonoBehaviour
         playerCanModifyBoard = true;
 
         boardManager.SetInitialState();
-        //_mainCamera.backgroundColorSwap();
     }
-
-    //void OnGUI()
-    //{
-    //    GUIStyle whiteStyle = new GUIStyle();
-    //    whiteStyle.fontSize = 26;
-    //    whiteStyle.normal.textColor = Color.white;
-
-    //    GUIStyle redStyle = new GUIStyle();
-    //    redStyle.fontSize = 26;
-    //    redStyle.normal.textColor = Color.red;
-
-    //    GUIStyle greenStyle = new GUIStyle();
-    //    greenStyle.fontSize = 26;
-    //    greenStyle.normal.textColor = Color.green;
-
-    //    if (allEndTilesAreValidated)
-    //        GUI.Box(new Rect(10, 10, 2000, 40), "turn: " + turnCount.ToString(), whiteStyle);
-    //    else if (playerHasWon)
-    //        GUI.Box(new Rect(10, 10, 2000, 40), " You solved the puzzle !", greenStyle);
-    //    else if (playerHasLost)
-    //        GUI.Box(new Rect(10, 10, 2000, 40), "You Lost... Try again !", redStyle);
-    //}
 }

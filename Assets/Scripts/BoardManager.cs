@@ -19,19 +19,14 @@ public class BoardManager : MonoBehaviour
 
     public static bool playerHasChangedATile;
 
+    public bool appearingAnimationsAreFinished;
+    public bool disapearingAnimationsAreFinished;
 
-    private void Awake()
+
+    private void Start()
     {
-        original_boardManagerArray = LoopThrough1DArray(original_boardManagerArray);
-        original_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
-        updated_boardManagerArray = original_boardManagerArray;
-        updated_3DBoard = original_3DBoard;
+        StartCoroutine(FirstLoopThroughBoard());
     }
-
-    //private void FixedUpdate()
-    //{
-    //        updated_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
-    //}
 
     private void LateUpdate()
     {
@@ -138,5 +133,16 @@ public class BoardManager : MonoBehaviour
         //}
 
         return board3D;
+    }
+
+    IEnumerator FirstLoopThroughBoard()
+    {
+        yield return new WaitForSecondsRealtime(1.8f);
+        original_boardManagerArray = LoopThrough1DArray(original_boardManagerArray);
+        original_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
+        updated_boardManagerArray = original_boardManagerArray;
+        updated_3DBoard = original_3DBoard;
+        appearingAnimationsAreFinished = true;
+        yield return null;
     }
 }

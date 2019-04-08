@@ -32,6 +32,9 @@ public class AudioManager : MonoBehaviour
 
     private int currentIndex = 0;
 
+    [HideInInspector] public bool appearingAnimationIsFinished;
+    [HideInInspector] public bool disapearingLevelAnimationIsFinished;
+
     void Awake()
     {
         if (instance == null)

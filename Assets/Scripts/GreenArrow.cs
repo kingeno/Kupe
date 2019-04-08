@@ -31,6 +31,23 @@ public class GreenArrow : MonoBehaviour
     public float unactiveTimeColorSwap;
     public float reactiveTimeColorSwap;
 
+    public Color opaqueColor;
+    public Color transparantColor;
+
+    [Header("Appearing animation")]
+    public float startingOffset;
+    public float duration;
+    public float minDelay;
+    public float maxDelay;
+
+    [Header("Disappearing animation")]
+    public float dEndingOffset;
+    public float dDuration;
+    public float dMinDelay;
+    public float dMaxDelay;
+
+    private bool disappearingAnimation_isFinished;
+
     void Start()
     {
         if (!tileSelectionSquare)
@@ -58,12 +75,23 @@ public class GreenArrow : MonoBehaviour
         _renderer.material.SetTexture("_MainTex", active_greenArrow);
         gameObject.tag = tagWhenActive;
 
-        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
-
         if (reactiveTimeColorSwap == 0)
             reactiveTimeColorSwap = 0.2f;
         if (unactiveTimeColorSwap == 0)
             unactiveTimeColorSwap = 0.3f;
+
+        disappearingAnimation_isFinished = false;
+
+        StartCoroutine(AppearingAnimation(startingOffset, duration, minDelay, maxDelay));
+    }
+
+    private void Update()
+    {
+        if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
+        {
+            StartCoroutine(DisappearingAnimation(dEndingOffset, dDuration, dMinDelay, dMaxDelay));
+            disappearingAnimation_isFinished = true;
+        }
     }
 
     private void OnMouseOver()
@@ -190,28 +218,58 @@ public class GreenArrow : MonoBehaviour
         }
     }
 
-    //void OnGUI()
-    //{
-    //    GUIStyle redStyle = new GUIStyle();
-    //    redStyle.normal.textColor = Color.red;
-    //    redStyle.fontSize = 18;
-    //    Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-    //    float x = screenPos.x;
-    //    float y = Screen.height - screenPos.y;
+    public void FirstInitialization()
+    {
+        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+    }
 
-    //    int _nextActiveTurn = (nextActiveTurn - GameManager.currentTurn);
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
 
-    //    if (!isActive && _nextActiveTurn <= 10)
-    //    {
-    //        GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-    //        /*"active in " + */(_nextActiveTurn /*- 1*/).ToString()
-    //        , redStyle);
-    //    }
-    //    else if (isActive && unactiveTurns <= 10)
-    //    {
-    //        GUI.Box(new Rect(x - 20.0f, y - 10.0f, 20.0f, 50.0f),
-    //        /*"active in " + */(unactiveTurns /*- 1*/).ToString()
-    //        , redStyle);
-    //    }
-    //}
+        Vector3 endPos = transform.position;
+
+        transform.position = new Vector3(transform.position.x, transform.position.y + startingOffset, transform.position.z);
+        Vector3 startingPos = transform.position;
+
+        _renderer.material.color = transparantColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(transparantColor, opaqueColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseOutCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = opaqueColor;
+        transform.position = endPos;
+        yield return new WaitForSecondsRealtime(1f);
+        FirstInitialization();
+    }
+
+    IEnumerator DisappearingAnimation(float endingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
+
+        Vector3 startingPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + endingOffset, transform.position.z);
+
+        _renderer.material.color = opaqueColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(opaqueColor, transparantColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseInCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = transparantColor;
+        transform.position = endPos;
+    }
 }

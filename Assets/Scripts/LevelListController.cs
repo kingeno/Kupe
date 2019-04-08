@@ -50,6 +50,6 @@ public class LevelListController : MonoBehaviour
 
     public void OnButtonClick(int levelIndex)
     {
-        _levelLoader.loadSpecificLevel(levelIndex);
+        _levelLoader.LoadSpecificLevel(levelIndex);
     }
 }

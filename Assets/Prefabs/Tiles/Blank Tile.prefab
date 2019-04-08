@@ -362,3 +362,13 @@ MonoBehaviour:
   greenArrowSelectedTexture: {fileID: 2800000, guid: 328617551cdfa1d4b8be249893ba802c,
     type: 3}
   rotationDuration: 0.15
+  startingOffset: 3
+  duration: 0.5
+  minDelay: 0.1
+  maxDelay: 0.5
+  dEndingOffset: -3
+  dDuration: 0.5
+  dMinDelay: 0
+  dMaxDelay: 0.5
+  fromDeletedStartingOffset: -0.5
+  fromDeletedDuration: 0.15

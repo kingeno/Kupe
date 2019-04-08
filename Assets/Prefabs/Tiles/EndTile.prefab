@@ -19,7 +19,7 @@ GameObject:
   m_TagString: End Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 126
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4072518587046152
 Transform:
@@ -390,6 +390,16 @@ MonoBehaviour:
   endTileParticleSystem: {fileID: 1874141640937096}
   active: {fileID: 2800000, guid: de99e6061e0fb6247bea4c5babe4f38d, type: 3}
   impossibleToDelete: {fileID: 2800000, guid: d75fbc4bc70cb3542a25ea89626a48b7, type: 3}
+  opaqueColor: {r: 1, g: 1, b: 1, a: 1}
+  transparantColor: {r: 1, g: 1, b: 1, a: 0}
+  startingOffset: 3
+  duration: 0.5
+  minDelay: 0.1
+  maxDelay: 0.5
+  dEndingOffset: -3
+  dDuration: 0.5
+  dMinDelay: 0
+  dMaxDelay: 0.5
 --- !u!1 &1874141640937096
 GameObject:
   m_ObjectHideFlags: 0

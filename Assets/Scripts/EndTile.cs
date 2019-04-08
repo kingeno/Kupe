@@ -20,6 +20,23 @@ public class EndTile : MonoBehaviour
 
     public static int validatedTileNumber;
 
+    public Color opaqueColor;
+    public Color transparantColor;
+
+    [Header("Appearing animation")]
+    public float startingOffset;
+    public float duration;
+    public float minDelay;
+    public float maxDelay;
+
+    [Header("Disappearing animation")]
+    public float dEndingOffset;
+    public float dDuration;
+    public float dMinDelay;
+    public float dMaxDelay;
+
+    private bool disappearingAnimation_isFinished;
+
     void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -31,8 +48,18 @@ public class EndTile : MonoBehaviour
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
 
         isValidated = false;
-        tilesBoard = BoardManager.original_3DBoard;
-        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+        disappearingAnimation_isFinished = false;
+
+        StartCoroutine(AppearingAnimation(startingOffset, duration, minDelay, maxDelay));
+    }
+
+    private void Update()
+    {
+        if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
+        {
+            StartCoroutine(DisappearingAnimation(dEndingOffset, dDuration, dMinDelay, dMaxDelay));
+            disappearingAnimation_isFinished = true;
+        }
     }
 
     private void OnMouseOver()
@@ -111,5 +138,61 @@ public class EndTile : MonoBehaviour
         {
             return null;
         }
+    }
+
+    public void FirstInitialization()
+    {
+        tilesBoard = BoardManager.original_3DBoard;
+        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+    }
+
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
+
+        Vector3 endPos = transform.position;
+
+        transform.position = new Vector3(transform.position.x, transform.position.y + startingOffset, transform.position.z);
+        Vector3 startingPos = transform.position;
+
+        _renderer.material.color = transparantColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(transparantColor, opaqueColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseOutCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = opaqueColor;
+        transform.position = endPos;
+        yield return new WaitForSecondsRealtime(1f);
+        FirstInitialization();
+    }
+
+    IEnumerator DisappearingAnimation(float endingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
+
+        Vector3 startingPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + endingOffset, transform.position.z);
+
+        _renderer.material.color = opaqueColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(opaqueColor, transparantColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseInCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = transparantColor;
+        transform.position = endPos;
     }
 }

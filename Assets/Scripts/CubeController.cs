@@ -67,7 +67,6 @@ public class CubeController : MonoBehaviour
         if (!cubeAnimator)
             cubeAnimator = cubeAvatar.GetComponent<Animator>();
 
-        tilesBoard = BoardManager.original_3DBoard;
         _opaqueCubeColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         _transparentCubeColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         willNotMoveAnymore = false;
@@ -82,6 +81,8 @@ public class CubeController : MonoBehaviour
     private void Update()
     {
         ChangeMaterialOpacity();
+
+        StartCoroutine(WaitBeforeFirstInitialization());
 
         if (GameManager.playerCanModifyBoard && GameManager.simulationIsRunning)
         {
@@ -617,5 +618,12 @@ public class CubeController : MonoBehaviour
         }
         else
             transform.position = startPos;
+    }
+
+    IEnumerator WaitBeforeFirstInitialization()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        tilesBoard = BoardManager.original_3DBoard;
+        yield return null;
     }
 }

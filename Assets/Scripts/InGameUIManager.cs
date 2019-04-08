@@ -108,8 +108,15 @@ public class InGameUIManager : MonoBehaviour
 
     [HideInInspector] public bool isOverPlayerArrowTile;
 
+    public static bool nextLevelIsLoading;
+
     private void Start()
     {
+        if (nextLevelIsLoading)
+        {
+            nextLevelIsLoading = false;
+        }
+
         SetLevelNameText();
 
         //greenArrowStockText.SetArrowStockToDisplay();
@@ -131,16 +138,17 @@ public class InGameUIManager : MonoBehaviour
         if (!levelLoader)
             levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
 
-        imageToFade.SetActive(true);
-        StartCoroutine(SceneFade(imageToFade, fadeInDuration, 1f, 0f));
+        //imageToFade.SetActive(true);
+        //if(levelLoader.currentSceneBuildIndex == 1)
+        //    StartCoroutine(SceneFade(imageToFade, fadeInDuration, 1f, 0f));
     }
 
     private bool levelCompletedText_fadeStarted = false;
 
     private void Update()
     {
-        if (LevelLoader.loadingLevelFromLevel)
-            StartCoroutine(SceneFade(imageToFade, fadeInDuration, 0f, 1f));
+        //if (LevelLoader.loadingLevelFromLevel && levelLoader.currentSceneBuildIndex == 1)
+        //    StartCoroutine(SceneFade(imageToFade, fadeInDuration, 0f, 1f));
 
         if (!cinemachineCamera)
         {
@@ -464,7 +472,7 @@ public class InGameUIManager : MonoBehaviour
     public void ExitToMainMenu()
     {
         GameManager.simulationSpeed = Time.timeScale = 1f;
-        levelLoader.loadSpecificLevel(0);
+        levelLoader.LoadSpecificLevel(0);
         AudioManager.instance.ExitToMainMenuCrossFade();
         GameManager.levelIsCompleted = false;
     }
@@ -489,7 +497,8 @@ public class InGameUIManager : MonoBehaviour
         {
             UnselectAllTiles();
             GameManager.simulationHasBeenLaunched = false;
-            levelLoader.loadNextLevel();
+            nextLevelIsLoading = true;
+            levelLoader.LoadNextLevel();
         }
     }
 

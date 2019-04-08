@@ -36,27 +36,37 @@ public class BlankTile : MonoBehaviour
 
     public static Quaternion staticCurrentRotation;
 
+    private bool disappearingAnimation_isFinished;
+
+    [Header("Appearing animation")]
+    public float startingOffset;
+    public float duration;
+    public float minDelay;
+    public float maxDelay;
+
+    [Header("Disappearing animation")]
+    public float dEndingOffset;
+    public float dDuration;
+    public float dMinDelay;
+    public float dMaxDelay;
+
+    [Header("When arrow deleted animation")]
+    public float fromDeletedStartingOffset;
+    public float fromDeletedDuration;
+
     private void Start()
     {
+        disappearingAnimation_isFinished = false;
         _renderer = GetComponent<Renderer>();
-        //StartCoroutine(MoveOverSeconds(new Vector3(transform.position.x, transform.position.y, transform.position.z), 0.8f));
+        if (GameManager.currentSceneTime < 2f)
+            StartCoroutine(AppearingAnimation(startingOffset, duration, minDelay, maxDelay));
+        else
+            StartCoroutine(AppearingAnimation(fromDeletedStartingOffset, fromDeletedDuration, 0f, 0f));
 
         if (!tileSelectionSquare)
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
 
         boardManager = GameObject.FindGameObjectWithTag("Board Manager");
-
-        tilesBoard = BoardManager.original_3DBoard;
-        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
-        above_AdjacentTile = TileCheck(above_AdjacentPos);
-        if (above_AdjacentTile && above_AdjacentTile.tag != "Cube")
-        {
-            canOnlyBeBlankTile = true;
-        }
-        else
-        {
-            canOnlyBeBlankTile = false;
-        }
 
         staticCurrentRotation = Quaternion.Euler(0, 0, 0);
         forwardArrow = Quaternion.Euler(0, 0, 0);
@@ -70,6 +80,12 @@ public class BlankTile : MonoBehaviour
         if (GameManager.simulationIsRunning || Input.GetMouseButtonDown(1) || MainCamera.isFreeLookActive)
         {
             _renderer.material.SetTexture("_MainTex", blankTileTexture);
+        }
+
+        if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
+        {
+            StartCoroutine(DisappearingAnimation(dEndingOffset, dDuration, dMinDelay, dMaxDelay));
+            disappearingAnimation_isFinished = true;
         }
     }
 
@@ -201,6 +217,21 @@ public class BlankTile : MonoBehaviour
             return null;
     }
 
+    public void FirstInitialization()
+    {
+        tilesBoard = BoardManager.original_3DBoard;
+        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+        above_AdjacentTile = TileCheck(above_AdjacentPos);
+        if (above_AdjacentTile && above_AdjacentTile.tag != "Cube")
+        {
+            canOnlyBeBlankTile = true;
+        }
+        else
+        {
+            canOnlyBeBlankTile = false;
+        }
+    }
+
     IEnumerator TileRotation(Quaternion currentRotation, Quaternion targetRotation, float duration)
     {
         AudioManager.instance.Play("ig tile rotation");
@@ -219,26 +250,53 @@ public class BlankTile : MonoBehaviour
         yield return null;
     }
 
-    //IEnumerator MoveOverSeconds(Vector3 endPos, float seconds)
-    //{
-    //    float elapsedTime = 0;
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
 
-    //    _renderer.material.color = transparantColor;
+        Vector3 endPos = transform.position;
 
-    //    transform.position = new Vector3(transform.position.x, transform.position.y - 3, transform.position.z);
-    //    Vector3 startingPos = transform.position;
+        transform.position = new Vector3(transform.position.x, transform.position.y + startingOffset, transform.position.z);
+        Vector3 startingPos = transform.position;
 
-    //    yield return new WaitForSecondsRealtime(Random.Range(0.2f, 0.8f));
+        _renderer.material.color = transparantColor;
 
-    //    while (elapsedTime < seconds)
-    //    {
-    //        _renderer.material.color = Color.Lerp(transparantColor, opaqueColor, (elapsedTime / seconds));
-    //        float newYPos = EasingFunction.EaseOutCirc(startingPos.y, endPos.y, (elapsedTime / seconds));
-    //        transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
-    //        elapsedTime += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //    _renderer.material.color = opaqueColor;
-    //    transform.position = endPos;
-    //}
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(transparantColor, opaqueColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseOutCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = opaqueColor;
+        transform.position = endPos;
+        yield return new WaitForSecondsRealtime(1f);
+        FirstInitialization();
+    }
+
+    IEnumerator DisappearingAnimation(float endingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
+
+        Vector3 startingPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + endingOffset, transform.position.z);
+
+        _renderer.material.color = opaqueColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(opaqueColor, transparantColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseInCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = transparantColor;
+        transform.position = endPos;
+    }
 }

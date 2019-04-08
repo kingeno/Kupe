@@ -51,6 +51,6 @@ public class LevelListButton : MonoBehaviour
     public void OnButtonClick(int levelIndex)
     {
         levelIndex = _levelNumber;
-        _levelLoader.loadSpecificLevel(levelIndex);
+        _levelLoader.LoadSpecificLevel(levelIndex);
     }
 }

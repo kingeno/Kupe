@@ -18,7 +18,10 @@ public class GradiantBackground : MonoBehaviour
     public Color levelCompletedTopColor;
     public Color levelCompletedBottomColor;
 
+    private LevelLoader levelLoader;
+
     private bool levelCompletedFade;
+    private bool nextLevelFadeIsCompleted;
 
     void Awake()
     {
@@ -31,15 +34,24 @@ public class GradiantBackground : MonoBehaviour
 
     private void Start()
     {
+        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
+
         SetColor(defaultBottomColor, defaultTopColor);
+
+        nextLevelFadeIsCompleted = false;
     }
 
     private void Update()
     {
         if (!levelCompletedFade && GameManager.levelIsCompleted)
         {
-            StartCoroutine(LevelCompletedBackgroundColorFade(0.8f, defaultTopColor, defaultBottomColor, levelCompletedTopColor, levelCompletedBottomColor));
+            StartCoroutine(LevelCompletedBackgroundColorFade(fadeDuration, defaultTopColor, defaultBottomColor, levelCompletedTopColor, levelCompletedBottomColor));
             levelCompletedFade = true;
+        }
+        if(!nextLevelFadeIsCompleted && InGameUIManager.nextLevelIsLoading)
+        {
+            StartCoroutine(LevelCompletedBackgroundColorFade(fadeDuration, levelCompletedTopColor, levelCompletedBottomColor, defaultTopColor, defaultBottomColor));
+            nextLevelFadeIsCompleted = true;
         }
     }
 
