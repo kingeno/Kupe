@@ -110,6 +110,8 @@ public class InGameUIManager : MonoBehaviour
 
     public static bool nextLevelIsLoading;
 
+    private bool disappearingAnimation_isFinished;
+
     private void Start()
     {
         if (nextLevelIsLoading)
@@ -247,15 +249,28 @@ public class InGameUIManager : MonoBehaviour
                 else if (winScreen.activeSelf && !levelCompletedText_fadeStarted)
                 {
                     AudioManager.instance.Play("ig level completed");
-                    StartCoroutine(FadeAndMoveText(levelCompletedText, levelCompletedText_displayDelay, levelCompletedText_timeOfTravel,
+                    StartCoroutine(FadeInAndMoveText(levelCompletedText, levelCompletedText_displayDelay, levelCompletedText_timeOfTravel,
                     new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y),
                     new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y + levelCompletedText_distanceToTravel)));
 
-                    StartCoroutine(FadeAndMoveText(nextLevelButton, nextLevelButton_displayDelay, nextLevelButton_timeOfTravel,
+                    StartCoroutine(FadeInAndMoveText(nextLevelButton, nextLevelButton_displayDelay, nextLevelButton_timeOfTravel,
                     new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y),
                     new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y + nextLevelButton_distanceToTravel)));
 
                     levelCompletedText_fadeStarted = true;
+                }
+
+                if (nextLevelIsLoading && !disappearingAnimation_isFinished)
+                {
+                    StartCoroutine(FadeOutAndMoveText(levelCompletedText, 0.1f,
+new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y),
+new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y)));
+
+                    StartCoroutine(FadeOutAndMoveText(nextLevelButton, 0.1f,
+new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y),
+new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y)));
+
+                    disappearingAnimation_isFinished = true;
                 }
             }
 
@@ -512,7 +527,7 @@ public class InGameUIManager : MonoBehaviour
         Application.Quit();
     }
 
-    IEnumerator FadeAndMoveText(GameObject target, float timeToWaitBeforeFade, float timeOfTravel, Vector2 startPos, Vector2 endPos)
+    IEnumerator FadeInAndMoveText(GameObject target, float timeToWaitBeforeFade, float timeOfTravel, Vector2 startPos, Vector2 endPos)
     {
         yield return new WaitForSecondsRealtime(timeToWaitBeforeFade);
 
@@ -528,6 +543,23 @@ public class InGameUIManager : MonoBehaviour
             target.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(startPos, endPos, EasingFunction.EaseOutExpo(0f, 1f, normalizedValue));
             yield return null;
         }
+    }
+
+    IEnumerator FadeOutAndMoveText(GameObject target, float duration, Vector2 startPos, Vector2 endPos)
+    {
+        float currentTime = 0f;
+        float normalizedValue;
+
+        while (currentTime <= duration)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / duration;
+
+            target.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(1f, 0f, normalizedValue);
+            target.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(startPos, endPos, EasingFunction.EaseOutExpo(0f, 1f, normalizedValue));
+            yield return null;
+        }
+        target.GetComponent<CanvasGroup>().alpha = 0f;
     }
 
     IEnumerator SceneFade(GameObject target, float fadeDuration, float startFadeValue, float endFadeValue)

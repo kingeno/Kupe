@@ -1905,9 +1905,9 @@ MonoBehaviour:
   levelCompletedText_distanceToTravel: 140
   levelCompletedText_timeOfTravel: 1
   levelCompletedText_fadeIsDone: 0
-  nextLevelButton_displayDelay: 1.2
+  nextLevelButton_displayDelay: 1
   nextLevelButton_distanceToTravel: -35
-  nextLevelButton_timeOfTravel: 1.6
+  nextLevelButton_timeOfTravel: 0.5
   nextLevelButton_fadeIsDone: 0
   levelNameText: {fileID: 3970105725557295217}
   blankTilePrefab: {fileID: 4893285859897830, guid: dc778a470ed486241967a692376765c9,
@@ -2892,6 +2892,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 114211279512480134}
         m_MethodName: LoadNextLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 916255560}
+        m_MethodName: StopBlinking
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
