@@ -216,7 +216,7 @@ MonoBehaviour:
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
-  - name: ig cube move desapear
+  - name: ig tile ephemere tile disappear
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
