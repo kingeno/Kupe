@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         currentSceneTime = 0f;
-        AudioManager.instance.Play("ig level opening");
+        AudioManager.instance.Play("ig level tileboard appearance");
 
         if (simulationSpeed < 1f)
             simulationSpeed = 1f;

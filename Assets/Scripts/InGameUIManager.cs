@@ -550,6 +550,8 @@ new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, ne
         float currentTime = 0f;
         float normalizedValue;
 
+        AudioManager.instance.Play("ig level tileboard disappearance");
+
         while (currentTime <= duration)
         {
             currentTime += Time.unscaledDeltaTime;
