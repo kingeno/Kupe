@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     public static bool turnIsFinished;
 
     [HideInInspector] public float currentTurnTime;
-    public float turnTime = 0.4f;
     [HideInInspector] public float initialTurnTime;
 
     public static bool simulationIsRunning;
@@ -49,6 +48,47 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public static float simulationSpeed;
 
     public static float currentSceneTime;
+
+    public float turnTime;
+    [Space]
+    [SerializeField] private float timeToWaitBeforeFirstInitialization;
+
+    [Header("Appearing animation")]
+    [SerializeField] private float startingOffset;
+    [SerializeField] private float duration;
+    [SerializeField] private float minDelay;
+    [SerializeField] private float maxDelay;
+
+    [Header("Disappearing animation")]
+    [SerializeField] private float dEndingOffset;
+    [SerializeField] private float dDuration;
+    [SerializeField] private float dMinDelay;
+    [SerializeField] private float dMaxDelay;
+
+    public static float _timeToWaitBeforeFirstInitialization;
+
+    public static float _startingOffset;
+    public static float _duration;
+    public static float _minDelay;
+    public static float _maxDelay;
+
+    public static float _dEndingOffset;
+    public static float _dDuration;
+    public static float _dMinDelay;
+    public static float _dMaxDelay;
+
+    private void Awake()
+    {
+        _startingOffset = startingOffset;
+        _duration = duration;
+        _minDelay = minDelay;
+        _maxDelay = maxDelay;
+        _dEndingOffset = dEndingOffset;
+        _dDuration = dDuration;
+        _dMinDelay = dMinDelay;
+        _dMaxDelay = dMaxDelay;
+        _timeToWaitBeforeFirstInitialization = timeToWaitBeforeFirstInitialization;
+    }
 
     private void Start()
     {

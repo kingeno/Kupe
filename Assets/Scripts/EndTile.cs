@@ -5,60 +5,82 @@ using UnityEngine;
 public class EndTile : MonoBehaviour
 {
 
-    public Transform[,,] tilesBoard;
-    public Transform tileSelectionSquareTransform;
-    public TileSelectionSquare tileSelectionSquare;
+    private Transform[,,] tilesBoard;
+    private Transform tileSelectionSquareTransform;
+    private TileSelectionSquare tileSelectionSquare;
 
-    public bool isValidated;
-    public Vector3 above_AdjacentPos;
-    public Transform above_AdjacentTile;
-    public GameObject endTileParticleSystem;
+    [HideInInspector] public bool isValidated;
+    private Vector3 above_AdjacentPos;
+    private Transform above_AdjacentTile;
 
     private Renderer _renderer;
-    public Texture active;
-    public Texture impossibleToDelete;
+
+    [Header("Particle System")]
+    public GameObject endTileParticleSystem;
+    public new ParticleSystem particleSystem;
 
     public static int validatedTileNumber;
 
-    public Color opaqueColor;
-    public Color transparantColor;
-
-    [Header("Appearing animation")]
-    public float startingOffset;
-    public float duration;
-    public float minDelay;
-    public float maxDelay;
-
-    [Header("Disappearing animation")]
-    public float dEndingOffset;
-    public float dDuration;
-    public float dMinDelay;
-    public float dMaxDelay;
+    private Color opaqueColor = new Color(1f, 1, 1, 1f);
+    private Color transparantColor = new Color(1f, 1, 1, 0f);
 
     private bool disappearingAnimation_isFinished;
+
+    private float repeatTime;
+    private int repeatCount;
+    private bool firstTwinkleEmission;
+
+    [Space]
+    [Header("Textures")]
+    public Texture active;
+    public Texture impossibleToDelete;
 
     void Start()
     {
         _renderer = GetComponent<Renderer>();
 
-        if (!tileSelectionSquareTransform)
-            tileSelectionSquareTransform = GameObject.FindGameObjectWithTag("TileSelectionSquare").transform;
-
         if (!tileSelectionSquare)
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
+
+        if (!tileSelectionSquareTransform)
+            tileSelectionSquareTransform = GameObject.FindGameObjectWithTag("TileSelectionSquare").transform;
 
         isValidated = false;
         disappearingAnimation_isFinished = false;
 
-        StartCoroutine(AppearingAnimation(startingOffset, duration, minDelay, maxDelay));
+        repeatTime = particleSystem.emission.GetBurst(0).repeatInterval;
+        repeatCount = 0;
+
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
     }
 
     private void Update()
     {
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(dEndingOffset, dDuration, dMinDelay, dMaxDelay));
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
             disappearingAnimation_isFinished = true;
+        }
+
+        if (!GameManager.gameIsPaused && endTileParticleSystem.activeSelf && GameManager.currentSceneTime > particleSystem.emission.GetBurst(0).time && repeatCount < particleSystem.emission.GetBurst(0).cycleCount)
+        {
+            repeatTime -= Time.unscaledDeltaTime;
+
+            if (!firstTwinkleEmission)
+            {
+                AudioManager.instance.Play("ig tile end tile twinkle");
+                firstTwinkleEmission = true;
+                repeatCount++;
+            }
+            else if (firstTwinkleEmission && repeatTime <= 0f)
+            {
+                AudioManager.instance.Play("ig tile end tile twinkle");
+                repeatTime = particleSystem.emission.GetBurst(0).repeatInterval;
+                if (repeatCount == particleSystem.emission.GetBurst(0).cycleCount)
+                    endTileParticleSystem.SetActive(false);
+                else
+                    repeatCount++;
+            }
         }
     }
 
@@ -87,11 +109,6 @@ public class EndTile : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter()
-    {
-        Debug.Log(validatedTileNumber);
-    }
-
     private void OnMouseExit()
     {
         if (tileSelectionSquare.canBeMoved)
@@ -105,6 +122,8 @@ public class EndTile : MonoBehaviour
         isValidated = false;
         tilesBoard = BoardManager.updated_3DBoard;
         endTileParticleSystem.SetActive(true);
+        //repeatCount = 0;
+        //firstTwinkleEmission = false;
     }
 
     public void TurnInitializer()
@@ -117,11 +136,8 @@ public class EndTile : MonoBehaviour
             isValidated = true;
             endTileParticleSystem.SetActive(false);
         }
-        else if (!above_AdjacentTile)
-        {
+        else
             isValidated = false;
-            endTileParticleSystem.SetActive(true);
-        }
     }
 
     //check the position of the tile relatively to the current cube position
@@ -146,7 +162,7 @@ public class EndTile : MonoBehaviour
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
     }
 
-    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay)
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay, float timeToWaitBeforeFirstInitialization)
     {
         float elapsedTime = 0;
 
@@ -169,7 +185,7 @@ public class EndTile : MonoBehaviour
         }
         _renderer.material.color = opaqueColor;
         transform.position = endPos;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(timeToWaitBeforeFirstInitialization);
         FirstInitialization();
     }
 

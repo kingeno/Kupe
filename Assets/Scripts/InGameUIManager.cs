@@ -105,12 +105,16 @@ public class InGameUIManager : MonoBehaviour
     [Header("Scene Fade")]
     public GameObject imageToFade;
     public float fadeInDuration;
+    public float fadeOutDuration;
+    public bool isFadingOut;
 
     [HideInInspector] public bool isOverPlayerArrowTile;
 
     public static bool nextLevelIsLoading;
 
     private bool disappearingAnimation_isFinished;
+
+    private bool levelCompletedText_fadeStarted = false;
 
     private void Start()
     {
@@ -119,9 +123,14 @@ public class InGameUIManager : MonoBehaviour
             nextLevelIsLoading = false;
         }
 
-        SetLevelNameText();
+        if (LevelLoader.previousScene == 0 || LevelLoader.loadedFromLevelHub)
+        {
+            imageToFade.SetActive(true);
+            StartCoroutine(ScreenFade(imageToFade, fadeInDuration, 1f, 0f));
+            LevelLoader.loadedFromLevelHub = false;
+        }
 
-        //greenArrowStockText.SetArrowStockToDisplay();
+        SetLevelNameText();
 
         GameManager.gameIsPaused = false;
         nothingIsSelected = true;
@@ -139,18 +148,17 @@ public class InGameUIManager : MonoBehaviour
 
         if (!levelLoader)
             levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();  //if you encounter a null reference exception here it means that you have launched the game without going through the main menu
-
-        //imageToFade.SetActive(true);
-        //if(levelLoader.currentSceneBuildIndex == 1)
-        //    StartCoroutine(SceneFade(imageToFade, fadeInDuration, 1f, 0f));
     }
-
-    private bool levelCompletedText_fadeStarted = false;
 
     private void Update()
     {
-        //if (LevelLoader.loadingLevelFromLevel && levelLoader.currentSceneBuildIndex == 1)
-        //    StartCoroutine(SceneFade(imageToFade, fadeInDuration, 0f, 1f));
+        if (LevelLoader.loadingFromLevelHub)
+        {
+            if (!imageToFade.activeSelf)
+                imageToFade.SetActive(true);
+            StartCoroutine(ScreenFade(imageToFade, fadeOutDuration, 0f, 1f));
+            LevelLoader.loadingFromLevelHub = false;
+        }
 
         if (!cinemachineCamera)
         {
@@ -263,12 +271,12 @@ public class InGameUIManager : MonoBehaviour
                 if (nextLevelIsLoading && !disappearingAnimation_isFinished)
                 {
                     StartCoroutine(FadeOutAndMoveText(levelCompletedText, 0.1f,
-new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y),
-new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y)));
+                        new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y),
+                        new Vector2(levelCompletedText.GetComponent<RectTransform>().anchoredPosition.x, levelCompletedText.GetComponent<RectTransform>().anchoredPosition.y)));
 
                     StartCoroutine(FadeOutAndMoveText(nextLevelButton, 0.1f,
-new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y),
-new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y)));
+                        new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y),
+                        new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, nextLevelButton.GetComponent<RectTransform>().anchoredPosition.y)));
 
                     disappearingAnimation_isFinished = true;
                 }
@@ -449,7 +457,7 @@ new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, ne
     {
         if (!MainCamera.isFreeLookActive)
         {
-            AudioManager.instance.Play("ig pause menu open");
+            AudioManager.instance.Play("ig button click menu");
             AudioManager.instance.PauseMenuMusicCutoff();
             UnselectAllTiles();
             GameManager.gameIsPaused = true;
@@ -486,6 +494,7 @@ new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, ne
 
     public void ExitToMainMenu()
     {
+        StartCoroutine(ScreenFade(imageToFade, fadeOutDuration, 0f, 1f));
         GameManager.simulationSpeed = Time.timeScale = 1f;
         levelLoader.LoadSpecificLevel(0);
         AudioManager.instance.ExitToMainMenuCrossFade();
@@ -564,8 +573,10 @@ new Vector2(nextLevelButton.GetComponent<RectTransform>().anchoredPosition.x, ne
         target.GetComponent<CanvasGroup>().alpha = 0f;
     }
 
-    IEnumerator SceneFade(GameObject target, float fadeDuration, float startFadeValue, float endFadeValue)
+    IEnumerator ScreenFade(GameObject target, float fadeDuration, float startFadeValue, float endFadeValue)
     {
+        if (startFadeValue > 0.5f)
+            Debug.Log("start fade in coroutine");
         float currentTime = 0f;
         float normalizedValue;
         CanvasRenderer _cR;

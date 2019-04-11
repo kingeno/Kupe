@@ -345,19 +345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8845ed427f183b49b73a81ef9aa7b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardManager: {fileID: 0}
-  tileSelectionSquare: {fileID: 0}
-  above_AdjacentPos: {x: 0, y: 0, z: 0}
-  above_AdjacentTile: {fileID: 0}
-  canOnlyBeBlankTile: 0
   greenArrowPrefab: {fileID: 4289432301492070, guid: 9722108dcb8710448a6246b1f23d051b,
     type: 3}
   mouseOverTilePrefab: {fileID: 4102171477910090, guid: 658e0d35ab41c9746a58801e22ff6061,
     type: 3}
-  mouseOverTile: {fileID: 0}
-  _color: {r: 1, g: 1, b: 1, a: 1}
-  transparantColor: {r: 1, g: 1, b: 1, a: 0}
-  opaqueColor: {r: 1, g: 1, b: 1, a: 1}
   blankTileTexture: {fileID: 2800000, guid: a9e731e5579b01f439e43ba467547294, type: 3}
   greenArrowSelectedTexture: {fileID: 2800000, guid: 328617551cdfa1d4b8be249893ba802c,
     type: 3}

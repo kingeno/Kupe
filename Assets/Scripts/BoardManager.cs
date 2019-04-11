@@ -19,7 +19,6 @@ public class BoardManager : MonoBehaviour
 
     public static bool playerHasChangedATile;
 
-    public bool appearingAnimationsAreFinished;
     public bool disapearingAnimationsAreFinished;
 
 
@@ -56,7 +55,6 @@ public class BoardManager : MonoBehaviour
 
     public Transform[] LoopThrough1DArray(Transform[] boardManagerArray)
     {
-
         boardManagerArray = new Transform[transform.childCount];
 
         int i = 0;
@@ -137,12 +135,11 @@ public class BoardManager : MonoBehaviour
 
     IEnumerator FirstLoopThroughBoard()
     {
-        yield return new WaitForSecondsRealtime(1.8f);
+        yield return new WaitForSecondsRealtime(GameManager._timeToWaitBeforeFirstInitialization - 0.2f);
         original_boardManagerArray = LoopThrough1DArray(original_boardManagerArray);
         original_3DBoard = LoopThrough3DBoard(original_boardManagerArray, original_3DBoard, original_boardWidth, original_boardHeight, original_boardDepth);
         updated_boardManagerArray = original_boardManagerArray;
         updated_3DBoard = original_3DBoard;
-        appearingAnimationsAreFinished = true;
         yield return null;
     }
 }

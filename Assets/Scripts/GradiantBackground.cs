@@ -18,8 +18,6 @@ public class GradiantBackground : MonoBehaviour
     public Color levelCompletedTopColor;
     public Color levelCompletedBottomColor;
 
-    private LevelLoader levelLoader;
-
     private bool levelCompletedFade;
     private bool nextLevelFadeIsCompleted;
 
@@ -34,8 +32,6 @@ public class GradiantBackground : MonoBehaviour
 
     private void Start()
     {
-        levelLoader = GameObject.FindGameObjectWithTag("LevelLoader").GetComponent<LevelLoader>();
-
         SetColor(defaultBottomColor, defaultTopColor);
 
         nextLevelFadeIsCompleted = false;

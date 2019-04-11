@@ -354,15 +354,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeRotated: 0
-  isActive: 0
   canBeActivatedAgain: 0
   unactiveTurns: 20
-  boardManager: {fileID: 0}
-  tileSelectionSquare: {fileID: 0}
   blankTilePrefab: {fileID: 4496926624777184, guid: 0a71bfd823331f747ae13d1a4894d174,
     type: 3}
-  above_AdjacentPos: {x: 0, y: 0, z: 0}
-  above_AdjacentTile: {fileID: 0}
   rotationDuration: 0.15
   tileOrientation: 
   player_active_greenArrow: {fileID: 2800000, guid: ac8b0695897b26645a79b740cadb4818,
@@ -374,8 +369,6 @@ MonoBehaviour:
   tagWhenActive: 
   unactiveTimeColorSwap: 0
   reactiveTimeColorSwap: 0
-  opaqueColor: {r: 1, g: 1, b: 1, a: 1}
-  transparantColor: {r: 1, g: 1, b: 1, a: 0}
   startingOffset: 0.2
   duration: 0.15
   dEndingOffset: -3

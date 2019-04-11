@@ -4,54 +4,53 @@ using UnityEngine;
 
 public class Player_GreenArrow : MonoBehaviour
 {
-    public bool canBeRotated; // disable rotation when the player has start simulation (space pressed)
 
-    public bool isActive;
+    [HideInInspector] public bool canBeRotated; // disable rotation when the player has start simulation (space pressed)
+
+    private bool isActive;
+
+    [Header("States Parameter(s)")]
     public bool canBeActivatedAgain;
     public int unactiveTurns;
     private int nextActiveTurn;
     private bool mouseIsOver;
 
-    public GameObject boardManager;
-    public TileSelectionSquare tileSelectionSquare;
+    private Renderer _renderer;
+
+    private GameObject boardManager;
+    private TileSelectionSquare tileSelectionSquare;
     private InGameUIManager _inGameUIManager;
-    public Transform blankTilePrefab;
 
-    public Transform[,,] tilesBoard;
-    public Vector3 above_AdjacentPos;
-    public Transform above_AdjacentTile;
+    private Transform[,,] tilesBoard;
+    private Vector3 above_AdjacentPos;
+    private Transform above_AdjacentTile;
 
+    [Header("Rotation Parameter(s)")]
     public float rotationDuration;
 
-    private Quaternion forwardArrow;
-    private Quaternion backArrow;
-    private Quaternion leftArrow;
-    private Quaternion rightArrow;
-    public string tileOrientation;
+    private Quaternion forwardArrow, backArrow, leftArrow, rightArrow;
 
-    private Renderer _renderer;
-    public Texture player_active_greenArrow;
-    public Texture player_unactive_greenArrow;
+    [HideInInspector] public string tileOrientation;
 
-    public Texture deleteGreenArrowTileTexture;
+    [HideInInspector] public string tagWhenActive;
 
-    public string tagWhenActive;
+    private float unactiveTimeColorSwap = 0.3f;
+    private float reactiveTimeColorSwap = 0.2f;
 
-    public float unactiveTimeColorSwap;
-    public float reactiveTimeColorSwap;
-
-    public Color opaqueColor;
-    public Color transparantColor;
+    private Color opaqueColor = new Color(1f, 1, 1, 1f);
+    private Color transparantColor = new Color(1f, 1, 1, 0f);
 
     [Header("Appearing animation")]
     public float startingOffset;
     public float duration;
 
-    [Header("Disappearing animation")]
-    public float dEndingOffset;
-    public float dDuration;
-    public float dMinDelay;
-    public float dMaxDelay;
+    [Space]
+    [Header("Textures & Prefabs")]
+    public Texture player_active_greenArrow;
+    public Texture player_unactive_greenArrow;
+    public Texture deleteGreenArrowTileTexture;
+    [Space]
+    public Transform blankTilePrefab;
 
 
     private bool disappearingAnimation_isFinished;
@@ -59,6 +58,7 @@ public class Player_GreenArrow : MonoBehaviour
     void Start()
     {
         mouseIsOver = false;
+
         if (!_inGameUIManager)
             _inGameUIManager = GameObject.FindGameObjectWithTag("InGameUIManager").GetComponent<InGameUIManager>();
 
@@ -75,8 +75,6 @@ public class Player_GreenArrow : MonoBehaviour
         leftArrow = Quaternion.Euler(0, 270, 0);
         rightArrow = Quaternion.Euler(0, 90, 0);
 
-        tagWhenActive = "Player Green Arrow";
-
         if (transform.rotation == forwardArrow)
             tileOrientation = "Forward";
         else if (transform.rotation == rightArrow)
@@ -87,16 +85,11 @@ public class Player_GreenArrow : MonoBehaviour
             tileOrientation = "Left";
 
         _renderer.material.SetTexture("_MainTex", player_active_greenArrow);
-        gameObject.tag = tagWhenActive;
-
-        if (reactiveTimeColorSwap == 0)
-            reactiveTimeColorSwap = 0.2f;
-        if (unactiveTimeColorSwap == 0)
-            unactiveTimeColorSwap = 0.3f;
+        gameObject.tag = tagWhenActive = "Player Green Arrow";
 
         disappearingAnimation_isFinished = false;
 
-        StartCoroutine(AppearingAnimation(startingOffset, duration, 0f, 0f));
+        StartCoroutine(AppearingAnimation(startingOffset, duration, 0f, 0f, 0.3f));
     }
 
 
@@ -104,7 +97,7 @@ public class Player_GreenArrow : MonoBehaviour
     {
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(dEndingOffset, dDuration, dMinDelay, dMaxDelay));
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
             disappearingAnimation_isFinished = true;
         }
     }
@@ -290,6 +283,7 @@ public class Player_GreenArrow : MonoBehaviour
         float elapsedTime = 0;
         //Color startColor = _renderer.material.GetColor("_Color");
         Color startColor = Color.white;
+        AudioManager.instance.Play("ig tile green arrow tile blink");
         while (elapsedTime < seconds)
         {
             _renderer.material.color = Color.Lerp(startColor, blinkColor, (elapsedTime / seconds));
@@ -333,7 +327,7 @@ public class Player_GreenArrow : MonoBehaviour
         above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
     }
 
-    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay)
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay, float timeToWaitBeforeFirstInitialization)
     {
         float elapsedTime = 0;
 
@@ -356,7 +350,7 @@ public class Player_GreenArrow : MonoBehaviour
         }
         _renderer.material.color = opaqueColor;
         transform.position = endPos;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(timeToWaitBeforeFirstInitialization);
         FirstInitialization();
     }
 

@@ -50,12 +50,12 @@ public class CubeController : MonoBehaviour
     public GameObject cubeAvatar;
     public Animator cubeAnimator;
 
-    [HideInInspector] public Color _opaqueCubeColor;
-    [HideInInspector] public Color _transparentCubeColor;
-    // public Animation forward_animation, back_Animation, right_Animation, left_Animation, moveDown_Animation, moveUp_Animation;
-    // public Animation forward_RoundTripAnimation, back_RoundTripAnimation, right_RoundTripAnimation, left_RoundTripAnimation;
-    // public Animation notMoving_Animation;
+    private Color opaqueColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    private Color semiTransparentColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+    private Color invisibleColor = new Color(1.0f, 1.0f, 1.0f, 0f);
 
+    private bool appearingAnimation_isFinished = false;
+    private bool disappearingAnimation_isFinished = false;
 
     private void Start()
     {
@@ -67,8 +67,6 @@ public class CubeController : MonoBehaviour
         if (!cubeAnimator)
             cubeAnimator = cubeAvatar.GetComponent<Animator>();
 
-        _opaqueCubeColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        _transparentCubeColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         willNotMoveAnymore = false;
         startPos = transform.position;
 
@@ -76,13 +74,14 @@ public class CubeController : MonoBehaviour
             willMove, willRoundTrip,
             willMoveForward, willMoveBack, willMoveRight, willMoveLeft, willMoveUp, willMoveDown,
             willRoundTripForward, willRoundTripBack, willRoundTripRight, willRoundTripLeft, willRoundTripUp, willRoundTripDown };
+
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
     }
 
     private void Update()
     {
-        ChangeMaterialOpacity();
-
-        StartCoroutine(WaitBeforeFirstInitialization());
+        if (!InGameUIManager.nextLevelIsLoading && appearingAnimation_isFinished)
+            ChangeMaterialOpacity();
 
         if (GameManager.playerCanModifyBoard && GameManager.simulationIsRunning)
         {
@@ -92,6 +91,12 @@ public class CubeController : MonoBehaviour
         if (isOnEndTile)
         {
             TriggerIsOnEndTileParticleStytem();
+        }
+
+        if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
+        {
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            disappearingAnimation_isFinished = true;
         }
     }
 
@@ -505,11 +510,11 @@ public class CubeController : MonoBehaviour
         {
             if (GameManager.simulationIsRunning)
             {
-                _renderer.material.color = _opaqueCubeColor;
+                _renderer.material.color = opaqueColor;
             }
             else
             {
-                _renderer.material.color = _transparentCubeColor;
+                _renderer.material.color = semiTransparentColor;
             }
         }
     }
@@ -620,10 +625,60 @@ public class CubeController : MonoBehaviour
             transform.position = startPos;
     }
 
-    IEnumerator WaitBeforeFirstInitialization()
+    private void FirstInitialization()
     {
-        yield return new WaitForSecondsRealtime(2f);
         tilesBoard = BoardManager.original_3DBoard;
-        yield return null;
+    }
+
+
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay, float timeToWaitBeforeFirstInitialization)
+    {
+        float elapsedTime = 0;
+
+        Vector3 endPos = transform.position;
+
+        transform.position = new Vector3(transform.position.x, transform.position.y + startingOffset, transform.position.z);
+        Vector3 startingPos = transform.position;
+
+        _renderer.material.color = invisibleColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(invisibleColor, semiTransparentColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseOutCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = semiTransparentColor;
+        transform.position = endPos;
+        yield return new WaitForSecondsRealtime(timeToWaitBeforeFirstInitialization);
+        appearingAnimation_isFinished = true;
+        FirstInitialization();
+    }
+
+    IEnumerator DisappearingAnimation(float endingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
+
+        Vector3 startingPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + endingOffset, transform.position.z);
+
+        _renderer.material.color = opaqueColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(opaqueColor, invisibleColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseInCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = invisibleColor;
+        transform.position = endPos;
     }
 }

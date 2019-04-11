@@ -384,20 +384,12 @@ MonoBehaviour:
   isActive: 0
   canBeActivatedAgain: 0
   unactiveTurns: 11
-  nextActiveTurn: 0
-  tileSelectionSquare: {fileID: 0}
-  above_AdjacentPos: {x: 0, y: 0, z: 0}
-  above_AdjacentTile: {fileID: 0}
   tileOrientation: 
   tagWhenActive: 
   active_greenArrow: {fileID: 2800000, guid: 8ad6c3c5b0c9aef43951cf1d5db0b0f3, type: 3}
   unactive_greenArrow: {fileID: 2800000, guid: cd6aa2f0ad028fa4ea5eb50fb673ab5b, type: 3}
   arrowTileDeleteImpossible: {fileID: 2800000, guid: 88944a1aba0eee54193f0ed601c5d53f,
     type: 3}
-  unactiveTimeColorSwap: 0
-  reactiveTimeColorSwap: 0
-  opaqueColor: {r: 1, g: 1, b: 1, a: 1}
-  transparantColor: {r: 1, g: 1, b: 1, a: 0}
   startingOffset: 3
   duration: 0.5
   minDelay: 0.1

@@ -27,9 +27,6 @@ public class AudioManager : MonoBehaviour
     [Header("Sound List")]
     public Sound[] sounds;
 
-    private bool pauseMusicCutoff;
-    private bool playMusicCutoff;
-
     private int currentIndex = 0;
 
     [HideInInspector] public bool appearingAnimationIsFinished;
@@ -86,9 +83,6 @@ public class AudioManager : MonoBehaviour
         }
 
         Play("menu music");
-
-        playMusicCutoff = true;
-        pauseMusicCutoff = false;
         currentIndex = 0;
     }
 

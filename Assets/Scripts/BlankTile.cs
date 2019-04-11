@@ -3,65 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlankTile : MonoBehaviour
-{
-    public GameObject boardManager;
-    public TileSelectionSquare tileSelectionSquare;
+{       
+    private GameObject boardManager;
+    private TileSelectionSquare tileSelectionSquare;
 
-    public Vector3 above_AdjacentPos;
-    public Transform[,,] tilesBoard;
-    public Transform above_AdjacentTile;
+    private Vector3 above_AdjacentPos;
+    private Transform[,,] tilesBoard;
+    private Transform above_AdjacentTile;
 
-    public bool canOnlyBeBlankTile;
-
-    public Transform greenArrowPrefab;
-    public Transform mouseOverTilePrefab;
-    public Transform mouseOverTile;
-
-    //public float randomGreyValue;
-    public Color _color;
-    public Color transparantColor;
-    public Color opaqueColor;
+    private bool canOnlyBeBlankTile;
 
     private Renderer _renderer;
-    public Texture blankTileTexture;
-    public Texture greenArrowSelectedTexture;
 
-    public float rotationDuration;
-    private float rotationIsFinished;
+    private Color opaqueColor = new Color(1f, 1, 1, 1f);
+    private Color transparantColor = new Color(1f, 1, 1, 0f);
 
-    private Quaternion forwardArrow;
-    private Quaternion backArrow;
-    private Quaternion leftArrow;
-    private Quaternion rightArrow;
+    private Quaternion forwardArrow, backArrow, leftArrow, rightArrow;
 
     public static Quaternion staticCurrentRotation;
 
-    private bool disappearingAnimation_isFinished;
+    private bool disappearingAnimation_isFinished = false;
 
-    [Header("Appearing animation")]
-    public float startingOffset;
-    public float duration;
-    public float minDelay;
-    public float maxDelay;
+    [Header("Rotation Parameters")]
+    public float rotationDuration;
 
-    [Header("Disappearing animation")]
-    public float dEndingOffset;
-    public float dDuration;
-    public float dMinDelay;
-    public float dMaxDelay;
-
-    [Header("When arrow deleted animation")]
+    [Header("After arrow deleted animation")]
     public float fromDeletedStartingOffset;
     public float fromDeletedDuration;
 
+    [Space]
+    [Header("Textures & Prefabs")]
+    public Texture blankTileTexture;
+    public Texture greenArrowSelectedTexture;
+    [Space]
+    public Transform greenArrowPrefab;
+    public Transform mouseOverTilePrefab;
+
     private void Start()
     {
-        disappearingAnimation_isFinished = false;
         _renderer = GetComponent<Renderer>();
-        if (GameManager.currentSceneTime < 2f)
-            StartCoroutine(AppearingAnimation(startingOffset, duration, minDelay, maxDelay));
-        else
-            StartCoroutine(AppearingAnimation(fromDeletedStartingOffset, fromDeletedDuration, 0f, 0f));
 
         if (!tileSelectionSquare)
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
@@ -73,6 +53,11 @@ public class BlankTile : MonoBehaviour
         backArrow = Quaternion.Euler(0, 180, 0);
         leftArrow = Quaternion.Euler(0, 270, 0);
         rightArrow = Quaternion.Euler(0, 90, 0);
+
+        if (GameManager.currentSceneTime < 2f)
+            StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+        else
+            StartCoroutine(AppearingAnimation(fromDeletedStartingOffset, fromDeletedDuration, 0f, 0f, 0f));
     }
 
     private void Update()
@@ -84,7 +69,7 @@ public class BlankTile : MonoBehaviour
 
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(dEndingOffset, dDuration, dMinDelay, dMaxDelay));
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
             disappearingAnimation_isFinished = true;
         }
     }
@@ -108,9 +93,6 @@ public class BlankTile : MonoBehaviour
                 {
                     _renderer.material.SetTexture("_MainTex", greenArrowSelectedTexture);
                 }
-
-                //if (transform.rotation != currentRotation)
-                //    transform.rotation = currentRotation;
 
                 if (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.R))
                 {
@@ -250,7 +232,7 @@ public class BlankTile : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay)
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay, float timeToWaitBeforeFirstInitialization)
     {
         float elapsedTime = 0;
 
@@ -273,7 +255,7 @@ public class BlankTile : MonoBehaviour
         }
         _renderer.material.color = opaqueColor;
         transform.position = endPos;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(timeToWaitBeforeFirstInitialization);
         FirstInitialization();
     }
 

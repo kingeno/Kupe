@@ -345,17 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404ba99a96cbc0341929bf0c3959ddb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   canBeActivatedAgain: 0
   unactiveTurns: 0
-  nextActiveTurn: 0
-  tileSelectionSquare: {fileID: 0}
-  above_AdjacentPos: {x: 0, y: 0, z: 0}
-  above_AdjacentTile: {fileID: 0}
-  tagWhenActive: 
   active: {fileID: 2800000, guid: 5b7433ba28c21d84782211e40c264faa, type: 3}
   impossibleToDelete: {fileID: 2800000, guid: 622b9190c53764d4ea727a179b8cc448, type: 3}
-  unactiveTimeColorSwap: 0
-  reactiveTimeColorSwap: 0
-  fadeOutTime: 0.3
-  emptyColor: {r: 0, g: 0, b: 0, a: 0}

@@ -27,60 +27,15 @@ public class MainMenuUIManager : MonoBehaviour
 
     [Header("Scene Fade")]
     public GameObject imageToFade;
+    public float fadeInDuration;
     public float fadeOutDuration;
 
     private void Start()
     {
-        CanvasRenderer _cR = imageToFade.GetComponent<CanvasRenderer>();
-        _cR.SetAlpha(0f);
         levelHubButton = levelHub.GetComponent<Button>();
-    }
-
-    private void Update()
-    {
-        if (!fadeIsCompleted)
-        {
-            StartCoroutine(MenuButtonFadeIn(this.gameObject, timeToWaitBeforeFade, fadeDuration));
-            fadeIsCompleted = true;
-        }
-        if (LevelLoader.loadingLevelFromMainMenu)
-        {
-            StartCoroutine(SceneFadeOut(imageToFade, fadeOutDuration));
-        }
-    }
-
-    IEnumerator MenuButtonFadeIn(GameObject target, float timeToWaitBeforeFade, float fadeDuration)
-    {
-        yield return new WaitForSecondsRealtime(timeToWaitBeforeFade);
-
-        float currentTime = 0f;
-        float normalizedValue;
-
-        while (currentTime <= fadeDuration)
-        {
-            currentTime += Time.unscaledDeltaTime;
-            normalizedValue = currentTime / fadeDuration;
-
-            target.GetComponent<CanvasGroup>().alpha = EasingFunction.EaseOutQuad(0f, 1f, normalizedValue);
-
-            yield return null;
-        }
-    }
-
-    IEnumerator SceneFadeOut(GameObject target, float fadeDuration)
-    {
-        float currentTime = 0f;
-        float normalizedValue;
-        CanvasRenderer _cR;
-        while (currentTime <= fadeDuration)
-        {
-            currentTime += Time.unscaledDeltaTime;
-            normalizedValue = currentTime / fadeDuration;
-            _cR = target.GetComponent<CanvasRenderer>();
-            _cR.SetAlpha(Mathf.Lerp(0f, 1f, normalizedValue));
-
-            yield return null;
-        }
+        StartCoroutine(MenuButtonFadeIn(this.gameObject, timeToWaitBeforeFade, fadeDuration));
+        if (LevelLoader.loadedFromLevelHub)
+            LevelLoader.loadedFromLevelHub = false;
     }
 
     public void DisplayLevelHub()
@@ -117,5 +72,23 @@ public class MainMenuUIManager : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    IEnumerator MenuButtonFadeIn(GameObject target, float timeToWaitBeforeFade, float fadeDuration)
+    {
+        yield return new WaitForSecondsRealtime(timeToWaitBeforeFade);
+
+        float currentTime = 0f;
+        float normalizedValue;
+
+        while (currentTime <= fadeDuration)
+        {
+            currentTime += Time.unscaledDeltaTime;
+            normalizedValue = currentTime / fadeDuration;
+
+            target.GetComponent<CanvasGroup>().alpha = EasingFunction.EaseOutQuad(0f, 1f, normalizedValue);
+
+            yield return null;
+        }
     }
 }

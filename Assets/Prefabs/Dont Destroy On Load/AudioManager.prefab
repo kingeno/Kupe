@@ -221,9 +221,9 @@ MonoBehaviour:
       type: 2}
     loop: 0
     volume: 1
-    followingSounds: 0
+    followingSounds: 1
     randomSounds: 0
-    clipsNumber: 0
+    clipsNumber: 3
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
@@ -275,7 +275,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
+    volume: 0.25
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
@@ -286,7 +286,29 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
+    volume: 0.25
+    followingSounds: 0
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig tile green arrow tile blink
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 0.25
+    followingSounds: 0
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig tile end tile twinkle
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 0.25
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0

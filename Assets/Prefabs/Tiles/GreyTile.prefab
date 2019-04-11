@@ -569,11 +569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632ce0bc81dcf094d8b750eaffff233b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardManager: {fileID: 0}
-  tileSelectionSquare: {fileID: 0}
-  above_AdjacentPos: {x: 0, y: 0, z: 0}
-  above_AdjacentTile: {fileID: 0}
-  _color: {r: 0, g: 0, b: 0, a: 0}
-  greyTileTexture: {fileID: 2800000, guid: a9e731e5579b01f439e43ba467547294, type: 3}
+  greyTileTexture: {fileID: 2800000, guid: 7da35d3783e319e46a0f4738f184db1f, type: 3}
   greyTileDeleteImpossibleTexture: {fileID: 2800000, guid: 45e561d15d19d434fbe66f644937f73b,
     type: 3}

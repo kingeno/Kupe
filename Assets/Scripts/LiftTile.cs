@@ -4,51 +4,60 @@ using UnityEngine;
 
 public class LiftTile : MonoBehaviour
 {
+    private Transform[,,] tilesBoard;
+    private TileSelectionSquare tileSelectionSquare;
 
-    public bool isActive;
+    private Vector3 initialPos;
+    private Vector3 above_AdjacentPos;
+    private Transform above_AdjacentTile;
+
+    [HideInInspector] public string tagWhenActive;
+
+    private Renderer _renderer;
+
+    private bool isActive;
+
+    private float unactiveTimeColorSwap = 0.3f;
+    private float reactiveTimeColorSwap = 0.2f;
+
+    private Color opaqueColor = new Color(1f, 1, 1, 1f);
+    private Color transparantColor = new Color(1f, 1, 1, 0f);
+
+    private bool disappearingAnimation_isFinished = false;
+
+    [Header("States Parameters")]
     public bool canBeActivatedAgain;
     public bool goBackDownAfterUse;
     public int unactiveTurns;
-    public int nextActiveTurn;
+    private int nextActiveTurn;
 
-    public Transform[,,] tilesBoard;
-    public TileSelectionSquare tileSelectionSquare;
-
-    public Vector3 initialPos;
-    public Vector3 above_AdjacentPos;
-    public Transform above_AdjacentTile;
-
-    public string tagWhenActive;
-
-    private Renderer _renderer;
+    [Space]
+    [Header("Textures")]
     public Texture active_lift;
     public Texture unactive_lift;
     public Texture liftTileDeleteImpossible;
 
-    public float unactiveTimeColorSwap;
-    public float reactiveTimeColorSwap;
-
     void Start()
     {
-
         if (!tileSelectionSquare)
             tileSelectionSquare = GameObject.FindGameObjectWithTag("TileSelectionSquare").GetComponent<TileSelectionSquare>();
 
         isActive = true;
         _renderer = GetComponent<Renderer>();
 
-        tagWhenActive = "LiftTile";
-
         _renderer.material.SetTexture("_MainTex", active_lift);
-        gameObject.tag = tagWhenActive;
+        gameObject.tag = tagWhenActive = "LiftTile";
 
-        initialPos = transform.position;
-        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+    }
 
-        if (reactiveTimeColorSwap == 0)
-            reactiveTimeColorSwap = 0.2f;
-        if (unactiveTimeColorSwap == 0)
-            unactiveTimeColorSwap = 0.3f;
+    private void Update()
+    {
+        if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
+        {
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            disappearingAnimation_isFinished = true;
+        }
     }
 
     private void OnMouseOver()
@@ -202,5 +211,61 @@ public class LiftTile : MonoBehaviour
             objectToMove.transform.position = endPos;
         else
             transform.position = endPos;
+    }
+
+    public void FirstInitialization()
+    {
+        initialPos = transform.position;
+        above_AdjacentPos = (transform.position + new Vector3(0, 1, 0));
+    }
+
+    IEnumerator AppearingAnimation(float startingOffset, float duration, float minDelay, float maxDelay, float timeToWaitBeforeFirstInitialization)
+    {
+        float elapsedTime = 0;
+
+        Vector3 endPos = transform.position;
+
+        transform.position = new Vector3(transform.position.x, transform.position.y + startingOffset, transform.position.z);
+        Vector3 startingPos = transform.position;
+
+        _renderer.material.color = transparantColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(transparantColor, opaqueColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseOutCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = opaqueColor;
+        transform.position = endPos;
+        yield return new WaitForSecondsRealtime(timeToWaitBeforeFirstInitialization);
+        FirstInitialization();
+    }
+
+    IEnumerator DisappearingAnimation(float endingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
+
+        Vector3 startingPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + endingOffset, transform.position.z);
+
+        _renderer.material.color = opaqueColor;
+
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(opaqueColor, transparantColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseInCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = transparantColor;
+        transform.position = endPos;
     }
 }

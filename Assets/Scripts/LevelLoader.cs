@@ -5,16 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour {
 
-    public int currentSceneBuildIndex;
-    public int levelIndexToLaod;
+    public static int previousScene;
+    public static bool loadedFromLevelHub;
+    public static bool loadingFromLevelHub;
+
+    [HideInInspector] public int currentSceneBuildIndex;
+    [HideInInspector] public int levelIndexToLaod;
     public static bool loadingLevelFromMainMenu;
     public static bool loadingLevelFromLevel;
+
+    public float loadingFirstLevelDelay;
+    public float loadingNextLevelDelay;
+    public float loadingSpecificLevelDelay;
 
     private void Start()
     {
         DontDestroyOnLoad(this);
         currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
         loadingLevelFromLevel = false;
+        loadingFromLevelHub = false;
     }
 
     void Update()
@@ -25,22 +34,26 @@ public class LevelLoader : MonoBehaviour {
 
     public void LoadFirstLevel()
     {
+        previousScene = currentSceneBuildIndex;
         if (currentSceneBuildIndex == 0)
             AudioManager.instance.LoadLevelFromMainMenuCrossFade();
-        StartCoroutine(LoadNextAsyncScene(1));
+        StartCoroutine(LoadNextAsyncScene(1, loadingFirstLevelDelay));
         GameManager.currentSceneTime = 0f;
     }
 
     public void LoadNextLevel()
     {
+        previousScene = currentSceneBuildIndex; previousScene = currentSceneBuildIndex;
         if (currentSceneBuildIndex == 0)
             AudioManager.instance.LoadLevelFromMainMenuCrossFade();
-        StartCoroutine(LoadNextAsyncScene(currentSceneBuildIndex + 1));
+        StartCoroutine(LoadNextAsyncScene(currentSceneBuildIndex + 1, loadingNextLevelDelay));
         GameManager.currentSceneTime = 0f;
+        
     }
 
     public void LoadSpecificLevel(int levelIndex)
     {
+        previousScene = currentSceneBuildIndex;
         if (levelIndex == 0)
         {
             AudioManager.instance.ExitToMainMenuCrossFade();
@@ -50,15 +63,19 @@ public class LevelLoader : MonoBehaviour {
         {
             AudioManager.instance.LoadLevelFromMainMenuCrossFade();
         }
-        else if (currentSceneBuildIndex != 0 && levelIndex != 0)
-            AudioManager.instance.ResumeMusicCutoff();
+        else if (currentSceneBuildIndex != 0)
+        {
+            loadingFromLevelHub = true;
+            if (levelIndex != 0)
+                AudioManager.instance.ResumeMusicCutoff();
+        }
 
-        StartCoroutine(LoadSpecificAsyncScene(levelIndex));
+        StartCoroutine(LoadSpecificAsyncScene(levelIndex, loadingSpecificLevelDelay));
         GameManager.currentSceneTime = 0f;
     }
 
 
-    IEnumerator LoadNextAsyncScene(int sceneBuildIndexToLoad)
+    IEnumerator LoadNextAsyncScene(int sceneBuildIndexToLoad, float loadingDelay)
     {
         // The Application loads the Scene in the background as the current Scene runs.
         // This is particularly good for creating loading screens.
@@ -70,7 +87,7 @@ public class LevelLoader : MonoBehaviour {
         if (currentSceneBuildIndex == 0)
         {
             loadingLevelFromMainMenu = true;
-            yield return new WaitForSecondsRealtime(1.2f);
+            yield return new WaitForSecondsRealtime(loadingDelay);
 
             if (sceneBuildIndexToLoad < 10)
                 asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
@@ -87,7 +104,7 @@ public class LevelLoader : MonoBehaviour {
         else
         {
             loadingLevelFromLevel = true;
-            yield return new WaitForSecondsRealtime(1.2f);
+            yield return new WaitForSecondsRealtime(loadingDelay);
 
             if (sceneBuildIndexToLoad < 10)
                 asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
@@ -103,13 +120,15 @@ public class LevelLoader : MonoBehaviour {
         }
     }
 
-    IEnumerator LoadSpecificAsyncScene(int sceneBuildIndexToLoad)
+    IEnumerator LoadSpecificAsyncScene(int sceneBuildIndexToLoad, float loadingDelay)
     {
+        loadedFromLevelHub = true;
+
         AsyncOperation asyncLoad;
 
         loadingLevelFromMainMenu = true;
         loadingLevelFromLevel = true;
-        yield return new WaitForSecondsRealtime(1.2f);
+        yield return new WaitForSecondsRealtime(loadingDelay);
         
         if (sceneBuildIndexToLoad < 10)
             asyncLoad = SceneManager.LoadSceneAsync("Level00" + sceneBuildIndexToLoad.ToString());
