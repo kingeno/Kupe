@@ -85,12 +85,12 @@ public class MainCamera : MonoBehaviour
         }
         if (!isFreeLookActive)
         {
-            if ((Input.GetKeyDown(KeyCode.C) || Input.GetMouseButtonDown(2)))
+            if ((Input.GetKey(KeyCode.C) || Input.GetMouseButton(2)))
                 FreeLook();
         }
         else if (isFreeLookActive)
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+            if (!Input.GetKey(KeyCode.C) && !Input.GetMouseButton(2))
                 FreeLook();
         }
 

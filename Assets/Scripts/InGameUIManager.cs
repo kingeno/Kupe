@@ -43,10 +43,6 @@ public class InGameUIManager : MonoBehaviour
     public GameObject levelCompletedText;
     public GameObject nextLevelButton;
 
-    [Header("Contextual Window")]
-    public GameObject contextualWindow;
-    public TextMeshProUGUI contextualWindowText;
-
     [Header("Button Outlines")]
     public GameObject deleteTileSelectedOutline;
     public GameObject greenArrowSelectedOutline;
@@ -207,7 +203,11 @@ public class InGameUIManager : MonoBehaviour
                     ToggleUIButton(playButtonScript, true, playButtonImage, interactableButtonColor);
 
                 if (!CurrentLevelManager.isGreenArrowStockEmpty)
+                {
                     ToggleUIButton(arrowButtonScript, true, greenArrowButtonImage, interactableButtonColor);
+                    if (Input.GetKeyDown(KeyCode.F) && !isGreenArrowSelected)
+                        GreenArrowSelection();
+                }
                 else if (CurrentLevelManager.isGreenArrowStockEmpty)
                 {
                     isGreenArrowSelected = false;
@@ -217,7 +217,11 @@ public class InGameUIManager : MonoBehaviour
 
 
                 if (!CurrentLevelManager.greenArrowStockIsFull)
+                {
+                    if (Input.GetKeyDown(KeyCode.S) && !isDeleteTileSelected)
+                        DeleteSelection();
                     ToggleUIButton(deleteButtonScript, true, deleteTileButtonImage, interactableButtonColor);
+                }
                 else if (CurrentLevelManager.greenArrowStockIsFull)
                 {
                     isDeleteTileSelected = false;
@@ -281,14 +285,6 @@ public class InGameUIManager : MonoBehaviour
                     disappearingAnimation_isFinished = true;
                 }
             }
-
-            if (isOverPlayerArrowTile)
-            {
-                contextualWindow.SetActive(true);
-                contextualWindowText.text = "rotate : r / left clic";
-            }
-            else
-                contextualWindow.SetActive(false);
         }
 
         else if (GameManager.gameIsPaused)
@@ -393,24 +389,12 @@ public class InGameUIManager : MonoBehaviour
             GameManager.simulationSpeed = 3f;
             gameManager.turnTime = 0.44f;
         }
-        else if (GameManager.simulationSpeed == 3f)
-        {
-            changeSpeedSimulation = true;
-            GameManager.simulationSpeed = 1f;
-            gameManager.turnTime = 0.5f;
-        }
     }
 
     public void SlowDownSimulation()
     {
         AudioManager.instance.Play("ig simulation slow down");
-        if (GameManager.simulationSpeed == 1f)
-        {
-            changeSpeedSimulation = true;
-            GameManager.simulationSpeed = 3f;
-            gameManager.turnTime = 0.44f;
-        }
-        else if (GameManager.simulationSpeed == 2f)
+        if (GameManager.simulationSpeed == 2f)
         {
             changeSpeedSimulation = true;
             GameManager.simulationSpeed = 1f;
@@ -575,8 +559,6 @@ public class InGameUIManager : MonoBehaviour
 
     IEnumerator ScreenFade(GameObject target, float fadeDuration, float startFadeValue, float endFadeValue)
     {
-        if (startFadeValue > 0.5f)
-            Debug.Log("start fade in coroutine");
         float currentTime = 0f;
         float normalizedValue;
         CanvasRenderer _cR;

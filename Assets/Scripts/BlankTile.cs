@@ -74,20 +74,35 @@ public class BlankTile : MonoBehaviour
         }
     }
 
-    private void OnMouseOver()
+    private void OnMouseEnter()
     {
         if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
+            if (transform.rotation != staticCurrentRotation)
+                transform.rotation = staticCurrentRotation;
+
             if (tileSelectionSquare.transform.position != transform.position)
             {
                 AudioManager.instance.Play("ig tile hovering");
                 tileSelectionSquare.transform.position = transform.position;
+                tileSelectionSquare.transform.rotation = transform.rotation;
             }
+        }
+    }
 
-            if (!InGameUIManager.isGreenArrowSelected && !InGameUIManager.isDeleteTileSelected)
-                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+    private void OnMouseOver()
+    {
+        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        {
+            if (tileSelectionSquare.transform.rotation != transform.rotation)
+                tileSelectionSquare.transform.rotation = transform.rotation;
+            if (tileSelectionSquare.transform.position != transform.position)
+                tileSelectionSquare.transform.position = transform.position;
 
-            else if (!CurrentLevelManager.isGreenArrowStockEmpty && InGameUIManager.isGreenArrowSelected)
+            //if (!InGameUIManager.isGreenArrowSelected && !InGameUIManager.isDeleteTileSelected)
+            //    tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+
+            if (!CurrentLevelManager.isGreenArrowStockEmpty)
             {
                 if (_renderer.material.GetTexture("_MainTex") != greenArrowSelectedTexture)
                 {
@@ -161,15 +176,6 @@ public class BlankTile : MonoBehaviour
                 _renderer.material.SetTexture("_MainTex", blankTileTexture);
             }
 
-        }
-    }
-
-    private void OnMouseEnter()
-    {
-        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && !canOnlyBeBlankTile && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
-        {
-            if (transform.rotation != staticCurrentRotation)
-                transform.rotation = staticCurrentRotation;
         }
     }
 

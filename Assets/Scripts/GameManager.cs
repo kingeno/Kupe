@@ -237,15 +237,19 @@ public class GameManager : MonoBehaviour
     {
         if (!simulationIsRunning)
         {
-            simulationHasBeenLaunched = true;
             simulationIsRunning = true;
 
-            player_GreenArrows = GameObject.FindGameObjectsWithTag("Player Green Arrow");
-            player_GreenArrowsControllers = new Player_GreenArrow[player_GreenArrows.Length];
-            for (int i = 0; i < player_GreenArrowsControllers.Length; i++)
+            if (!simulationHasBeenLaunched)
             {
-                player_GreenArrowsControllers[i] = player_GreenArrows[i].GetComponent<Player_GreenArrow>();
+                player_GreenArrows = GameObject.FindGameObjectsWithTag("Player Green Arrow");
+                player_GreenArrowsControllers = new Player_GreenArrow[player_GreenArrows.Length];
+                for (int i = 0; i < player_GreenArrowsControllers.Length; i++)
+                {
+                    player_GreenArrowsControllers[i] = player_GreenArrows[i].GetComponent<Player_GreenArrow>();
+                }
             }
+
+            simulationHasBeenLaunched = true;
         }
         else
         {
@@ -724,6 +728,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (Player_GreenArrow playerGreenArrow in player_GreenArrowsControllers)
             {
+                Debug.Log("Iterate Through Player Green Arrow Controller --------------- (Initial State)");
                 playerGreenArrow.SetInitialState();
             }
         }

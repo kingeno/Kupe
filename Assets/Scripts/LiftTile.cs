@@ -60,7 +60,7 @@ public class LiftTile : MonoBehaviour
         }
     }
 
-    private void OnMouseOver()
+    private void OnMouseEnter()
     {
         if (!GameManager.gameIsPaused && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive && GameManager.playerCanModifyBoard)
         {
@@ -68,7 +68,20 @@ public class LiftTile : MonoBehaviour
             {
                 AudioManager.instance.Play("ig tile hovering");
                 tileSelectionSquare.transform.position = transform.position;
+                tileSelectionSquare.transform.rotation = transform.rotation;
+
             }
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if (!GameManager.gameIsPaused && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive && GameManager.playerCanModifyBoard)
+        {
+            if(tileSelectionSquare.transform.rotation != transform.rotation)
+                tileSelectionSquare.transform.rotation = transform.rotation;
+            if (tileSelectionSquare.transform.position != transform.position)
+                tileSelectionSquare.transform.position = transform.position;
 
             if (InGameUIManager.isDeleteTileSelected)
             {

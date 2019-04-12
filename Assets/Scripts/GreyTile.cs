@@ -47,7 +47,7 @@ public class GreyTile : MonoBehaviour
         }
     }
 
-    private void OnMouseOver()
+    private void OnMouseEnter()
     {
         if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
@@ -55,7 +55,19 @@ public class GreyTile : MonoBehaviour
             {
                 AudioManager.instance.Play("ig tile hovering");
                 tileSelectionSquare.transform.position = transform.position;
+                tileSelectionSquare.transform.rotation = transform.rotation;
             }
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        {
+            if (tileSelectionSquare.transform.rotation != transform.rotation)
+                tileSelectionSquare.transform.rotation = transform.rotation;
+            if (tileSelectionSquare.transform.position != transform.position)
+                tileSelectionSquare.transform.position = transform.position;
 
             if (!InGameUIManager.isGreenArrowSelected && !InGameUIManager.isDeleteTileSelected)
             {

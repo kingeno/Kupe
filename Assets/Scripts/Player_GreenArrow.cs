@@ -7,7 +7,7 @@ public class Player_GreenArrow : MonoBehaviour
 
     [HideInInspector] public bool canBeRotated; // disable rotation when the player has start simulation (space pressed)
 
-    private bool isActive;
+    public bool isActive;
 
     [Header("States Parameter(s)")]
     public bool canBeActivatedAgain;
@@ -102,110 +102,111 @@ public class Player_GreenArrow : MonoBehaviour
         }
     }
 
+    private void OnMouseEnter()
+    {
+        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
+        {
+            if (tileSelectionSquare.transform.position != transform.position)
+            {
+                AudioManager.instance.Play("ig tile hovering");
+                tileSelectionSquare.transform.position = transform.position;
+
+                if (tileSelectionSquare.transform.rotation != transform.rotation)
+                    tileSelectionSquare.transform.rotation = transform.rotation;
+            }
+        }
+    }
+
     private void OnMouseOver()
     {
         if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
         {
             canBeRotated = true;
             mouseIsOver = true;
-            if (tileSelectionSquare.transform.position != transform.position)
-            {
-                AudioManager.instance.Play("ig tile hovering");
-                tileSelectionSquare.transform.position = transform.position;
-            }
 
-            if (!InGameUIManager.isDeleteTileSelected)
+            if (tileSelectionSquare.transform.rotation != transform.rotation)
+                tileSelectionSquare.transform.rotation = transform.rotation;
+            if (tileSelectionSquare.transform.position != transform.position)
+                tileSelectionSquare.transform.position = transform.position;
+
+            tileSelectionSquare.material.color = tileSelectionSquare.editTileColor;
+            _inGameUIManager.isOverPlayerArrowTile = true;
+            if (canBeRotated && mouseIsOver)
             {
-                tileSelectionSquare.material.color = tileSelectionSquare.editTileColor;
-                _inGameUIManager.isOverPlayerArrowTile = true;
-                if (canBeRotated && mouseIsOver)
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y < 0f)
                 {
-                    if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.R) || Input.mouseScrollDelta.y < 0f)
+                    if (transform.rotation == forwardArrow)
                     {
-                        if (transform.rotation == forwardArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
-                            tileOrientation = "Right";
-                        }
-                        else if (transform.rotation == rightArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
-                            tileOrientation = "Back";
-                        }
-                        else if (transform.rotation == backArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
-                            tileOrientation = "Left";
-                        }
-                        else if (transform.rotation == leftArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
-                            tileOrientation = "Forward";
-                        }
+                        StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
+                        tileOrientation = "Right";
                     }
-                    else if (Input.mouseScrollDelta.y > 0f || Input.GetKeyDown(KeyCode.L))
+                    else if (transform.rotation == rightArrow)
                     {
-                        if (transform.rotation == forwardArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
-                            tileOrientation = "Left";
-                        }
-                        else if (transform.rotation == rightArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
-                            tileOrientation = "Forward";
-                        }
-                        else if (transform.rotation == backArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
-                            tileOrientation = "Right";
-                        }
-                        else if (transform.rotation == leftArrow)
-                        {
-                            StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
-                            tileOrientation = "Back";
-                        }
+                        StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
+                        tileOrientation = "Back";
+                    }
+                    else if (transform.rotation == backArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
+                        tileOrientation = "Left";
+                    }
+                    else if (transform.rotation == leftArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
+                        tileOrientation = "Forward";
+                    }
+                }
+                else if (Input.mouseScrollDelta.y > 0f || Input.GetKeyDown(KeyCode.L))
+                {
+                    if (transform.rotation == forwardArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, leftArrow, rotationDuration));
+                        tileOrientation = "Left";
+                    }
+                    else if (transform.rotation == rightArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, forwardArrow, rotationDuration));
+                        tileOrientation = "Forward";
+                    }
+                    else if (transform.rotation == backArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, rightArrow, rotationDuration));
+                        tileOrientation = "Right";
+                    }
+                    else if (transform.rotation == leftArrow)
+                    {
+                        StartCoroutine(TileRotation(transform.rotation, backArrow, rotationDuration));
+                        tileOrientation = "Back";
                     }
                 }
             }
             else
                 _inGameUIManager.isOverPlayerArrowTile = false;
 
-            if (InGameUIManager.isDeleteTileSelected)
+            if (Input.GetMouseButtonDown(1))
+            {
+                AudioManager.instance.Play("ig tile deleted");
+                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
+                int hierarchyIndex = transform.GetSiblingIndex();                                                                        //Store the current hierarchy index of the blank tile.
+                Destroy(gameObject);                                                                                                     //Destroy green arrow tile.
+                Transform newTile = Instantiate(blankTilePrefab, transform.position, Quaternion.identity, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
+                newTile.SetSiblingIndex(hierarchyIndex);                                                                                 //Use the stored hierarchy index to put the new tile in place of the deleted one.
+                BoardManager.playerHasChangedATile = true;
+                CurrentLevelManager.greenArrowStock_static++;
+                Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
+            }
+            else if (Input.GetMouseButton(1))
             {
                 float lerp = Mathf.PingPong(Time.unscaledTime, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
                 tileSelectionSquare.material.color = Color.Lerp(tileSelectionSquare.canDeleteTileColor1, tileSelectionSquare.canDeleteTileColor2, lerp);
                 _renderer.material.SetTexture("_MainTex", deleteGreenArrowTileTexture);
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    AudioManager.instance.Play("ig tile deleted");
-                    tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
-                    int hierarchyIndex = transform.GetSiblingIndex();                                                                        //Store the current hierarchy index of the blank tile.
-                    Destroy(gameObject);                                                                                                     //Destroy green arrow tile.
-                    Transform newTile = Instantiate(blankTilePrefab, transform.position, Quaternion.identity, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
-                    newTile.SetSiblingIndex(hierarchyIndex);                                                                                 //Use the stored hierarchy index to put the new tile in place of the deleted one.
-                    BoardManager.playerHasChangedATile = true;
-                    CurrentLevelManager.greenArrowStock_static++;
-                    Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
-                }
             }
-        }
-        else
-            _inGameUIManager.isOverPlayerArrowTile = false;
-    }
-
-    private void OnMouseEnter()
-    {
-        if (!GameManager.gameIsPaused && !GameManager.simulationIsRunning && GameManager.playerCanModifyBoard && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive)
-        {
-            if (tileSelectionSquare.transform.rotation != transform.rotation)
-                tileSelectionSquare.transform.rotation = transform.rotation;
         }
     }
 
     private void OnMouseExit()
     {
+        _inGameUIManager.isOverPlayerArrowTile = false;
         canBeRotated = false;
         mouseIsOver = false;
         tileSelectionSquare.transform.position = tileSelectionSquare.hiddenPosition;
@@ -219,6 +220,7 @@ public class Player_GreenArrow : MonoBehaviour
 
     public void SetInitialState()
     {
+        Debug.Log(name + ": set initial state -------");
         isActive = true;
         canBeRotated = true;
         mouseIsOver = false;
