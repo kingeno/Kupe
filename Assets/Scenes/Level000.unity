@@ -4111,6 +4111,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2916171321210584963, guid: 36dc59c24afde074e8ae7fc2a77f21c7,
+        type: 3}
+      propertyPath: sounds.Array.data[16].randomSounds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916171321210584963, guid: 36dc59c24afde074e8ae7fc2a77f21c7,
+        type: 3}
+      propertyPath: sounds.Array.data[16].followingSounds
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36dc59c24afde074e8ae7fc2a77f21c7, type: 3}
 --- !u!1 &539211615
