@@ -69,6 +69,9 @@ public class GreyTile : MonoBehaviour
             if (tileSelectionSquare.transform.position != transform.position)
                 tileSelectionSquare.transform.position = transform.position;
 
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                AudioManager.instance.Play("ig tile grey hovering");
+
             if (!InGameUIManager.isGreenArrowSelected && !InGameUIManager.isDeleteTileSelected)
             {
                 tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;

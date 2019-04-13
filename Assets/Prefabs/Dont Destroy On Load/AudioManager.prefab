@@ -220,7 +220,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
+    volume: 0.6
     followingSounds: 1
     randomSounds: 0
     clipsNumber: 3
@@ -235,6 +235,17 @@ MonoBehaviour:
     followingSounds: 1
     randomSounds: 0
     clipsNumber: 3
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig cube move falling
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 0.52
+    followingSounds: 1
+    randomSounds: 0
+    clipsNumber: 4
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
@@ -253,10 +264,10 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
-    followingSounds: 0
+    volume: 0.57
+    followingSounds: 1
     randomSounds: 0
-    clipsNumber: 0
+    clipsNumber: 4
     clip: {fileID: 0}
     multipleClips: []
     source: {fileID: 0}
@@ -308,7 +319,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.25
+    volume: 0.6
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
@@ -561,7 +572,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
+    volume: 0.5
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
@@ -572,7 +583,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 1
+    volume: 0.5
     followingSounds: 0
     randomSounds: 0
     clipsNumber: 0
@@ -580,6 +591,17 @@ MonoBehaviour:
     multipleClips: []
     source: {fileID: 0}
   - name: ig tile green arrow placed
+    mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
+      type: 2}
+    loop: 0
+    volume: 1
+    followingSounds: 0
+    randomSounds: 0
+    clipsNumber: 0
+    clip: {fileID: 0}
+    multipleClips: []
+    source: {fileID: 0}
+  - name: ig tile grey hovering
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0

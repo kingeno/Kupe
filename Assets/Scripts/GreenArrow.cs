@@ -131,7 +131,6 @@ public class GreenArrow : MonoBehaviour
 
     public void SetInitialState()
     {
-        Debug.Log(name + ": set initial state -------");
         isActive = true;
         nextActiveTurn = 0;
         _renderer.material.SetTexture("_MainTex", active_greenArrow);

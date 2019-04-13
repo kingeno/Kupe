@@ -220,7 +220,6 @@ public class Player_GreenArrow : MonoBehaviour
 
     public void SetInitialState()
     {
-        Debug.Log(name + ": set initial state -------");
         isActive = true;
         canBeRotated = true;
         mouseIsOver = false;

@@ -43,4 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925897a306a3982428d4596891d6fea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  greenArrowStock: 1
+  greenArrowStock: 11
+  currentGreenArrowStock: 0

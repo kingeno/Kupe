@@ -60,17 +60,18 @@ public class Tutorial : MonoBehaviour
                 StartCoroutine(CanvasGroupFade(lvl2Tuto2CanvasGroup, fadeOutDuration, 0f, 1f, timeToWaitBetweenFades));
                 tuto2_isComplete = true;
             }
-            else if (InGameUIManager.nextLevelIsLoading && !tuto1_isComplete && tuto2_isComplete && lvl2Tuto2CanvasGroup.alpha == 1f)
+            else if (InGameUIManager.nextLevelIsLoading && tuto1_isComplete && tuto2_isComplete && lvl2Tuto2CanvasGroup.alpha == 1f)
             {
                 StartCoroutine(CanvasGroupFade(lvl2Tuto2CanvasGroup, fadeOutDuration, 1f, 0f, 0f));
                 allTuto_areComplete = true;
             }
         }
-        else if (levelLoader.currentSceneBuildIndex == 3 && tuto2_isComplete)
+        else if (levelLoader.currentSceneBuildIndex == 3 && !tuto2_isComplete)
         {
-            if (GameManager.currentSceneTime > 1.5f && CurrentLevelManager.isGreenArrowStockEmpty && tuto1_isComplete) //when the player starts lvl 2
+            if (GameManager.currentSceneTime > 1.5f && CurrentLevelManager.isGreenArrowStockEmpty && !tuto1_isComplete) //when the player starts lvl 2
             {
                 StartCoroutine(CanvasGroupFade(lvl3TutoCanvasGroup, fadeInDuration, 0f, 1f, 1f));
+                tuto1_isComplete = true;
             }
             else if (InGameUIManager.nextLevelIsLoading && tuto1_isComplete && !tuto2_isComplete)
             {

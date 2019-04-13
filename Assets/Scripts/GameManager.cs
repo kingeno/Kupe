@@ -708,7 +708,7 @@ public class GameManager : MonoBehaviour
             levelIsStopped = true;
             simulationIsRunning = false;
             AudioManager.instance.Play("ig simulation stop");
-            AudioManager.instance.Stop("cube move continuously");
+            AudioManager.instance.Stop("ig cube move continuously");
         }
         playerIsStuck = false;
         simulationHasBeenLaunched = false;
@@ -728,7 +728,6 @@ public class GameManager : MonoBehaviour
         {
             foreach (Player_GreenArrow playerGreenArrow in player_GreenArrowsControllers)
             {
-                Debug.Log("Iterate Through Player Green Arrow Controller --------------- (Initial State)");
                 playerGreenArrow.SetInitialState();
             }
         }

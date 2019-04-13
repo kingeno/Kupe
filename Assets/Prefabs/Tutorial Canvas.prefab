@@ -1303,7 +1303,7 @@ MonoBehaviour:
   lvl2Tuto1CanvasGroup: {fileID: 6519742827029078395}
   lvl2Tuto2CanvasGroup: {fileID: 6519742827275408301}
   lvl3TutoCanvasGroup: {fileID: 6519742826920569903}
-  fadeInDuration: 0.1
+  fadeInDuration: 0.15
   fadeOutDuration: 0.2
   timeToWaitBetweenFades: 1.5
 --- !u!1 &6519742827029078391

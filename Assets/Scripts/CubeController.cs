@@ -562,7 +562,10 @@ public class CubeController : MonoBehaviour
         Vector3 startingPos = objectToMove.transform.position;
         if (startingPos != endPos)
         {
-            AudioManager.instance.Play("ig cube move");
+            if (endPos.y == (startingPos.y -1))
+                AudioManager.instance.Play("ig cube move falling");
+            else 
+                AudioManager.instance.Play("ig cube move");
             AudioManager.instance.PlayUnique("ig cube move continuously");
         }
         else
