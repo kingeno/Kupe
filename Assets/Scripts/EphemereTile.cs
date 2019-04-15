@@ -196,7 +196,7 @@ public class EphemereTile : MonoBehaviour
         Color startColor = Color.white;
         fadedColor = startColor;
         fadedColor.a = 0f;
-        AudioManager.instance.Play("ig tile ephemere tile disappear");
+        //AudioManager.instance.Play("ig tile ephemere tile disappear");
         while (elapsedTime < seconds)
         {
             _renderer.material.color = Color.Lerp(startColor, fadedColor, (elapsedTime / seconds));
