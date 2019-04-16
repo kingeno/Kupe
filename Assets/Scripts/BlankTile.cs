@@ -54,7 +54,7 @@ public class BlankTile : MonoBehaviour
         leftArrow = Quaternion.Euler(0, 270, 0);
         rightArrow = Quaternion.Euler(0, 90, 0);
 
-        if (GameManager.currentSceneTime < 2f)
+        if (GameManager.currentSceneTime < 1f)
             StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
         else
             StartCoroutine(AppearingAnimation(fromDeletedStartingOffset, fromDeletedDuration, 0f, 0f, 0f));
@@ -166,16 +166,10 @@ public class BlankTile : MonoBehaviour
                     Destroy(gameObject);                                                                                                            //Destroy the blank tile.
                     Transform newTile = Instantiate(greenArrowPrefab, transform.position, transform.rotation, boardManager.transform);        //Instantiate and store the new tile type at the end of the BoardManager.
                     newTile.SetSiblingIndex(hierarchyIndex);                                                                                  //Use the stored hierarchy index to put the new tile in place of the deleted one.
-                    BoardManager.playerHasChangedATile = true;
                     CurrentLevelManager.greenArrowStock_static--;
+                    BoardManager.playerHasChangedATile = true;
                 }
             }
-            else if (InGameUIManager.isDeleteTileSelected)
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
-                _renderer.material.SetTexture("_MainTex", blankTileTexture);
-            }
-
         }
     }
 
@@ -248,7 +242,7 @@ public class BlankTile : MonoBehaviour
         Vector3 startingPos = transform.position;
 
         _renderer.material.color = transparantColor;
-
+        GameManager.playerCanModifyBoard = false;
         yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
 
         while (elapsedTime < duration)
@@ -261,6 +255,7 @@ public class BlankTile : MonoBehaviour
         }
         _renderer.material.color = opaqueColor;
         transform.position = endPos;
+        GameManager.playerCanModifyBoard = true;
         yield return new WaitForSecondsRealtime(timeToWaitBeforeFirstInitialization);
         FirstInitialization();
     }

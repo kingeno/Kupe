@@ -193,13 +193,6 @@ public class Player_GreenArrow : MonoBehaviour
                 newTile.SetSiblingIndex(hierarchyIndex);                                                                                 //Use the stored hierarchy index to put the new tile in place of the deleted one.
                 BoardManager.playerHasChangedATile = true;
                 CurrentLevelManager.greenArrowStock_static++;
-                Debug.Log("stock is empty = " + CurrentLevelManager.isGreenArrowStockEmpty.ToString());
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                float lerp = Mathf.PingPong(Time.unscaledTime, tileSelectionSquare.blinkingDuration) / tileSelectionSquare.blinkingDuration;
-                tileSelectionSquare.material.color = Color.Lerp(tileSelectionSquare.canDeleteTileColor1, tileSelectionSquare.canDeleteTileColor2, lerp);
-                _renderer.material.SetTexture("_MainTex", deleteGreenArrowTileTexture);
             }
         }
     }
@@ -338,7 +331,7 @@ public class Player_GreenArrow : MonoBehaviour
         Vector3 startingPos = transform.position;
 
         _renderer.material.color = transparantColor;
-
+        GameManager.playerCanModifyBoard = false;
         yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
 
         while (elapsedTime < duration)
@@ -351,6 +344,7 @@ public class Player_GreenArrow : MonoBehaviour
         }
         _renderer.material.color = opaqueColor;
         transform.position = endPos;
+        GameManager.playerCanModifyBoard = true;
         yield return new WaitForSecondsRealtime(timeToWaitBeforeFirstInitialization);
         FirstInitialization();
     }

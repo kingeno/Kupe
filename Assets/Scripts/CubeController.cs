@@ -222,9 +222,9 @@ public class CubeController : MonoBehaviour
 
         if (!belowTile) //if the cube has no tile below it
         {
-            Debug.Log(name + " has no tile below it");
+            //Debug.Log(name + " has no tile below it");
             predictedPos = (currentTurnPos + new Vector3(0, -1, 0));
-            Debug.Log(predictedPos);
+            //Debug.Log(predictedPos);
             if (transform.position.y != 0f)
                 willMove = willMoveDown = true;
         }
@@ -364,6 +364,7 @@ public class CubeController : MonoBehaviour
         }
         else if (belowTile.tag == "Blank Tile" || belowTile.tag == "Cube" || belowTile.tag == "EphemereTile" || belowTile.CompareTag("GreyTile"))
         {
+            
             predictedPos = (currentTurnPos + lastMovement);
             willMove = true;
             if (tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z] && tilesBoard[(int)predictedPos.x, (int)predictedPos.y, (int)predictedPos.z].tag != "EmptyTile")
@@ -562,9 +563,11 @@ public class CubeController : MonoBehaviour
         Vector3 startingPos = objectToMove.transform.position;
         if (startingPos != endPos)
         {
-            if (endPos.y == (startingPos.y -1))
+            if (endPos.y == (startingPos.y - 1))
                 AudioManager.instance.Play("ig cube move falling");
-            else 
+            else if (endPos.y == (startingPos.y + 1))
+                AudioManager.instance.Play("ig cube move mounted");
+            else
                 AudioManager.instance.Play("ig cube move");
             AudioManager.instance.PlayUnique("ig cube move continuously");
         }
@@ -594,6 +597,7 @@ public class CubeController : MonoBehaviour
     {
         float elapsedTime = 0;
         Vector3 startingPos = objectToMove.transform.position;
+        AudioManager.instance.Play("ig cube round trip");
         while (elapsedTime < seconds && GameManager.simulationIsRunning)
         {
             objectToMove.transform.position = Vector3.Lerp(startingPos, halfWayPos, (elapsedTime / seconds));

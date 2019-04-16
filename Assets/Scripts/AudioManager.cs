@@ -27,8 +27,6 @@ public class AudioManager : MonoBehaviour
     [Header("Sound List")]
     public Sound[] sounds;
 
-    private int currentIndex = 0;
-
     [HideInInspector] public bool appearingAnimationIsFinished;
     [HideInInspector] public bool disapearingLevelAnimationIsFinished;
 
@@ -83,7 +81,6 @@ public class AudioManager : MonoBehaviour
         }
 
         Play("menu music");
-        currentIndex = 0;
     }
 
 
@@ -101,8 +98,8 @@ public class AudioManager : MonoBehaviour
         }
         else if (s.randomSounds)
         {
-            int rndIndex = UnityEngine.Random.Range(0, s.multipleClips.Length);
-            s.source.clip = s.clip = s.multipleClips[rndIndex];
+            s.rndIndex = UnityEngine.Random.Range(0, s.multipleClips.Length);
+            s.source.clip = s.clip = s.multipleClips[s.rndIndex];
             if (s.source.clip == null)
             {
                 Debug.LogWarning("A sound must be missing in " + s.name);
@@ -112,17 +109,20 @@ public class AudioManager : MonoBehaviour
         }
         else if (s.followingSounds)
         {
-            s.source.clip = s.clip = s.multipleClips[currentIndex];
+            s.source.clip = s.clip = s.multipleClips[s.currentIndex];
             if (s.source.clip == null)
             {
                 Debug.LogWarning("A sound must be missing in " + s.name);
                 s.source.clip = s.clip = s.multipleClips[0];
             }
-            s.source.Play();
-            if (currentIndex == s.multipleClips.Length - 1)
-                currentIndex = 0;
+            if (s.currentIndex == s.multipleClips.Length - 1)
+            {
+                Debug.Log(s.currentIndex);
+                s.currentIndex = 0;
+            }
             else
-                currentIndex++;
+                s.currentIndex++;
+            s.source.Play();
         }
     }
 
@@ -141,8 +141,8 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            int rndIndex = UnityEngine.Random.Range(0, s.multipleClips.Length);
-            s.source.clip = s.clip = s.multipleClips[rndIndex];
+            s.rndIndex = UnityEngine.Random.Range(0, s.multipleClips.Length);
+            s.source.clip = s.clip = s.multipleClips[s.rndIndex];
             if (s.source.clip == null)
             {
                 Debug.LogWarning("A sound must be missing in " + s.name);

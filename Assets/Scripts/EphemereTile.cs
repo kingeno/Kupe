@@ -129,6 +129,7 @@ public class EphemereTile : MonoBehaviour
         {
             if (unactiveTurns != 0)
             {
+                //AudioManager.instance.Play("ig tile ephemere tile disappear");
                 nextActiveTurn = GameManager.currentTurn + unactiveTurns;
                 //_renderer.material.SetTexture("_MainTex", unactive);
                 gameObject.tag = "EmptyTile";
@@ -192,11 +193,11 @@ public class EphemereTile : MonoBehaviour
 
     IEnumerator FadeOverSeconds(Color fadedColor, float seconds)
     {
+        //AudioManager.instance.Play("ig tile ephemere tile disappear");
         float elapsedTime = 0;
         Color startColor = Color.white;
         fadedColor = startColor;
         fadedColor.a = 0f;
-        //AudioManager.instance.Play("ig tile ephemere tile disappear");
         while (elapsedTime < seconds)
         {
             _renderer.material.color = Color.Lerp(startColor, fadedColor, (elapsedTime / seconds));

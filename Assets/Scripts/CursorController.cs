@@ -15,26 +15,26 @@ public class CursorController : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        Cursor.SetCursor(defaultCursorTexture, hotSpot, cursorMode);
+        //Cursor.SetCursor(defaultCursorTexture, hotSpot, cursorMode);
     }
 
-    private void Update()
-    {
-        if (!GameManager.gameIsPaused)
-        {
-            if (MainCamera.isFreeLookActive)
-                Cursor.SetCursor(cameraCursorTexture, hotSpot, cursorMode);
-            else if (!MainCamera.isFreeLookActive)
-            {
-                if (InGameUIManager.isGreenArrowSelected)
-                    Cursor.SetCursor(greenArrowTileCursorTexture, hotSpot, cursorMode);
-                else if (InGameUIManager.isDeleteTileSelected)
-                    Cursor.SetCursor(deleteTileCursorTexture, hotSpot, cursorMode);
-                else
-                    Cursor.SetCursor(defaultCursorTexture, hotSpot, cursorMode);
-            }
-        }
-        else
-            Cursor.SetCursor(defaultCursorTexture, hotSpot, cursorMode);
-    }
+    //private void Update()
+    //{
+    //    if (!GameManager.gameIsPaused)
+    //    {
+    //        if (MainCamera.isFreeLookActive)
+    //            Cursor.SetCursor(cameraCursorTexture, hotSpot, cursorMode);
+    //        else if (!MainCamera.isFreeLookActive)
+    //        {
+    //            if (InGameUIManager.isGreenArrowSelected)
+    //                Cursor.SetCursor(greenArrowTileCursorTexture, hotSpot, cursorMode);
+    //            else if (InGameUIManager.isDeleteTileSelected)
+    //                Cursor.SetCursor(deleteTileCursorTexture, hotSpot, cursorMode);
+    //            else
+    //                Cursor.SetCursor(defaultCursorTexture, hotSpot, cursorMode);
+    //        }
+    //    }
+    //    else
+    //        Cursor.SetCursor(defaultCursorTexture, hotSpot, cursorMode);
+    //}
 }

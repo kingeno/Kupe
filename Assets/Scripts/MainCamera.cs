@@ -112,7 +112,6 @@ public class MainCamera : MonoBehaviour
         {
             if (!isFreeLookActive)
             {
-                _inGameUIManager.UnselectAllTiles();
                 GameManager.playerCanModifyBoard = false;
                 isFreeLookActive = true;
             }

@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 6519742825528663030}
   - component: {fileID: 6519742825528663025}
   m_Layer: 5
-  m_Name: TMP SubMeshUI [AlegreyaSansSC-Medium SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [VG5000-Regular SDF Material + LiberationSans SDF Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -364,8 +364,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "Tourner une fl\xE8che"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3281a9ef53e194a4c80a8cc47c603bf9, type: 2}
-  m_sharedMaterial: {fileID: 21612270700684812, guid: 3281a9ef53e194a4c80a8cc47c603bf9,
+  m_fontAsset: {fileID: 11400000, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3, type: 2}
+  m_sharedMaterial: {fileID: 21176053024970852, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -391,8 +391,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -600,8 +600,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: ou
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3281a9ef53e194a4c80a8cc47c603bf9, type: 2}
-  m_sharedMaterial: {fileID: 21612270700684812, guid: 3281a9ef53e194a4c80a8cc47c603bf9,
+  m_fontAsset: {fileID: 11400000, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3, type: 2}
+  m_sharedMaterial: {fileID: 21176053024970852, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -627,8 +627,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -762,8 +762,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "Poser une fl\xE8che"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3281a9ef53e194a4c80a8cc47c603bf9, type: 2}
-  m_sharedMaterial: {fileID: 21612270700684812, guid: 3281a9ef53e194a4c80a8cc47c603bf9,
+  m_fontAsset: {fileID: 11400000, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3, type: 2}
+  m_sharedMaterial: {fileID: 21176053024970852, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -789,8 +789,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -807,7 +807,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 10
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -835,7 +835,7 @@ MonoBehaviour:
     spaceCount: 2
     wordCount: 3
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 2
   m_havePropertiesChanged: 0
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 6519742826803998035}
   - component: {fileID: 6519742826803998034}
   m_Layer: 5
-  m_Name: TMP SubMeshUI [AlegreyaSansSC-Medium SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [VG5000-Regular SDF Material + LiberationSans SDF Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1685,8 +1685,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Bouger la vue
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3281a9ef53e194a4c80a8cc47c603bf9, type: 2}
-  m_sharedMaterial: {fileID: 21612270700684812, guid: 3281a9ef53e194a4c80a8cc47c603bf9,
+  m_fontAsset: {fileID: 11400000, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3, type: 2}
+  m_sharedMaterial: {fileID: 21176053024970852, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1712,8 +1712,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1847,8 +1847,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "Supprimer une fl\xE8che"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 3281a9ef53e194a4c80a8cc47c603bf9, type: 2}
-  m_sharedMaterial: {fileID: 21612270700684812, guid: 3281a9ef53e194a4c80a8cc47c603bf9,
+  m_fontAsset: {fileID: 11400000, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3, type: 2}
+  m_sharedMaterial: {fileID: 21176053024970852, guid: 3c3d2d9ad56b6174bae4d60a5696b6f3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1874,8 +1874,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2043,7 +2043,7 @@ GameObject:
   - component: {fileID: 6519742827434941935}
   - component: {fileID: 6519742827434941934}
   m_Layer: 5
-  m_Name: TMP SubMeshUI [AlegreyaSansSC-Medium SDF Material + LiberationSans SDF Atlas]
+  m_Name: TMP SubMeshUI [VG5000-Regular SDF Material + LiberationSans SDF Atlas]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

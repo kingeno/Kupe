@@ -140,7 +140,7 @@ public class EndTile : MonoBehaviour
 
     public void TurnInitializer()
     {
-        Debug.Log(name + " turn initializer");
+        //Debug.Log(name + " turn initializer");
         tilesBoard = BoardManager.updated_3DBoard;
         above_AdjacentTile = TileCheck(above_AdjacentPos);
         if (above_AdjacentTile && above_AdjacentTile.tag == "Cube")

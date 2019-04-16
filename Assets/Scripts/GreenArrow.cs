@@ -191,7 +191,6 @@ public class GreenArrow : MonoBehaviour
     IEnumerator BlinkOverSeconds(Color blinkColor, float seconds, bool isBlinking)
     {
         float elapsedTime = 0;
-        //Color startColor = _renderer.material.GetColor("_Color");
         Color startColor = Color.white;
         AudioManager.instance.Play("ig tile green arrow tile blink");
         while (elapsedTime < seconds)

@@ -45,6 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSceneBuildIndex: 0
   levelIndexToLaod: 0
-  loadingFirstLevelDelay: 0.5
-  loadingNextLevelDelay: 0.5
-  loadingSpecificLevelDelay: 0.5
+  loadingFirstLevelDelay: 0.6
+  loadingNextLevelDelay: 0.8
+  loadingSpecificLevelDelay: 0.6

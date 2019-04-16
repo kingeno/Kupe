@@ -58,6 +58,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -69,6 +71,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -80,6 +84,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -91,6 +97,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -102,6 +110,8 @@ MonoBehaviour:
     volume: 0.45
     followingSounds: 1
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 3
     clip: {fileID: 0}
     multipleClips: []
@@ -113,6 +123,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -124,6 +136,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -135,6 +149,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -146,6 +162,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -157,6 +175,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -168,6 +188,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -179,6 +201,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -190,6 +214,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -201,6 +227,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 1
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 3
     clip: {fileID: 0}
     multipleClips: []
@@ -212,6 +240,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -220,9 +250,11 @@ MonoBehaviour:
     mixerGroup: {fileID: 243224425384645528, guid: 6a04f8e2a73d5804e98e2d298fb213aa,
       type: 2}
     loop: 0
-    volume: 0.6
+    volume: 1
     followingSounds: 1
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 3
     clip: {fileID: 0}
     multipleClips: []
@@ -234,6 +266,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 1
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 3
     clip: {fileID: 0}
     multipleClips: []
@@ -245,6 +279,8 @@ MonoBehaviour:
     volume: 0.52
     followingSounds: 1
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 4
     clip: {fileID: 0}
     multipleClips: []
@@ -256,6 +292,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -267,6 +305,8 @@ MonoBehaviour:
     volume: 0.57
     followingSounds: 1
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 4
     clip: {fileID: 0}
     multipleClips: []
@@ -278,6 +318,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -289,6 +331,8 @@ MonoBehaviour:
     volume: 0.25
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -300,6 +344,8 @@ MonoBehaviour:
     volume: 0.25
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -311,6 +357,8 @@ MonoBehaviour:
     volume: 0.25
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -322,6 +370,8 @@ MonoBehaviour:
     volume: 0.6
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -333,6 +383,8 @@ MonoBehaviour:
     volume: 0.83
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -344,6 +396,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -355,6 +409,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -366,6 +422,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -377,6 +435,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -388,6 +448,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -399,6 +461,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -410,6 +474,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -421,6 +487,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -432,6 +500,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -443,6 +513,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -454,6 +526,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -465,6 +539,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -476,6 +552,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -487,6 +565,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -498,6 +578,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -509,6 +591,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -520,6 +604,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -531,6 +617,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -542,6 +630,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -553,6 +643,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -564,6 +656,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -575,6 +669,8 @@ MonoBehaviour:
     volume: 0.5
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -586,6 +682,8 @@ MonoBehaviour:
     volume: 0.5
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -597,6 +695,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -608,6 +708,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -619,6 +721,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 1
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 5
     clip: {fileID: 0}
     multipleClips: []
@@ -630,6 +734,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -641,6 +747,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -652,6 +760,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -663,6 +773,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -674,6 +786,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -685,6 +799,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -696,6 +812,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -707,6 +825,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -718,6 +838,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -729,6 +851,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -740,6 +864,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -751,6 +877,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -762,6 +890,8 @@ MonoBehaviour:
     volume: 0.7
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -773,6 +903,8 @@ MonoBehaviour:
     volume: 1
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []
@@ -784,6 +916,8 @@ MonoBehaviour:
     volume: 0.87
     followingSounds: 0
     randomSounds: 0
+    currentIndex: 0
+    rndIndex: 0
     clipsNumber: 0
     clip: {fileID: 0}
     multipleClips: []

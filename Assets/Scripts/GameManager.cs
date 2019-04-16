@@ -378,7 +378,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (CubeController cube in cubesControllers)
         {
-            Debug.Log(cube.name + " predicted_NextTurnPos= " + cube.predicted_NextTurnPos);
+            //Debug.Log(cube.name + " predicted_NextTurnPos= " + cube.predicted_NextTurnPos);
 
             if (cube.willMove && cubesControllers.Length > 1) // (1)
             {
@@ -678,7 +678,7 @@ public class GameManager : MonoBehaviour
                 cube.willRoundTrip = false;
                 cube.confirmed_NextTurnPos = cube.predicted_NextTurnPos;
                 // if (i == cubesControllers.Length - 1)
-                Debug.Log(cube.name + " do the predicted movement.");
+                //Debug.Log(cube.name + " do the predicted movement.");
                 continue;
             }
             if (!cube.willMove && !cube.willRoundTrip) // (4)

@@ -173,9 +173,6 @@ public class InGameUIManager : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.DownArrow))
                 SlowDownSimulation();
 
-            if (Input.GetMouseButtonDown(1))
-                UnselectAllTiles();
-
             if (MainCamera.isFreeLookActive)
             {
                 ToggleUIButton(arrowButtonScript, false, greenArrowButtonImage, notInteractableButtonColor);
@@ -202,13 +199,8 @@ public class InGameUIManager : MonoBehaviour
                 else
                     ToggleUIButton(playButtonScript, true, playButtonImage, interactableButtonColor);
 
-                if (!CurrentLevelManager.isGreenArrowStockEmpty)
-                {
-                    ToggleUIButton(arrowButtonScript, true, greenArrowButtonImage, interactableButtonColor);
-                    if (Input.GetKeyDown(KeyCode.F) && !isGreenArrowSelected)
-                        GreenArrowSelection();
-                }
-                else if (CurrentLevelManager.isGreenArrowStockEmpty)
+
+                if (CurrentLevelManager.isGreenArrowStockEmpty)
                 {
                     isGreenArrowSelected = false;
                     greenArrowSelectedOutline.SetActive(false);
@@ -242,7 +234,6 @@ public class InGameUIManager : MonoBehaviour
 
             if (!GameManager.simulationIsRunning && pauseSimulationButton.activeSelf)
             {
-                UnselectAllTiles();
                 playSimulationButton.SetActive(true);
                 pauseSimulationButton.SetActive(false);
             }
@@ -308,16 +299,6 @@ public class InGameUIManager : MonoBehaviour
 
     }
 
-    public void UnselectAllTiles()
-    {
-        isGreenArrowSelected = false;
-        isDeleteTileSelected = false;
-        deleteTileSelectedOutline.SetActive(false);
-        greenArrowSelectedOutline.SetActive(false);
-        nothingIsSelected = true;
-        //greenArrowStockText.SetArrowStockToDisplay();
-    }
-
     public void ToggleUIButton(Button button, bool toggleOn, Image buttonImage, Color imageColor)
     {
         button.interactable = toggleOn;
@@ -328,27 +309,12 @@ public class InGameUIManager : MonoBehaviour
     {
         if (!MainCamera.isFreeLookActive)
         {
-            UnselectAllTiles();
             isDeleteTileSelected = true;
             deleteTileSelectedOutline.SetActive(true);
         }
     }
 
-    public void GreenArrowSelection()
-    {
-        if (!MainCamera.isFreeLookActive)
-        {
-            UnselectAllTiles();
 
-            if (!CurrentLevelManager.isGreenArrowStockEmpty)
-            {
-                isGreenArrowSelected = true;
-                greenArrowSelectedOutline.SetActive(true);
-
-                greenArrowStockText.SetArrowStockToDisplay();
-            }
-        }
-    }
 
     public void SimulationButton()
     {
@@ -356,7 +322,6 @@ public class InGameUIManager : MonoBehaviour
         {
             if (!GameManager.simulationIsRunning)
             {
-                UnselectAllTiles();
                 gameManager.LaunchSimulation();
                 greenArrowButtonImage.color = notInteractableButtonColor;
                 deleteTileButtonImage.color = notInteractableButtonColor;
@@ -412,7 +377,6 @@ public class InGameUIManager : MonoBehaviour
     {
         if (!MainCamera.isFreeLookActive)
         {
-            UnselectAllTiles();
             gameManager.StopSimulation();
             ToggleUIButton(playButtonScript, true, playButtonImage, interactableButtonColor);
 
@@ -428,7 +392,6 @@ public class InGameUIManager : MonoBehaviour
 
     public void ToggleFreeLook()
     {
-        UnselectAllTiles();
         _mainCamera.FreeLook();
     }
 
@@ -443,7 +406,6 @@ public class InGameUIManager : MonoBehaviour
         {
             AudioManager.instance.Play("ig button click menu");
             AudioManager.instance.PauseMenuMusicCutoff();
-            UnselectAllTiles();
             GameManager.gameIsPaused = true;
             GameManager.playerCanModifyBoard = false;
             Time.timeScale = 0f;
@@ -503,8 +465,6 @@ public class InGameUIManager : MonoBehaviour
     {
         if (!MainCamera.isFreeLookActive)
         {
-            UnselectAllTiles();
-            GameManager.simulationHasBeenLaunched = false;
             nextLevelIsLoading = true;
             levelLoader.LoadNextLevel();
         }
