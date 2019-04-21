@@ -103,7 +103,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.25, y: 0.25}
-      m_Offset: {x: -0.375, y: -0.625}
+      m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.25, y: 0.25}
-      m_Offset: {x: -0.625, y: -0.625}
+      m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.25, y: 0.25}
-      m_Offset: {x: -0.375, y: -0.875}
+      m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.25, y: 0.25}
-      m_Offset: {x: -0.625, y: -0.875}
+      m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
+      m_Scale: {x: 0.49, y: 0.49}
       m_Offset: {x: -0.5, y: -0.25}
       m_Rotation: 0
       m_Anchor: 9
@@ -232,26 +232,26 @@ MonoBehaviour:
   - {x: -0.5, y: -0.5, z: 0.5}
   - {x: 0.5, y: -0.5, z: 0.5}
   m_Textures0:
-  - {x: 0.5, y: 0.5}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.5, y: 0.75}
-  - {x: 0.25, y: 0.75}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.5, y: 0.5}
-  - {x: 0.75, y: 0.75}
-  - {x: 0.5, y: 0.75}
-  - {x: 0.5, y: 0.75}
-  - {x: 0.25, y: 0.75}
-  - {x: 0.5, y: 1}
-  - {x: 0.25, y: 1}
-  - {x: 0.75, y: 0.75}
-  - {x: 0.5, y: 0.75}
-  - {x: 0.75, y: 1}
-  - {x: 0.5, y: 1}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0}
-  - {x: 0.75, y: 0}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.255, y: 0.495}
+  - {x: 0.745, y: 0.495}
+  - {x: 0.255, y: 0.004999995}
+  - {x: 0.745, y: 0.004999995}
   - {x: 0.625, y: 0.625}
   - {x: 0.375, y: 0.625}
   - {x: 0.625, y: 0.875}
@@ -316,9 +316,17 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 04000000
+  m_SelectedEdges:
+  - a: 16
+    b: 17
+  - a: 18
+    b: 16
+  - a: 17
+    b: 19
+  - a: 19
+    b: 18
+  m_SelectedVertices: 10000000110000001200000013000000
 --- !u!64 &64586423009347788
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -345,16 +353,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbd276cc940cf84dab41fc12ef1fd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tagWhenActive: 
   canBeActivatedAgain: 0
   goBackDownAfterUse: 0
   unactiveTurns: 11
-  initialPos: {x: 0, y: 0, z: 0}
-  above_AdjacentPos: {x: 0, y: 0, z: 0}
-  above_AdjacentTile: {fileID: 0}
-  tagWhenActive: 
   active_lift: {fileID: 2800000, guid: 53e268173281a7a43b3506056a7a2945, type: 3}
   unactive_lift: {fileID: 2800000, guid: 59f7a00a29974344c801c0cefbcc7e91, type: 3}
   liftTileDeleteImpossible: {fileID: 2800000, guid: 9c28e83a2bf246c4f8dd7e2fd559c1e0,
     type: 3}
-  unactiveTimeColorSwap: 0
-  reactiveTimeColorSwap: 0

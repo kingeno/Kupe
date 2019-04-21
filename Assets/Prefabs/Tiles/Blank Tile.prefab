@@ -103,7 +103,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.2, y: 0.2}
-      m_Offset: {x: -0.375, y: -0.625}
+      m_Offset: {x: -0.38719526, y: -0.62500006}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.2, y: 0.2}
-      m_Offset: {x: -0.375, y: -0.875}
+      m_Offset: {x: -0.3851627, y: -0.87296754}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.2, y: 0.2}
-      m_Offset: {x: -0.625, y: -0.875}
+      m_Offset: {x: -0.6209349, y: -0.87296754}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.12, y: 0.12}
-      m_Offset: {x: -0.6748765, y: -0.57270736}
+      m_Offset: {x: -0.67284405, y: -0.57677245}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
+      m_Scale: {x: 0.49, y: 0.49}
       m_Offset: {x: -0.5, y: -0.25}
       m_Rotation: 0
       m_Anchor: 9
@@ -188,7 +188,7 @@ MonoBehaviour:
       m_SwapUV: 0
       m_Fill: 1
       m_Scale: {x: 0.1, y: 0.1}
-      m_Offset: {x: -0.5729748, y: -0.6956742}
+      m_Offset: {x: -0.5750074, y: -0.6997393}
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
@@ -232,30 +232,30 @@ MonoBehaviour:
   - {x: -0.5, y: -0.5, z: 0.5}
   - {x: 0.5, y: -0.5, z: 0.5}
   m_Textures0:
-  - {x: 0.475, y: 0.525}
-  - {x: 0.275, y: 0.525}
-  - {x: 0.475, y: 0.725}
-  - {x: 0.275, y: 0.725}
-  - {x: 0.475, y: 0.775}
-  - {x: 0.275, y: 0.775}
-  - {x: 0.475, y: 0.975}
-  - {x: 0.275, y: 0.975}
-  - {x: 0.725, y: 0.775}
-  - {x: 0.525, y: 0.775}
-  - {x: 0.725, y: 0.975}
-  - {x: 0.525, y: 0.975}
-  - {x: 0.7348765, y: 0.51270735}
-  - {x: 0.6148765, y: 0.51270735}
-  - {x: 0.7348765, y: 0.63270736}
-  - {x: 0.6148765, y: 0.63270736}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0}
-  - {x: 0.75, y: 0}
-  - {x: 0.6229748, y: 0.64567417}
-  - {x: 0.5229748, y: 0.64567417}
-  - {x: 0.6229748, y: 0.7456742}
-  - {x: 0.5229748, y: 0.7456742}
+  - {x: 0.48719525, y: 0.52500004}
+  - {x: 0.28719527, y: 0.52500004}
+  - {x: 0.48719525, y: 0.7250001}
+  - {x: 0.28719527, y: 0.7250001}
+  - {x: 0.4851627, y: 0.7729675}
+  - {x: 0.28516272, y: 0.7729675}
+  - {x: 0.4851627, y: 0.97296757}
+  - {x: 0.28516272, y: 0.97296757}
+  - {x: 0.7209349, y: 0.7729675}
+  - {x: 0.5209349, y: 0.7729675}
+  - {x: 0.7209349, y: 0.97296757}
+  - {x: 0.5209349, y: 0.97296757}
+  - {x: 0.73284405, y: 0.51677245}
+  - {x: 0.61284405, y: 0.51677245}
+  - {x: 0.73284405, y: 0.63677245}
+  - {x: 0.61284405, y: 0.63677245}
+  - {x: 0.255, y: 0.495}
+  - {x: 0.745, y: 0.495}
+  - {x: 0.255, y: 0.004999995}
+  - {x: 0.745, y: 0.004999995}
+  - {x: 0.6250074, y: 0.64973927}
+  - {x: 0.52500737, y: 0.64973927}
+  - {x: 0.6250074, y: 0.7497393}
+  - {x: 0.52500737, y: 0.7497393}
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
@@ -316,9 +316,17 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 00000000
+  m_SelectedEdges:
+  - a: 0
+    b: 1
+  - a: 2
+    b: 0
+  - a: 1
+    b: 3
+  - a: 3
+    b: 2
+  m_SelectedVertices: 00000000010000000200000003000000
 --- !u!64 &64154650884242976
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -345,21 +353,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8845ed427f183b49b73a81ef9aa7b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationDuration: 0.15
+  fromDeletedStartingOffset: -0.5
+  fromDeletedDuration: 0.15
+  blankTileTexture: {fileID: 2800000, guid: a9e731e5579b01f439e43ba467547294, type: 3}
+  greenArrowSelectedTexture: {fileID: 2800000, guid: 328617551cdfa1d4b8be249893ba802c,
+    type: 3}
   greenArrowPrefab: {fileID: 4289432301492070, guid: 9722108dcb8710448a6246b1f23d051b,
     type: 3}
   mouseOverTilePrefab: {fileID: 4102171477910090, guid: 658e0d35ab41c9746a58801e22ff6061,
     type: 3}
-  blankTileTexture: {fileID: 2800000, guid: a9e731e5579b01f439e43ba467547294, type: 3}
-  greenArrowSelectedTexture: {fileID: 2800000, guid: 328617551cdfa1d4b8be249893ba802c,
-    type: 3}
-  rotationDuration: 0.15
-  startingOffset: 3
-  duration: 0.5
-  minDelay: 0.1
-  maxDelay: 0.5
-  dEndingOffset: -3
-  dDuration: 0.5
-  dMinDelay: 0
-  dMaxDelay: 0.5
-  fromDeletedStartingOffset: -0.5
-  fromDeletedDuration: 0.15

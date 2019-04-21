@@ -103,7 +103,7 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
+      m_Scale: {x: 0.25, y: 0.25}
       m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
@@ -120,7 +120,7 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
+      m_Scale: {x: 0.25, y: 0.25}
       m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
@@ -137,8 +137,8 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
-      m_Offset: {x: -0.25, y: -0.5}
+      m_Scale: {x: 0.25, y: 0.25}
+      m_Offset: {x: -0.375, y: -0.625}
       m_Rotation: 0
       m_Anchor: 6
     m_Material: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
+      m_Scale: {x: 0.25, y: 0.25}
       m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
@@ -171,7 +171,7 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
+      m_Scale: {x: 0.49, y: 0.49}
       m_Offset: {x: -0.5, y: -0.25}
       m_Rotation: 0
       m_Anchor: 9
@@ -188,7 +188,7 @@ MonoBehaviour:
       m_FlipV: 0
       m_SwapUV: 0
       m_Fill: 1
-      m_Scale: {x: 0.5, y: 0.5}
+      m_Scale: {x: 0.25, y: 0.25}
       m_Offset: {x: -0.5, y: -0.75}
       m_Rotation: 0
       m_Anchor: 9
@@ -261,30 +261,30 @@ MonoBehaviour:
   - {x: -0.5, y: -0.5, z: 0.5}
   - {x: 0.5, y: -0.5, z: 0.5}
   m_Textures0:
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 1}
-  - {x: 0.25, y: 1}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 1}
-  - {x: 0.25, y: 1}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 1}
-  - {x: 0.25, y: 1}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 1}
-  - {x: 0.25, y: 1}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0}
-  - {x: 0.75, y: 0}
-  - {x: 0.75, y: 0.5}
-  - {x: 0.25, y: 0.5}
-  - {x: 0.75, y: 1}
-  - {x: 0.25, y: 1}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
+  - {x: 0.255, y: 0.495}
+  - {x: 0.745, y: 0.495}
+  - {x: 0.255, y: 0.004999995}
+  - {x: 0.745, y: 0.004999995}
+  - {x: 0.625, y: 0.625}
+  - {x: 0.375, y: 0.625}
+  - {x: 0.625, y: 0.875}
+  - {x: 0.375, y: 0.875}
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
@@ -345,17 +345,9 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 04000000
-  m_SelectedEdges:
-  - a: 16
-    b: 17
-  - a: 18
-    b: 16
-  - a: 17
-    b: 19
-  - a: 19
-    b: 18
-  m_SelectedVertices: 10000000110000001200000013000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!64 &64327970798610238
 MeshCollider:
   m_ObjectHideFlags: 0
