@@ -96,7 +96,7 @@ public class InGameUIManager : MonoBehaviour
     public static bool isGreenArrowSelected;
     public static bool nothingIsSelected;
 
-    public static bool changeSpeedSimulation;
+    public static bool changeSimulationSpeed;
 
     [Header("Scene Fade")]
     public GameObject imageToFade;
@@ -132,7 +132,7 @@ public class InGameUIManager : MonoBehaviour
         nothingIsSelected = true;
         isDeleteTileSelected = false;
         isGreenArrowSelected = false;
-        changeSpeedSimulation = false;
+        changeSimulationSpeed = false;
 
         levelCompletedText_fadeIsDone = false;
 
@@ -168,11 +168,6 @@ public class InGameUIManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
                 PauseMenu();
 
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-                SpeedUpSimulation();
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-                SlowDownSimulation();
-
             if (MainCamera.isFreeLookActive)
             {
                 ToggleUIButton(arrowButtonScript, false, greenArrowButtonImage, notInteractableButtonColor);
@@ -206,7 +201,10 @@ public class InGameUIManager : MonoBehaviour
                     greenArrowSelectedOutline.SetActive(false);
                     ToggleUIButton(arrowButtonScript, false, greenArrowButtonImage, notInteractableButtonColor);
                 }
-
+                else
+                {
+                    ToggleUIButton(arrowButtonScript, false, greenArrowButtonImage, interactableButtonColor);
+                }
 
                 if (!CurrentLevelManager.greenArrowStockIsFull)
                 {
@@ -339,38 +337,21 @@ public class InGameUIManager : MonoBehaviour
         }
     }
 
-    public void SpeedUpSimulation()
+    public void SetSimulationSpeed(float simulationSpeed)
     {
-        AudioManager.instance.Play("ig simulation speed up");
-        if (GameManager.simulationSpeed == 1f)
-        {
-            changeSpeedSimulation = true;
-            GameManager.simulationSpeed = 2f;
-            gameManager.turnTime = 0.47f;
-        }
-        else if (GameManager.simulationSpeed == 2f)
-        {
-            changeSpeedSimulation = true;
-            GameManager.simulationSpeed = 3f;
-            gameManager.turnTime = 0.44f;
-        }
-    }
+        if (GameManager.simulationSpeed < simulationSpeed)
+            AudioManager.instance.Play("ig simulation speed up");
+        else if (GameManager.simulationSpeed > simulationSpeed)
+            AudioManager.instance.Play("ig simulation slow down");
 
-    public void SlowDownSimulation()
-    {
-        AudioManager.instance.Play("ig simulation slow down");
-        if (GameManager.simulationSpeed == 2f)
-        {
-            changeSpeedSimulation = true;
-            GameManager.simulationSpeed = 1f;
+        changeSimulationSpeed = true;
+        GameManager.simulationSpeed = simulationSpeed;
+        if (simulationSpeed == 1)
             gameManager.turnTime = 0.5f;
-        }
-        else if (GameManager.simulationSpeed == 3f)
-        {
-            changeSpeedSimulation = true;
-            GameManager.simulationSpeed = 2f;
+        else if (simulationSpeed == 2)
             gameManager.turnTime = 0.47f;
-        }
+        if (simulationSpeed == 3)
+            gameManager.turnTime = 0.44f;
     }
 
     public void StopSimulation()

@@ -156,10 +156,10 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale != simulationSpeed && SceneManager.GetActiveScene().buildIndex != 0 && !gameIsPaused)
             Time.timeScale = simulationSpeed;
 
-        if (InGameUIManager.changeSpeedSimulation && !gameIsPaused)
+        if (InGameUIManager.changeSimulationSpeed && !gameIsPaused)
         {
             Time.timeScale = simulationSpeed;
-            InGameUIManager.changeSpeedSimulation = false;
+            InGameUIManager.changeSimulationSpeed = false;
         }
 
         if (!_mainCamera)

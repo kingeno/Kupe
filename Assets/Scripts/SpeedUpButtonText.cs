@@ -14,7 +14,7 @@ public class SpeedUpButtonText : MonoBehaviour {
     public GameManager gameManager;
     public TextMeshProUGUI textmeshPro;
     public int multiplier; // this has to be set in the inspector as 1, 2 or 3 depending on the text it is attached to.
-                            // 1 is for "x1" text, 2 is for "x2 text", etc.
+                           // 1 is for "x1" text, 2 is for "x2 text", etc.
 
     private void Awake()
     {
@@ -31,13 +31,13 @@ public class SpeedUpButtonText : MonoBehaviour {
         {
             if (GameManager.simulationSpeed == multiplier)
             {
-                textmeshPro.fontSize = 18;
+                textmeshPro.fontSize = 13;
                 textmeshPro.color = highlightedColor;
                 textmeshPro.fontStyle = highlightedStyle;
             }
             else
             {
-                textmeshPro.fontSize = 12;
+                textmeshPro.fontSize = 10;
                 textmeshPro.color = defaultColor;
                 textmeshPro.fontStyle = defaultStyle;
             }
