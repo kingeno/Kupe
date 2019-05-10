@@ -63,9 +63,8 @@ MonoBehaviour:
   timeToWaitBeforeFirstInitialization: 0.9
   startingOffset: 3
   duration: 0.4
-  minDelay: 0.1
-  maxDelay: 0.4
+  appearingWaveDuration: 0.12
   dEndingOffset: -3.5
   dDuration: 0.4
-  dMinDelay: 0
-  dMaxDelay: 0.4
+  disappearingWaveDuration: 0.1
+  timeBetweenWaves: 0.15

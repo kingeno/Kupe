@@ -37,6 +37,11 @@ public class LiftTile : MonoBehaviour
     public Texture unactive_lift;
     public Texture liftTileDeleteImpossible;
 
+    private float initialVerticalPos;
+    private float lastVerticalPos;
+    private float appearingDelay_RelativeToPos;
+    private float disappearingDelay_RelativeToPos;
+
     void Start()
     {
         if (!tileSelectionSquare)
@@ -48,14 +53,18 @@ public class LiftTile : MonoBehaviour
         _renderer.material.SetTexture("_MainTex", active_lift);
         gameObject.tag = tagWhenActive = "LiftTile";
 
-        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+        initialVerticalPos = transform.position.y;
+        appearingDelay_RelativeToPos = 0.1f + (initialVerticalPos * GameManager._timeBetweenWaves);
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, appearingDelay_RelativeToPos, appearingDelay_RelativeToPos + GameManager._appearingWaveDuration, GameManager._timeToWaitBeforeFirstInitialization));
     }
 
     private void Update()
     {
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            lastVerticalPos = transform.position.y;
+            disappearingDelay_RelativeToPos = lastVerticalPos * GameManager._timeBetweenWaves;
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, disappearingDelay_RelativeToPos, disappearingDelay_RelativeToPos + GameManager._disappearingWaveDuration));
             disappearingAnimation_isFinished = true;
         }
     }
@@ -78,26 +87,20 @@ public class LiftTile : MonoBehaviour
     {
         if (!GameManager.gameIsPaused && tileSelectionSquare.canBeMoved && !MainCamera.isFreeLookActive && GameManager.playerCanModifyBoard)
         {
-            if(tileSelectionSquare.transform.rotation != transform.rotation)
+            if (tileSelectionSquare.transform.rotation != transform.rotation)
                 tileSelectionSquare.transform.rotation = transform.rotation;
             if (tileSelectionSquare.transform.position != transform.position)
                 tileSelectionSquare.transform.position = transform.position;
 
-            if (InGameUIManager.isDeleteTileSelected)
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
-                _renderer.material.SetTexture("_MainTex", liftTileDeleteImpossible);
-                if (Input.GetMouseButtonDown(0))
-                    AudioManager.instance.Play("ig tile delete impossible");
-            }
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                AudioManager.instance.Play("ig tile grey hovering");
+
+            tileSelectionSquare.material.color = tileSelectionSquare.onGreyTileColor;
+
+            if (isActive)
+                _renderer.material.SetTexture("_MainTex", active_lift);
             else
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
-                if (isActive)
-                    _renderer.material.SetTexture("_MainTex", active_lift);
-                else
-                    _renderer.material.SetTexture("_MainTex", unactive_lift);
-            }
+                _renderer.material.SetTexture("_MainTex", unactive_lift);
         }
     }
 

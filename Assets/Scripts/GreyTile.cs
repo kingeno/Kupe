@@ -21,6 +21,11 @@ public class GreyTile : MonoBehaviour
     [Header("Textures")]
     public Texture greyTileTexture;
 
+    private float initialVerticalPos;
+    private float lastVerticalPos;
+    private float appearingDelay_RelativeToPos;
+    private float disappearingDelay_RelativeToPos;
+
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -30,7 +35,9 @@ public class GreyTile : MonoBehaviour
 
         boardManager = GameObject.FindGameObjectWithTag("Board Manager");
 
-        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+        initialVerticalPos = transform.position.y;
+        appearingDelay_RelativeToPos = 0.1f + (initialVerticalPos * GameManager._timeBetweenWaves);
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, appearingDelay_RelativeToPos, appearingDelay_RelativeToPos + GameManager._appearingWaveDuration, GameManager._timeToWaitBeforeFirstInitialization));
     }
 
     private void Update()
@@ -42,7 +49,9 @@ public class GreyTile : MonoBehaviour
 
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            lastVerticalPos = transform.position.y;
+            disappearingDelay_RelativeToPos = lastVerticalPos * GameManager._timeBetweenWaves;
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, disappearingDelay_RelativeToPos, disappearingDelay_RelativeToPos + GameManager._disappearingWaveDuration));
             disappearingAnimation_isFinished = true;
         }
     }
@@ -56,6 +65,7 @@ public class GreyTile : MonoBehaviour
                 AudioManager.instance.Play("ig tile hovering");
                 tileSelectionSquare.transform.position = transform.position;
                 tileSelectionSquare.transform.rotation = transform.rotation;
+                tileSelectionSquare.material.color = tileSelectionSquare.onGreyTileColor;
             }
         }
     }
@@ -72,11 +82,6 @@ public class GreyTile : MonoBehaviour
             if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
                 AudioManager.instance.Play("ig tile grey hovering");
 
-            if (!InGameUIManager.isGreenArrowSelected && !InGameUIManager.isDeleteTileSelected)
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
-                //AudioManager.instance.Play("ig tile delete impossible");
-            }
         }
     }
 

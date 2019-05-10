@@ -56,37 +56,40 @@ public class GameManager : MonoBehaviour
     [Header("Appearing animation")]
     [SerializeField] private float startingOffset;
     [SerializeField] private float duration;
-    [SerializeField] private float minDelay;
-    [SerializeField] private float maxDelay;
+    [SerializeField] private float appearingWaveDuration;
 
     [Header("Disappearing animation")]
     [SerializeField] private float dEndingOffset;
     [SerializeField] private float dDuration;
-    [SerializeField] private float dMinDelay;
-    [SerializeField] private float dMaxDelay;
+    [SerializeField] private float disappearingWaveDuration;
+    [Space]
+    [SerializeField] private float timeBetweenWaves;
+
+    public static float _timeBetweenWaves;
 
     public static float _timeToWaitBeforeFirstInitialization;
 
     public static float _startingOffset;
     public static float _duration;
-    public static float _minDelay;
-    public static float _maxDelay;
 
     public static float _dEndingOffset;
     public static float _dDuration;
-    public static float _dMinDelay;
-    public static float _dMaxDelay;
+
+    public static float _appearingWaveDuration;
+    public static float _disappearingWaveDuration;
 
     private void Awake()
     {
+        _timeBetweenWaves = timeBetweenWaves;
+
         _startingOffset = startingOffset;
+        _appearingWaveDuration = appearingWaveDuration;
         _duration = duration;
-        _minDelay = minDelay;
-        _maxDelay = maxDelay;
+
         _dEndingOffset = dEndingOffset;
+        _disappearingWaveDuration = disappearingWaveDuration;
         _dDuration = dDuration;
-        _dMinDelay = dMinDelay;
-        _dMaxDelay = dMaxDelay;
+
         _timeToWaitBeforeFirstInitialization = timeToWaitBeforeFirstInitialization;
     }
 
@@ -322,11 +325,6 @@ public class GameManager : MonoBehaviour
             if (cube.willNotMoveAnymore)
             {
                 cube.willMove = false;
-                cube.cubeAnimator.SetBool("will move", false);
-                cube.cubeAnimator.SetBool("move forward", false);
-                cube.cubeAnimator.SetBool("move back", false);
-                cube.cubeAnimator.SetBool("move right", false);
-                cube.cubeAnimator.SetBool("move left", false);
                 if (cube.yPos != 0f && cube.TileCheck(cube.below_AdjacentPos).gameObject.tag != "End Tile")
                 {
                     cube.TriggerStuckParticleStytem();

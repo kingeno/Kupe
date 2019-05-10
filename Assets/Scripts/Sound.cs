@@ -18,8 +18,8 @@ public class Sound
     public bool followingSounds;
     public bool randomSounds;
 
-    public int currentIndex;
-    public int rndIndex;
+    [HideInInspector]public int currentIndex;
+    [HideInInspector]public int rndIndex;
 
     public int clipsNumber;
     [HideInInspector] public AudioClip clip;

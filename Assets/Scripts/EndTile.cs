@@ -35,6 +35,12 @@ public class EndTile : MonoBehaviour
     public Texture active;
     public Texture impossibleToDelete;
 
+    private float initialVerticalPos;
+    private float lastVerticalPos;
+    private float appearingDelay_RelativeToPos;
+    private float disappearingDelay_RelativeToPos;
+
+
     void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -51,14 +57,19 @@ public class EndTile : MonoBehaviour
         repeatTime = particleSystem.emission.GetBurst(0).repeatInterval;
         repeatCount = 0;
 
-        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+        initialVerticalPos = transform.position.y;
+        appearingDelay_RelativeToPos = 0.1f + (initialVerticalPos * GameManager._timeBetweenWaves);
+
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, appearingDelay_RelativeToPos, appearingDelay_RelativeToPos + GameManager._appearingWaveDuration, GameManager._timeToWaitBeforeFirstInitialization));
     }
 
     private void Update()
     {
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            lastVerticalPos = transform.position.y;
+            disappearingDelay_RelativeToPos = lastVerticalPos * GameManager._timeBetweenWaves;
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, disappearingDelay_RelativeToPos, disappearingDelay_RelativeToPos + GameManager._disappearingWaveDuration));
             disappearingAnimation_isFinished = true;
         }
 
@@ -106,18 +117,12 @@ public class EndTile : MonoBehaviour
             if (tileSelectionSquare.transform.position != transform.position)
                 tileSelectionSquare.transform.position = transform.position;
 
-            if (InGameUIManager.isDeleteTileSelected)
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
-                _renderer.material.SetTexture("_MainTex", impossibleToDelete);
-                if (Input.GetMouseButtonDown(0))
-                    AudioManager.instance.Play("ig tile delete impossible");
-            }
-            else
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
-                _renderer.material.SetTexture("_MainTex", active);
-            }
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                AudioManager.instance.Play("ig tile grey hovering");
+
+            tileSelectionSquare.material.color = tileSelectionSquare.onGreyTileColor;
+
+            _renderer.material.SetTexture("_MainTex", active);
         }
     }
 

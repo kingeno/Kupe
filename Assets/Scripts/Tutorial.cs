@@ -30,7 +30,7 @@ public class Tutorial : MonoBehaviour
 
     void Update()
     {
-        if (levelLoader.currentSceneBuildIndex == 1 && !tuto1_isComplete)
+        if (levelLoader.currentSceneBuildIndex == 17 && !tuto1_isComplete)
         {
             if (GameManager.currentSceneTime > 1.5f && lvl1TutoCanvasGroup.alpha == 0f) //when the player starts lvl 1
             {

@@ -45,10 +45,7 @@ public class CubeController : MonoBehaviour
 
     [HideInInspector] public bool[] movementBoolArray;
 
-    [Header("Cube Avatar")]
-    public bool playRollAnimation;
     public GameObject cubeAvatar;
-    public Animator cubeAnimator;
 
     private Color opaqueColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
     private Color semiTransparentColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
@@ -57,15 +54,17 @@ public class CubeController : MonoBehaviour
     private bool appearingAnimation_isFinished = false;
     private bool disappearingAnimation_isFinished = false;
 
+    private float initialVerticalPos;
+    private float lastVerticalPos;
+    private float appearingDelay_RelativeToPos;
+    private float disappearingDelay_RelativeToPos;
+
     private void Start()
     {
         if (!_renderer)
         {
             _renderer = cubeAvatar.GetComponent<MeshRenderer>();
         }
-
-        if (!cubeAnimator)
-            cubeAnimator = cubeAvatar.GetComponent<Animator>();
 
         willNotMoveAnymore = false;
         startPos = transform.position;
@@ -75,7 +74,10 @@ public class CubeController : MonoBehaviour
             willMoveForward, willMoveBack, willMoveRight, willMoveLeft, willMoveUp, willMoveDown,
             willRoundTripForward, willRoundTripBack, willRoundTripRight, willRoundTripLeft, willRoundTripUp, willRoundTripDown };
 
-        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+        initialVerticalPos = transform.position.y;
+        appearingDelay_RelativeToPos = 0.1f + (initialVerticalPos * GameManager._timeBetweenWaves);
+
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, appearingDelay_RelativeToPos, appearingDelay_RelativeToPos + GameManager._appearingWaveDuration, GameManager._timeToWaitBeforeFirstInitialization));
     }
 
     private void Update()
@@ -95,7 +97,9 @@ public class CubeController : MonoBehaviour
 
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            lastVerticalPos = transform.position.y;
+            disappearingDelay_RelativeToPos = lastVerticalPos * GameManager._timeBetweenWaves;
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, disappearingDelay_RelativeToPos, disappearingDelay_RelativeToPos + GameManager._disappearingWaveDuration));
             disappearingAnimation_isFinished = true;
         }
     }
@@ -160,12 +164,6 @@ public class CubeController : MonoBehaviour
             willRoundTripUp =
             willRoundTripDown = false;
         }
-
-        cubeAnimator.SetBool("will move", false);
-        cubeAnimator.SetBool("move forward", false);
-        cubeAnimator.SetBool("move back", false);
-        cubeAnimator.SetBool("move right", false);
-        cubeAnimator.SetBool("move left", false);
 
         above_AdjacentPos = (currentTurnPos + new Vector3(0, 1, 0));
         below_AdjacentPos = (currentTurnPos + new Vector3(0, -1, 0));
@@ -456,38 +454,10 @@ public class CubeController : MonoBehaviour
     {
         if (!willMove && !willRoundTrip)
         {
-            // no animation needed -> maybe some effects or a blink of the cube
             transform.position = currentTurnPos;
-            cubeAnimator.SetBool("will move", false);
-            cubeAnimator.SetBool("move forward", false);
-            cubeAnimator.SetBool("move back", false);
-            cubeAnimator.SetBool("move right", false);
-            cubeAnimator.SetBool("move left", false);
         }
         else if (willMove)
         {
-            //Debug.Log(name + " will move coroutine");
-            if (willMoveDown || willMoveUp)
-            {
-                cubeAnimator.SetBool("will move", false);
-                cubeAnimator.SetBool("move forward", false);
-                cubeAnimator.SetBool("move back", false);
-                cubeAnimator.SetBool("move right", false);
-                cubeAnimator.SetBool("move left", false);
-            }
-            else if (playRollAnimation)
-            {
-                cubeAnimator.SetBool("will move", true);
-                if (willMoveForward)
-                    cubeAnimator.SetBool("move forward", true);
-                else if (willMoveBack)
-                    cubeAnimator.SetBool("move back", true);
-                else if (willMoveRight)
-                    cubeAnimator.SetBool("move right", true);
-                else if (willMoveLeft)
-                    cubeAnimator.SetBool("move left", true);
-            }
-
             StartCoroutine(MoveOverSeconds(this.gameObject, confirmed_NextTurnPos, 0.2f));
         }
         else if (willRoundTrip)
@@ -525,17 +495,8 @@ public class CubeController : MonoBehaviour
         if (!stuckParticleSystem.activeSelf)
         {
             AudioManager.instance.Play("ig cube stuck");
-            cubeAnimator.SetBool("will move", false);
-            cubeAnimator.SetBool("move forward", false);
-            cubeAnimator.SetBool("move back", false);
-            cubeAnimator.SetBool("move right", false);
-            cubeAnimator.SetBool("move left", false);
             stuckParticleSystem.SetActive(true);
         }
-        //else if (stuckParticleSystem.activeSelf)
-        //{
-        //    stuckParticleSystem.SetActive(false);
-        //}
     }
 
     public void TriggerIsOnEndTileParticleStytem()
@@ -544,17 +505,8 @@ public class CubeController : MonoBehaviour
         {
             AudioManager.instance.Stop("ig cube move continuously");
             AudioManager.instance.Play("ig tile end tile validated");
-            cubeAnimator.SetBool("will move", false);
-            cubeAnimator.SetBool("move forward", false);
-            cubeAnimator.SetBool("move back", false);
-            cubeAnimator.SetBool("move right", false);
-            cubeAnimator.SetBool("move left", false);
             isOnEndTileParticleSystem.SetActive(true);
         }
-        //else if (isOnEndTileParticleSystem.activeSelf)
-        //{
-        //    isOnEndTileParticleSystem.SetActive(false);
-        //}
     }
 
     IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 endPos, float seconds)     // original code : https://answers.unity.com/questions/296347/move-transform-to-target-in-x-seconds.html
@@ -579,14 +531,12 @@ public class CubeController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
             {
-                cubeAnimator.SetBool("will move", false);
                 objectToMove.transform.position = endPos;
             }
             yield return null;
         }
         if (GameManager.simulationIsRunning)
         {
-            cubeAnimator.SetBool("will move", false);
             objectToMove.transform.position = endPos;
         }
         else
@@ -604,7 +554,6 @@ public class CubeController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
             {
-                cubeAnimator.SetBool("will move", false);
                 break;
             }
             yield return null;
@@ -617,7 +566,6 @@ public class CubeController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             if (!GameManager.simulationIsRunning)
             {
-                cubeAnimator.SetBool("will move", false);
                 transform.position = startingPos;
                 break;
             }
@@ -625,7 +573,6 @@ public class CubeController : MonoBehaviour
         }
         if (GameManager.simulationIsRunning)
         {
-            cubeAnimator.SetBool("will move", false);
             objectToMove.transform.position = startingPos;
         }
         else

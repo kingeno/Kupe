@@ -52,8 +52,10 @@ public class Player_GreenArrow : MonoBehaviour
     [Space]
     public Transform blankTilePrefab;
 
-
     private bool disappearingAnimation_isFinished;
+
+    private float lastVerticalPos;
+    private float disappearingDelay_RelativeToPos;
 
     void Start()
     {
@@ -97,7 +99,9 @@ public class Player_GreenArrow : MonoBehaviour
     {
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            lastVerticalPos = transform.position.y;
+            disappearingDelay_RelativeToPos = lastVerticalPos * GameManager._timeBetweenWaves;
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, disappearingDelay_RelativeToPos, disappearingDelay_RelativeToPos + GameManager._disappearingWaveDuration));
             disappearingAnimation_isFinished = true;
         }
     }

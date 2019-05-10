@@ -39,6 +39,11 @@ public class BlankTile : MonoBehaviour
     public Transform greenArrowPrefab;
     public Transform mouseOverTilePrefab;
 
+    private float initialVerticalPos;
+    private float lastVerticalPos;
+    private float appearingDelay_RelativeToPos;
+    private float disappearingDelay_RelativeToPos;
+
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
@@ -54,8 +59,11 @@ public class BlankTile : MonoBehaviour
         leftArrow = Quaternion.Euler(0, 270, 0);
         rightArrow = Quaternion.Euler(0, 90, 0);
 
+        initialVerticalPos = transform.position.y;
+        appearingDelay_RelativeToPos = 0.1f + (initialVerticalPos * GameManager._timeBetweenWaves);
+
         if (GameManager.currentSceneTime < 1f)
-            StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+            StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, appearingDelay_RelativeToPos, appearingDelay_RelativeToPos + GameManager._appearingWaveDuration, GameManager._timeToWaitBeforeFirstInitialization));
         else
             StartCoroutine(AppearingAnimation(fromDeletedStartingOffset, fromDeletedDuration, 0f, 0f, 0f));
     }
@@ -69,7 +77,9 @@ public class BlankTile : MonoBehaviour
 
         if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
         {
-            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
+            lastVerticalPos = transform.position.y;
+            disappearingDelay_RelativeToPos = lastVerticalPos * GameManager._timeBetweenWaves;
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, disappearingDelay_RelativeToPos, disappearingDelay_RelativeToPos + GameManager._disappearingWaveDuration));
             disappearingAnimation_isFinished = true;
         }
     }
@@ -169,6 +179,13 @@ public class BlankTile : MonoBehaviour
                     CurrentLevelManager.greenArrowStock_static--;
                     BoardManager.playerHasChangedATile = true;
                 }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                    AudioManager.instance.Play("ig tile grey hovering");
+
+                tileSelectionSquare.material.color = tileSelectionSquare.onGreyTileColor;
             }
         }
     }

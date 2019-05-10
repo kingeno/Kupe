@@ -30,8 +30,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322792729766440}
-  m_LocalRotation: {x: 0.48476964, y: -0.3246472, z: 0.19993132, w: 0.7871658}
-  m_LocalPosition: {x: 6.9346366, y: 15, z: -2.9648128}
+  m_LocalRotation: {x: 0.48368388, y: -0.32888862, z: 0.2025432, w: 0.78540343}
+  m_LocalPosition: {x: 6.987879, y: 15, z: -2.9113202}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1359062156102029479}
@@ -48,11 +48,12 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.32156864, g: 0.18431373, b: 0.30980393, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -64,7 +65,7 @@ Camera:
   far clip plane: 100
   field of view: 40
   orthographic: 1
-  orthographic size: 5.3
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -101,10 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _CMFreeLookCam: {fileID: 0}
-  playColor: {r: 0.17501779, g: 0.5377358, b: 0.21047908, a: 1}
-  pauseColor: {r: 0.13968495, g: 0.4056604, b: 0.16570425, a: 1}
-  stopColor: {r: 0.32156864, g: 0.18431373, b: 0.30980393, a: 1}
-  levelCompletedColor: {r: 0.49019608, g: 0.12156863, b: 0.45490196, a: 1}
+  background: {fileID: 1248563959915188899}
   colorTransitionTime: 0.1
   levelCompletedColorTransitionTime: 0.3
   levelCompletedColorSwap: 0
@@ -120,12 +118,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322792729766440}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 364a13ef71f9b40e58990911b66a39cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlindMode: 0
+  BlindMode: 1
   BlindIntensity: 1
   ColorBlindShader: {fileID: 4800000, guid: 88e723f30bf154fbe91c8f4fe29a7ee9, type: 3}
 --- !u!114 &114450706007052790
@@ -263,7 +261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1359062156102029479
 RectTransform:
   m_ObjectHideFlags: 0

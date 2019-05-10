@@ -24,8 +24,6 @@ public class EphemereTile : MonoBehaviour
     private Color opaqueColor = new Color(1f, 1, 1, 1f);
     private Color transparantColor = new Color(1f, 1, 1, 0f);
 
-    //private bool disappearingAnimation_isFinished = false;
-
     [Header("Textures")]
     public Texture active;
     public Texture impossibleToDelete;
@@ -35,6 +33,13 @@ public class EphemereTile : MonoBehaviour
     private float fadeOutTime = 0.3f;
 
     private Color emptyColor = new Color(0f, 0f, 0f, 0f);
+
+    private bool disappearingAnimation_isFinished;
+
+    private float initialVerticalPos;
+    private float lastVerticalPos;
+    private float appearingDelay_RelativeToPos;
+    private float disappearingDelay_RelativeToPos;
 
     void Start()
     {
@@ -48,17 +53,22 @@ public class EphemereTile : MonoBehaviour
 
         _renderer.material.SetTexture("_MainTex", active);
 
-        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, GameManager._minDelay, GameManager._maxDelay, GameManager._timeToWaitBeforeFirstInitialization));
+        initialVerticalPos = transform.position.y;
+        appearingDelay_RelativeToPos = 0.1f + (initialVerticalPos * GameManager._timeBetweenWaves);
+
+        StartCoroutine(AppearingAnimation(GameManager._startingOffset, GameManager._duration, appearingDelay_RelativeToPos, appearingDelay_RelativeToPos + GameManager._appearingWaveDuration, GameManager._timeToWaitBeforeFirstInitialization));
     }
 
-    //private void Update()
-    //{
-    //    if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished)
-    //    {
-    //        StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, GameManager._dMinDelay, GameManager._dMaxDelay));
-    //        disappearingAnimation_isFinished = true;
-    //    }
-    //}
+    private void Update()
+    {
+        if (InGameUIManager.nextLevelIsLoading && !disappearingAnimation_isFinished && gameObject.tag != "EmptyTile")
+        {
+            lastVerticalPos = transform.position.y;
+            disappearingDelay_RelativeToPos = lastVerticalPos * GameManager._timeBetweenWaves;
+            StartCoroutine(DisappearingAnimation(GameManager._dEndingOffset, GameManager._dDuration, disappearingDelay_RelativeToPos, disappearingDelay_RelativeToPos + GameManager._disappearingWaveDuration));
+            disappearingAnimation_isFinished = true;
+        }
+    }
 
     private void OnMouseEnter()
     {
@@ -82,18 +92,12 @@ public class EphemereTile : MonoBehaviour
             if (tileSelectionSquare.transform.position != transform.position)
                 tileSelectionSquare.transform.position = transform.position;
 
-            if (InGameUIManager.isDeleteTileSelected)
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.deleteColor;
-                _renderer.material.SetTexture("_MainTex", impossibleToDelete);
-                if (Input.GetMouseButtonDown(0))
-                    AudioManager.instance.Play("ig tile delete impossible");
-            }
-            else
-            {
-                tileSelectionSquare.material.color = tileSelectionSquare.defaultColor;
-                _renderer.material.SetTexture("_MainTex", active);
-            }
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                AudioManager.instance.Play("ig tile grey hovering");
+
+            tileSelectionSquare.material.color = tileSelectionSquare.onGreyTileColor;
+
+            _renderer.material.SetTexture("_MainTex", active);
         }
     }
 
@@ -193,7 +197,8 @@ public class EphemereTile : MonoBehaviour
 
     IEnumerator FadeOverSeconds(Color fadedColor, float seconds)
     {
-        //AudioManager.instance.Play("ig tile ephemere tile disappear");
+        AudioManager.instance.Play("ig tile ephemere tile disappear");
+        //Debug.Log("tile disappear sound");
         float elapsedTime = 0;
         Color startColor = Color.white;
         fadedColor = startColor;
@@ -240,26 +245,26 @@ public class EphemereTile : MonoBehaviour
         FirstInitialization();
     }
 
-    //IEnumerator DisappearingAnimation(float endingOffset, float duration, float minDelay, float maxDelay)
-    //{
-    //    float elapsedTime = 0;
+    IEnumerator DisappearingAnimation(float endingOffset, float duration, float minDelay, float maxDelay)
+    {
+        float elapsedTime = 0;
 
-    //    Vector3 startingPos = transform.position;
-    //    Vector3 endPos = new Vector3(transform.position.x, transform.position.y + endingOffset, transform.position.z);
+        Vector3 startingPos = transform.position;
+        Vector3 endPos = new Vector3(transform.position.x, transform.position.y + endingOffset, transform.position.z);
 
-    //    _renderer.material.color = opaqueColor;
+        _renderer.material.color = opaqueColor;
 
-    //    yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
+        yield return new WaitForSecondsRealtime(Random.Range(minDelay, maxDelay));
 
-    //    while (elapsedTime < duration)
-    //    {
-    //        _renderer.material.color = Color.Lerp(opaqueColor, transparantColor, (elapsedTime / duration));
-    //        float newYPos = EasingFunction.EaseInCirc(startingPos.y, endPos.y, (elapsedTime / duration));
-    //        transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
-    //        elapsedTime += Time.unscaledDeltaTime;
-    //        yield return null;
-    //    }
-    //    _renderer.material.color = transparantColor;
-    //    transform.position = endPos;
-    //}
+        while (elapsedTime < duration)
+        {
+            _renderer.material.color = Color.Lerp(opaqueColor, transparantColor, (elapsedTime / duration));
+            float newYPos = EasingFunction.EaseInCirc(startingPos.y, endPos.y, (elapsedTime / duration));
+            transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        _renderer.material.color = transparantColor;
+        transform.position = endPos;
+    }
 }

@@ -14,11 +14,8 @@ public class TileSelectionSquare : MonoBehaviour {
     public Color defaultColor;
     public Color canPlaceTileColor1;
     public Color canPlaceTileColor2;
-    public Color impossibleToPlaceColor;
     public Color editTileColor;
-    public Color deleteColor;
-    public Color canDeleteTileColor1;
-    public Color canDeleteTileColor2;
+    public Color onGreyTileColor;
 
     [Header("Blink Parameters")]
     public float blinkingDuration;

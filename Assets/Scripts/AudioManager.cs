@@ -117,7 +117,6 @@ public class AudioManager : MonoBehaviour
             }
             if (s.currentIndex == s.multipleClips.Length - 1)
             {
-                Debug.Log(s.currentIndex);
                 s.currentIndex = 0;
             }
             else
